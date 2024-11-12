@@ -17,7 +17,7 @@ class MutualFund extends StatelessWidget {
     this.theme,
     this.darkTheme,
     this.themeMode,
-    this.basUrl ='www.google.com',
+    this.basUrl = 'www.google.com',
   });
 
   // This widget is the root of your application.
