@@ -1,4 +1,5 @@
 class AppImage {
+  static const String appLauncherIcon = 'assets/images/app_launcher_icon.png';
 
   static const String discoverIcon = 'assets/images/Dashboard.svg';
   static const String watchListIcon = 'assets/images/Layer 2.svg';
@@ -24,5 +25,4 @@ class AppImage {
   static const String debt = 'assets/images/debt 1.svg';
   static const String hybrid = 'assets/images/hybrid 1.svg';
   static const String elss = 'assets/images/elss 1.svg';
-
 }
