@@ -1,0 +1,15 @@
+export 'dashboard_screen.dart';
+export 'order_screen/order_screen.dart';
+export 'my_portfolio_screen/my_portfolio_screen.dart';
+export 'my_portfolio_screen/investment_screen.dart';
+export 'my_portfolio_screen/sip_screen.dart';
+export 'watch_list_screen/watchlist_screen.dart';
+export 'order_screen/active_fund_screen.dart';
+export 'order_screen/closed_fund_screen.dart';
+export 'discover_screen/discover_screen.dart';
+export 'discover_screen/view_all_screen/view_all_screen.dart';
+export 'discover_screen/view_all_screen/quick_action_screen/tab_screens/tab_screens.dart';
+export 'order_placement_screen.dart';
+export 'search_screen.dart';
+export 'discover_screen/view_all_screen/quick_action_screen/quick_action_screen.dart';
+export 'fund_detail_screen.dart';
