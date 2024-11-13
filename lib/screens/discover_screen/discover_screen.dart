@@ -39,6 +39,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
     AppImage.hybrid,
     AppImage.elss,
   ];
+
   List<String> label = [
     AppString.all,
     AppString.largeCap,
