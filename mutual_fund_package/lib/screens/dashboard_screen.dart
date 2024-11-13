@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:intellect_mutual_fund/screens/screens.dart';
+import '../my_app_exports.dart';
 import '../res/res.dart';
 
 class DashBoardScreen extends StatefulWidget {

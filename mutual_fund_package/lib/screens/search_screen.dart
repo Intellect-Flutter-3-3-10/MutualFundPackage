@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:intellect_mutual_fund/my_app_exports.dart';
+
+import '../my_app_exports.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});

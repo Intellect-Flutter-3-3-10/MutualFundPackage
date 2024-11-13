@@ -2,8 +2,9 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intellect_mutual_fund/my_app_exports.dart';
-import 'package:intellect_mutual_fund/widgets/charts/simple_line_chart.dart';
+
+import '../my_app_exports.dart';
+import '../widgets/charts/simple_line_chart.dart';
 
 class FundDetailScreen extends StatefulWidget {
   const FundDetailScreen({super.key});

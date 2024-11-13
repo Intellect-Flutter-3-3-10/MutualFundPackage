@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
-import 'package:intellect_mutual_fund/my_app_exports.dart';
+
+import '../my_app_exports.dart';
 
 class AppRoute {
   static const String searchScreen = '/searchScreen';
