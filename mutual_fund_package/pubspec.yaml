@@ -41,7 +41,7 @@ dependencies:
   auto_size_text: ^3.0.0
   dots_indicator: ^3.0.0
   get: ^4.6.5
-  fl_chart: ^0.62.0
+  fl_chart: ^0.69.0
   syncfusion_flutter_sliders: ^20.3.47
   adaptive_theme: ^3.2.1
   flutter_launcher_icons: ^0.13.1
