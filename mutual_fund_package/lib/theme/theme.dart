@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:intellect_mutual_fund/my_app_exports.dart';
+
+import '../res/res.dart';
+// import 'package:intellect_mutual_fund/my_app_exports.dart';
 
 class AppTheme {
   // Light Theme
