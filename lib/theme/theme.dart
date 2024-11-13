@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:intellect_mutual_fund/my_app_exports.dart';
+
+import '../res/res.dart';
+// import 'package:intellect_mutual_fund/my_app_exports.dart';
 
 class AppTheme {
   // Light Theme
@@ -19,11 +21,11 @@ class AppTheme {
       // labelColor: Colors.black,
       // indicatorColor: Colors.black,
       unselectedLabelStyle: AppTextStyles.regular15(
-          // color: UtilsMethod().getColorBasedOnTheme(context),
-          ),
+        // color: UtilsMethod().getColorBasedOnTheme(context),
+      ),
       labelStyle: AppTextStyles.semiBold15(
-          // color: UtilsMethod().getColorBasedOnTheme(BuildContext? context),
-          ),
+        // color: UtilsMethod().getColorBasedOnTheme(BuildContext? context),
+      ),
     ),
     primaryColor: Colors.white,
     scaffoldBackgroundColor: Colors.white,
@@ -36,19 +38,19 @@ class AppTheme {
     iconTheme: const IconThemeData(
       color: Colors.black,
     ),
-    textTheme: const TextTheme(
-      bodyLarge: TextStyle(color: Colors.black),
-      bodyMedium: TextStyle(color: Colors.black),
-      displayLarge: TextStyle(color: Colors.black),
-      displayMedium: TextStyle(color: Colors.black),
-      displaySmall: TextStyle(color: Colors.black),
-      headlineMedium: TextStyle(color: Colors.black),
-      headlineSmall: TextStyle(color: Colors.black),
-      titleLarge: TextStyle(color: Colors.black),
-      titleMedium: TextStyle(color: Colors.black),
-      titleSmall: TextStyle(color: Colors.black),
-      labelLarge: TextStyle(color: Colors.black),
-    ),
+    // textTheme: const TextTheme(
+    //   bodyLarge: TextStyle(color: Colors.black),
+    //   bodyMedium: TextStyle(color: Colors.black),
+    //   displayLarge: TextStyle(color: Colors.black),
+    //   displayMedium: TextStyle(color: Colors.black),
+    //   displaySmall: TextStyle(color: Colors.black),
+    //   headlineMedium: TextStyle(color: Colors.black),
+    //   headlineSmall: TextStyle(color: Colors.black),
+    //   titleLarge: TextStyle(color: Colors.black),
+    //   titleMedium: TextStyle(color: Colors.black),
+    //   titleSmall: TextStyle(color: Colors.black),
+    //   labelLarge: TextStyle(color: Colors.black),
+    // ),
     buttonTheme: const ButtonThemeData(
       buttonColor: Colors.black, // Use a darker button color for contrast
     ),
@@ -72,11 +74,11 @@ class AppTheme {
       unselectedLabelColor: AppColor.greyLightest,
       indicatorColor: AppColor.white,
       unselectedLabelStyle: AppTextStyles.regular15(
-          // color: UtilsMethod().getColorBasedOnTheme(context),
-          ),
+        // color: UtilsMethod().getColorBasedOnTheme(context),
+      ),
       labelStyle: AppTextStyles.semiBold15(
-          // color: UtilsMethod().getColorBasedOnTheme(BuildContext? context),
-          ),
+        // color: UtilsMethod().getColorBasedOnTheme(BuildContext? context),
+      ),
     ),
     brightness: Brightness.dark,
     primaryColor: Colors.black,
@@ -87,19 +89,19 @@ class AppTheme {
       titleTextStyle: TextStyle(color: Colors.white, fontSize: 20),
     ),
     iconTheme: const IconThemeData(color: Colors.white),
-    textTheme: const TextTheme(
-      bodyText1: TextStyle(color: Colors.white),
-      bodyText2: TextStyle(color: Colors.white),
-      headline1: TextStyle(color: Colors.white),
-      headline2: TextStyle(color: Colors.white),
-      headline3: TextStyle(color: Colors.white),
-      headline4: TextStyle(color: Colors.white),
-      headline5: TextStyle(color: Colors.white),
-      headline6: TextStyle(color: Colors.white),
-      subtitle1: TextStyle(color: Colors.white),
-      subtitle2: TextStyle(color: Colors.white),
-      button: TextStyle(color: Colors.white),
-    ),
+    // textTheme: TextTheme(
+    //   bodyLarge: TextStyle(color: Colors.white),
+    //   bodyMedium: TextStyle(color: Colors.white),
+    //   displayLarge: TextStyle(color: Colors.white),
+    //   displayMedium: TextStyle(color: Colors.white),
+    //   displaySmall: TextStyle(color: Colors.white),
+    //   headlineMedium: TextStyle(color: Colors.white),
+    //   headlineSmall: TextStyle(color: Colors.white),
+    //   titleLarge: TextStyle(color: Colors.white),
+    //   titleMedium: TextStyle(color: Colors.white),
+    //   titleSmall: TextStyle(color: Colors.white),
+    //   labelLarge: TextStyle(color: Colors.white),
+    // ),
     buttonTheme: const ButtonThemeData(
       buttonColor: Colors.white, // Use a lighter button color for contrast
     ),
