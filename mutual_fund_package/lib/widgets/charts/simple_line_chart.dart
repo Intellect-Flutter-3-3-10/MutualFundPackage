@@ -1,6 +1,7 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:intellect_mutual_fund/my_app_exports.dart';
+
+import '../../my_app_exports.dart';
 
 class CustomLineChart extends StatelessWidget {
   final List<FlSpot>? spots;
@@ -77,7 +78,7 @@ class CustomLineChart extends StatelessWidget {
         lineTouchData: LineTouchData(
           enabled: true,
           touchTooltipData: LineTouchTooltipData(
-            tooltipBgColor: Theme.of(context).scaffoldBackgroundColor,
+            // tooltipBgColor: Theme.of(context).scaffoldBackgroundColor,
           ),
         ),
       ),

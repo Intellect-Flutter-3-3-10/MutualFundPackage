@@ -77,7 +77,7 @@ class CustomLineChart extends StatelessWidget {
         lineTouchData: LineTouchData(
           enabled: true,
           touchTooltipData: LineTouchTooltipData(
-            tooltipBgColor: Theme.of(context).scaffoldBackgroundColor,
+            // tooltipBgColor: Theme.of(context).scaffoldBackgroundColor,
           ),
         ),
       ),

@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:intellect_mutual_fund/my_app_exports.dart';
+
+import '../my_app_exports.dart';
 
 class CustomCheckboxTile extends StatelessWidget {
   final String title;
