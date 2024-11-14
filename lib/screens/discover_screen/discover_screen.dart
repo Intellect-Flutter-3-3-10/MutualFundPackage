@@ -1,9 +1,11 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:intellect_mutual_fund/controller/explore_fund_controller/explore_fund_controller.dart';
 import 'package:intellect_mutual_fund/my_app_exports.dart';
 
 class DiscoverScreen extends StatefulWidget {
@@ -15,6 +17,7 @@ class DiscoverScreen extends StatefulWidget {
 
 class _DiscoverScreenState extends State<DiscoverScreen> {
   final CarouselSliderController _carouselSliderController = CarouselSliderController();
+  final ExploreFundsController exploreFundController = Get.put(ExploreFundsController());
   final items = [
     SvgPicture.asset(AppImage.banner1, width: double.infinity),
     SvgPicture.asset(AppImage.banner2, width: double.infinity),
@@ -50,6 +53,13 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
     AppString.hybrid,
     AppString.elss,
   ];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    exploreFundController.fetchExploreFunds();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -159,22 +169,33 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                     Get.toNamed(AppRoute.bestPerformingFundScreen);
                   },
                 ),
-                SizedBox(
-                  height: size.height >= AppDimens.screenLessThan5Inch ? size.height * 0.173 : size.height * 0.198, // for less than 5inch
-                  width: size.width,
-                  child: ListView.separated(
-                    separatorBuilder: (context, index) => const Padding(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: AppDimens.appSpacing10,
+                Obx(() {
+                  if (exploreFundController.isLoading.value) {
+                    return Center(child: CircularProgressIndicator());
+                  }
+
+                  if (exploreFundController.errorMessage.value.isNotEmpty) {
+                    return Center(child: Text(exploreFundController.errorMessage.value));
+                  }
+                  return SizedBox(
+                    height: size.height >= AppDimens.screenLessThan5Inch ? size.height * 0.173 : size.height * 0.198, // for less than 5inch
+                    width: size.width,
+                    child: ListView.separated(
+                      separatorBuilder: (context, index) => const Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: AppDimens.appSpacing10,
+                        ),
                       ),
+                      shrinkWrap: true,
+                      itemCount: exploreFundController.exploreFundList.length,
+                      scrollDirection: Axis.horizontal,
+                      physics: const ScrollPhysics(),
+                      itemBuilder: (context, index) {
+                        return _bestPerformingFund(size, index);
+                      },
                     ),
-                    shrinkWrap: true,
-                    itemCount: 5,
-                    scrollDirection: Axis.horizontal,
-                    physics: const ScrollPhysics(),
-                    itemBuilder: (context, index) => _bestPerformingFund(size),
-                  ),
-                ),
+                  );
+                }),
                 const SizedBox(height: AppDimens.appVPadding),
                 CommonHeader(
                   title: AppString.fundByUs,
@@ -230,7 +251,8 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
   }
 
 // best performing fund widget
-  Widget _bestPerformingFund(Size size) {
+  Widget _bestPerformingFund(Size size, int index) {
+    var item = exploreFundController.exploreFundList[index];
     return GestureDetector(
       onTap: () {
         Get.toNamed(AppRoute.fundDetailScreen);
@@ -253,14 +275,23 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Container(
-                  height: size.height * 0.080, // Use a smaller fraction for smaller devices
-                  width: size.width * 0.15,
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: UtilsMethod().getColorBasedOnTheme(context).withOpacity(0.5),
-                    ),
-                    borderRadius: BorderRadius.circular(AppDimens.appRadius6),
+                // Container(
+                //   height: size.height * 0.080, // Use a smaller fraction for smaller devices
+                //   width: size.width * 0.15,
+                //   decoration: BoxDecoration(
+                //     border: Border.all(
+                //       color: UtilsMethod().getColorBasedOnTheme(context).withOpacity(0.5),
+                //     ),
+                //     borderRadius: BorderRadius.circular(AppDimens.appRadius6),
+                //   ),
+                // ),
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(AppDimens.appRadius6),
+                  child: CachedNetworkImage(
+                    imageUrl: item.amcIcon ?? '',
+                    fit: BoxFit.cover,
+                    height: size.height * 0.060,
+                    width: size.width * 0.15,
                   ),
                 ),
                 SizedBox(width: size.width * 0.025), // Dynamic spacing based on width
@@ -270,47 +301,49 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       AutoSizeText(
-                        'LIC MF Infrastructure Fund',
+                        item.schemeName ?? "N/A",
                         style: AppTextStyles.regular15(
                           color: UtilsMethod().getColorBasedOnTheme(context),
                         ),
                         maxLines: 1, // Limit lines to prevent overflow
                       ),
                       AutoSizeText(
-                        '- Growth Plan',
+                        item.riskCategory ?? 'N/A',
                         style: AppTextStyles.regular13(
                           color: UtilsMethod().getColorBasedOnTheme(context),
                         ),
                         maxLines: 1,
                       ),
-                      SizedBox(height: size.height * 0.01), // Proportional spacing
-                      Row(
-                        children: [
-                          const CustomChip(label: 'Equity'),
-                          SizedBox(width: size.width * 0.02),
-                          const CustomChip(label: 'Mid Cap'),
-                        ],
+                      SizedBox(height: AppDimens.appSpacing10),
+                      FittedBox(
+                        child: Row(
+                          children: [
+                            CustomChip(label: item.assetClass ?? 'N/A'),
+                            SizedBox(width: size.width * 0.02),
+                            CustomChip(label: item.schemeCategory ?? "N/A"),
+                          ],
+                        ),
                       ),
                     ],
                   ),
                 ),
-                const ShowRatingWidget(rating: '5'),
+                ShowRatingWidget(rating: item.rating.toString()),
               ],
             ),
-            SizedBox(height: size.height * 0.01),
+            SizedBox(height: AppDimens.appSpacing10),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 TitleAndValueWidget(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   title: 'Min Amount',
-                  value: '10,000',
+                  value: item.aum.toString(),
                   valueColor: UtilsMethod().getColorBasedOnTheme(context),
                 ),
                 TitleAndValueWidget(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   title: '1 Y Returns',
-                  value: '71.76%',
+                  value: '${item.oneYear}%',
                   valueColor: Colors.green,
                 ),
               ],

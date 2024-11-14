@@ -4,7 +4,7 @@ import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:intellect_mutual_fund/my_app_exports.dart';
+import 'package:mutual_fund_package/my_app_exports.dart';
 
 class DiscoverScreen extends StatefulWidget {
   const DiscoverScreen({super.key});

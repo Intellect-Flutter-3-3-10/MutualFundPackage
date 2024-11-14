@@ -19,6 +19,7 @@ class _FundDetailScreenState extends State<FundDetailScreen> with UtilsMethod {
   bool isSip = true;
 
   double _value = 0.0;
+  double amount = 0.0;
   bool isSipSelected = false;
 
   void toggleSave() {
@@ -436,7 +437,7 @@ class _FundDetailScreenState extends State<FundDetailScreen> with UtilsMethod {
               const SizedBox(height: AppDimens.appSpacing10),
               StatefulBuilder(
                 builder: (context, setState) => CommonHeader(
-                  title: '${AppString.rupees} ${_value.toStringAsFixed(0)}',
+                  title: '${AppString.rupees} ${amount.toString()}',
                   titleStyle: AppTextStyles.semiBold14(),
                   labelColor: AppColor.greyLightest,
                   actionLabel: AppString.monthlyOrLumpSum,
@@ -446,13 +447,14 @@ class _FundDetailScreenState extends State<FundDetailScreen> with UtilsMethod {
                 builder: (context, setState) {
                   return Slider(
                     min: 0.0,
-                    max: 10000,
+                    max: 10000.0,
                     value: _value,
                     activeColor: AppColor.lightAmber,
                     inactiveColor: AppColor.grey300,
-                    onChanged: (dynamic value) {
+                    onChanged: (double value) {
                       setState(() {
                         _value = value;
+                        amount = value;
                       });
                       debugPrint("$_value");
                     },
