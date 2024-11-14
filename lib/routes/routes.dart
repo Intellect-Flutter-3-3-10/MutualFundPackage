@@ -18,7 +18,11 @@ class AppRoute {
       GetPage(name: bestPerformingFundScreen, page: () => const BestPerformingScreen()),
       GetPage(name: fundByUsScreen, page: () => const FundByUsScreen()),
       GetPage(name: latestFundRelease, page: () => const LatestFundReleaseScreen()),
-      GetPage(name: quickActionScreen, page: () => const QuickActionScreen()),
+      GetPage(
+          name: quickActionScreen,
+          page: () => QuickActionScreen(
+                args: Get.arguments as QuickActionScreenArgs,
+              )),
       GetPage(name: fundDetailScreen, page: () => const FundDetailScreen()),
       GetPage(
         name: orderPlacementScreen,

@@ -140,8 +140,12 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                       return QuickActionCard(
                         // bgColor: UtilsMethod().getColorBasedOnTheme(context),
                         onTap: () {
-                          debugPrint("$index");
+                          Get.toNamed(
+                            AppRoute.quickActionScreen,
+                            arguments: QuickActionScreenArgs(tabIndex: index, indexName: ''),
+                          );
                         },
+
                         image: quickAction[index],
                         label: label[index],
                       );

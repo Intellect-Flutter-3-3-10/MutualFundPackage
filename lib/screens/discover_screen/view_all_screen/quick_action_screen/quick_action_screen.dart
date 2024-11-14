@@ -2,8 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../my_app_exports.dart';
 
+class QuickActionScreenArgs {
+  final int? tabIndex;
+  final String? indexName;
+
+  QuickActionScreenArgs({this.tabIndex, this.indexName});
+}
+
 class QuickActionScreen extends StatefulWidget {
-  const QuickActionScreen({super.key});
+  final QuickActionScreenArgs args;
+
+  const QuickActionScreen({super.key, required this.args});
 
   @override
   State<QuickActionScreen> createState() => _QuickActionScreenState();
@@ -42,7 +51,10 @@ class _QuickActionScreenState extends State<QuickActionScreen> with SingleTicker
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: _tabs.length, vsync: this);
+
+    /// for initializing selected tab from prev screen
+    int initialIndex = (widget.args.tabIndex ?? 0).clamp(0, _tabs.length - 1);
+    _tabController = TabController(length: _tabs.length, vsync: this, initialIndex: initialIndex);
   }
 
   @override
@@ -53,6 +65,9 @@ class _QuickActionScreenState extends State<QuickActionScreen> with SingleTicker
 
   @override
   Widget build(BuildContext context) {
+    var args = Get.arguments as QuickActionScreenArgs;
+    debugPrint("initial tab index >>>>> ${args.tabIndex} ");
+
     return Scaffold(
       appBar: CommonAppBar(
         title: AppString.quickActions,
@@ -77,13 +92,7 @@ class _QuickActionScreenState extends State<QuickActionScreen> with SingleTicker
             isScrollable: true,
             physics: const ScrollPhysics(),
             indicatorColor: UtilsMethod().getColorBasedOnTheme(context),
-            // labelStyle: AppTextStyles.semiBold15(
-            //   color: UtilsMethod().getColorBasedOnTheme(context),
-            // ),
-            // unselectedLabelStyle: AppTextStyles.regular15(
-            //   color: UtilsMethod().getColorBasedOnTheme(context),
-            // ),
-            // labelColor: AppColor.greyLight,
+
             tabs: _tabs,
             controller: _tabController,
             onTap: (value) {

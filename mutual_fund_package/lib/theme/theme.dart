@@ -21,11 +21,11 @@ class AppTheme {
       // labelColor: Colors.black,
       // indicatorColor: Colors.black,
       unselectedLabelStyle: AppTextStyles.regular15(
-          // color: UtilsMethod().getColorBasedOnTheme(context),
-          ),
+        // color: UtilsMethod().getColorBasedOnTheme(context),
+      ),
       labelStyle: AppTextStyles.semiBold15(
-          // color: UtilsMethod().getColorBasedOnTheme(BuildContext? context),
-          ),
+        // color: UtilsMethod().getColorBasedOnTheme(BuildContext? context),
+      ),
     ),
     primaryColor: Colors.white,
     scaffoldBackgroundColor: Colors.white,
@@ -74,11 +74,11 @@ class AppTheme {
       unselectedLabelColor: AppColor.greyLightest,
       indicatorColor: AppColor.white,
       unselectedLabelStyle: AppTextStyles.regular15(
-          // color: UtilsMethod().getColorBasedOnTheme(context),
-          ),
+        // color: UtilsMethod().getColorBasedOnTheme(context),
+      ),
       labelStyle: AppTextStyles.semiBold15(
-          // color: UtilsMethod().getColorBasedOnTheme(BuildContext? context),
-          ),
+        // color: UtilsMethod().getColorBasedOnTheme(BuildContext? context),
+      ),
     ),
     brightness: Brightness.dark,
     primaryColor: Colors.black,

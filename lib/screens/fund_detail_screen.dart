@@ -2,8 +2,8 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intellect_mutual_fund/my_app_exports.dart';
 import 'package:intellect_mutual_fund/widgets/charts/simple_line_chart.dart';
+import '../my_app_exports.dart';
 
 class FundDetailScreen extends StatefulWidget {
   const FundDetailScreen({super.key});
@@ -82,224 +82,7 @@ class _FundDetailScreenState extends State<FundDetailScreen> with UtilsMethod {
                   const SizedBox(height: AppDimens.appSpacing10),
 
                   /// returns and rankings
-
-                  CustomExpansionPanelList(
-                    headerColor: Colors.transparent,
-                    elevation: 0.0,
-                    panels: [
-                      CustomExpansionPanel(
-                        header: AppString.returnsAndRankings,
-                        body: StatefulBuilder(
-                          builder: (context, setState) => Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              FittedBox(
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: AppDimens.appSpacing10),
-                                  child: RichText(
-                                    text: TextSpan(
-                                      style: DefaultTextStyle.of(context).style.copyWith(fontSize: 16),
-                                      children: [
-                                        TextSpan(
-                                          text: 'Total Investments ',
-                                          style: AppTextStyles.regular12(),
-                                        ),
-                                        TextSpan(
-                                          text: 'Rs 15,441',
-                                          style: AppTextStyles.regular12(color: AppColor.lightAmber),
-                                        ),
-                                        TextSpan(
-                                          text: ' with return of ',
-                                          style: AppTextStyles.regular12(),
-                                        ),
-                                        TextSpan(
-                                          text: '42.54%',
-                                          style: AppTextStyles.regular12(color: AppColor.green),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Column(
-                                children: [
-                                  Row(
-                                    children: [
-                                      Expanded(
-                                        child: Text(
-                                          "",
-                                          style: AppTextStyles.regular14(),
-                                        ),
-                                      ),
-                                      Expanded(
-                                        child: Text(
-                                          "Total Value",
-                                          textAlign: TextAlign.end,
-                                          style: AppTextStyles.regular14(),
-                                        ),
-                                      ),
-                                      SizedBox(width: 10),
-                                      Expanded(
-                                        child: Text(
-                                          "Annualised Rtn%",
-                                          textAlign: TextAlign.end,
-                                          style: AppTextStyles.regular12(),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(height: 12),
-                                  Row(
-                                    children: [
-                                      Expanded(
-                                        child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              "This Fund",
-                                              textAlign: TextAlign.end,
-                                              style: AppTextStyles.regular12(),
-                                            ),
-                                            SizedBox(height: 4),
-                                            LinearProgressIndicator(
-                                              value: 3 / 4,
-                                              color: AppColor.lightAmber,
-                                              backgroundColor: AppColor.grey300,
-                                              // borderRadius: BorderRadius.circular(25),
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                      Expanded(
-                                        child: RichText(
-                                          textAlign: TextAlign.end,
-                                          text: TextSpan(
-                                            text: '₹ ',
-                                            style: AppTextStyles.regular14(),
-                                            children: [
-                                              TextSpan(
-                                                text: "28,508.00",
-                                                style: AppTextStyles.regular14(),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                      SizedBox(width: 10),
-                                      Expanded(
-                                        child: Text(
-                                          "42.54 %",
-                                          textAlign: TextAlign.end,
-                                          style: AppTextStyles.regular14(),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(height: 10),
-                                  Row(
-                                    children: [
-                                      Expanded(
-                                        child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              "Category Average",
-                                              textAlign: TextAlign.end,
-                                              style: AppTextStyles.regular12(),
-                                            ),
-                                            SizedBox(height: 4),
-                                            LinearProgressIndicator(
-                                              value: 2 / 4,
-                                              color: Colors.orange,
-                                              backgroundColor: AppColor.grey300,
-
-                                              // borderRadius: BorderRadius.circular(25),
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                      Expanded(
-                                        child: RichText(
-                                          textAlign: TextAlign.end,
-                                          text: TextSpan(
-                                            text: '₹ ',
-                                            style: AppTextStyles.regular14(),
-                                            children: [
-                                              TextSpan(
-                                                text: "28,508.00",
-                                                style: AppTextStyles.regular12(),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                      SizedBox(width: 10),
-                                      Expanded(
-                                        child: Text(
-                                          "42.54 %",
-                                          textAlign: TextAlign.end,
-                                          style: AppTextStyles.regular14(),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(height: 10),
-                                  Row(
-                                    children: [
-                                      Expanded(
-                                        child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              "Benchmark",
-                                              textAlign: TextAlign.end,
-                                              style: AppTextStyles.regular12(),
-                                            ),
-                                            SizedBox(height: 4),
-                                            LinearProgressIndicator(
-                                              value: 2.5 / 4,
-                                              color: AppColor.lightAmber,
-                                              backgroundColor: AppColor.grey300,
-                                              // borderRadius: BorderRadius.circular(25),
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                      Expanded(
-                                        child: RichText(
-                                          textAlign: TextAlign.end,
-                                          text: TextSpan(
-                                            text: '₹ ',
-                                            style: AppTextStyles.regular14(),
-                                            children: [
-                                              TextSpan(
-                                                text: "28,508.00",
-                                                style: AppTextStyles.regular14(),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                      SizedBox(width: 10),
-                                      Expanded(
-                                        child: Text(
-                                          "42.54 %",
-                                          textAlign: TextAlign.end,
-                                          style: AppTextStyles.regular14(),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                  _returnsAndRankingView(constraints: constraint, size: size),
 
                   const SizedBox(height: AppDimens.appSpacing10),
 
@@ -705,6 +488,156 @@ class _FundDetailScreenState extends State<FundDetailScreen> with UtilsMethod {
                 buttonWidth: constraint.maxHeight * 0.070,
               ),
             ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  /// returns and rankings view
+
+  Widget _returnsAndRankingView({BoxConstraints? constraints, Size? size}) {
+    return CustomExpansionPanelList(
+      headerColor: Colors.transparent,
+      elevation: 0.0,
+      panels: [
+        CustomExpansionPanel(
+          header: AppString.returnsAndRankings,
+          body: StatefulBuilder(
+            builder: (context, setState) => Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                FittedBox(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: AppDimens.appSpacing10),
+                    child: RichText(
+                      text: TextSpan(
+                        style: DefaultTextStyle.of(context).style.copyWith(fontSize: 16),
+                        children: [
+                          TextSpan(
+                            text: 'Total Investments ',
+                            style: AppTextStyles.regular12(),
+                          ),
+                          TextSpan(
+                            text: 'Rs 15,441',
+                            style: AppTextStyles.regular12(color: AppColor.lightAmber),
+                          ),
+                          TextSpan(
+                            text: ' with return of ',
+                            style: AppTextStyles.regular12(),
+                          ),
+                          TextSpan(
+                            text: '42.54%',
+                            style: AppTextStyles.regular12(color: AppColor.green),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: AppDimens.appSpacing10,
+                ),
+                Column(
+                  children: [
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            "",
+                            style: AppTextStyles.regular14(),
+                          ),
+                        ),
+                        Expanded(
+                          child: Text(
+                            "Total Value",
+                            textAlign: TextAlign.end,
+                            style: AppTextStyles.regular14(),
+                          ),
+                        ),
+                        SizedBox(width: 10),
+                        Expanded(
+                          child: Text(
+                            "Annualised Rtn%",
+                            textAlign: TextAlign.end,
+                            style: AppTextStyles.regular12(),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: AppDimens.appSpacing10,
+                    ),
+                    _returnsStateView(progressLabel: 'This Fund', totalAmount: '28,508.00,', annualReturn: '42.54'),
+                    const SizedBox(
+                      height: AppDimens.appSpacing10,
+                    ),
+                    _returnsStateView(progressLabel: 'Category Average', totalAmount: '28,508.00,', annualReturn: '34.54'),
+                    const SizedBox(
+                      height: AppDimens.appSpacing10,
+                    ),
+                    _returnsStateView(progressLabel: 'Benchmark', totalAmount: '28,508.00,', annualReturn: '40.12'),
+                  ],
+                )
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  /// returns stats view
+  Widget _returnsStateView({
+    String? progressLabel,
+    double? progressValue,
+    String? totalAmount,
+    String? annualReturn,
+  }) {
+    return Row(
+      children: [
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                progressLabel ?? "N/A",
+                textAlign: TextAlign.end,
+                style: AppTextStyles.regular12(),
+              ),
+              SizedBox(height: 4),
+              LinearProgressIndicator(
+                value: 3 / 4,
+                color: AppColor.lightAmber,
+                backgroundColor: AppColor.grey300,
+                // borderRadius: BorderRadius.circular(25),
+              )
+            ],
+          ),
+        ),
+        Expanded(
+          child: RichText(
+            textAlign: TextAlign.end,
+            text: TextSpan(
+              text: AppString.rupees,
+              style: AppTextStyles.regular14(),
+              children: [
+                TextSpan(
+                  text: totalAmount,
+                  style: AppTextStyles.regular14(),
+                ),
+              ],
+            ),
+          ),
+        ),
+        SizedBox(width: 10),
+        Expanded(
+          child: Text(
+            "${annualReturn} %",
+            textAlign: TextAlign.end,
+            style: AppTextStyles.regular14(),
           ),
         ),
       ],

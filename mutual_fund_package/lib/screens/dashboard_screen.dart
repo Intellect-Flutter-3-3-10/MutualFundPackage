@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../my_app_exports.dart';
-import '../res/res.dart';
 
 class DashBoardScreen extends StatefulWidget {
   const DashBoardScreen({super.key});

@@ -27,7 +27,7 @@ class _SipScreenState extends State<SipScreen> {
             CommonHeader(
               title: AppString.mySip,
               actionLabel: "Sort",
-              labelColor: AppColor.greyLight,
+              labelColor: AppColor.greyLightest,
               isTrailingIcon: true,
               labelOnTap: () {},
             ),

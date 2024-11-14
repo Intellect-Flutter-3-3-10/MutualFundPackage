@@ -1,7 +1,6 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-
-import '../../my_app_exports.dart';
+import 'package:intellect_mutual_fund/my_app_exports.dart';
 
 class CustomLineChart extends StatelessWidget {
   final List<FlSpot>? spots;

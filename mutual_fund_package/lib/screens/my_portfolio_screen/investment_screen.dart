@@ -28,7 +28,7 @@ class _InvestmentScreenState extends State<InvestmentScreen> {
             CommonHeader(
               title: AppString.myInvestments,
               actionLabel: "Sort",
-              labelColor: AppColor.greyLight,
+              labelColor: AppColor.greyLightest,
               isTrailingIcon: true,
               labelOnTap: () {},
             ),
