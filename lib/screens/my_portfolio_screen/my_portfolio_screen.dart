@@ -1,5 +1,4 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -130,7 +129,7 @@ class _MyPortFolioScreenState extends State<MyPortFolioScreen> with SingleTicker
                   SliverFillRemaining(
                     child: TabBarView(
                       controller: _tabController,
-                      physics: const NeverScrollableScrollPhysics(),
+                      physics: const ScrollPhysics(),
                       children: [
                         SingleChildScrollView(
                           child: Padding(

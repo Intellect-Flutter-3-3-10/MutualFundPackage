@@ -11,6 +11,15 @@ class ActiveFundScreen extends StatefulWidget {
 }
 
 class _ActiveFundScreenState extends State<ActiveFundScreen> {
+  OrdersController ordersController = Get.put(OrdersController());
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    ordersController.getActiveOrders('G000001');
+  }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -23,17 +32,28 @@ class _ActiveFundScreenState extends State<ActiveFundScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            ListView.separated(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              separatorBuilder: (context, index) => const Padding(
-                  padding: EdgeInsets.symmetric(
-                vertical: AppDimens.appSpacing10,
-              )),
-              itemBuilder: (context, index) {
-                return _fundsCard(index: index);
+            Obx(
+              () {
+                if (ordersController.isLoading.value) {
+                  return Center(child: CircularProgressIndicator());
+                }
+
+                if (ordersController.errorMessage.value.isNotEmpty) {
+                  return Center(child: Text(ordersController.errorMessage.value));
+                }
+                return ListView.separated(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  separatorBuilder: (context, index) => const Padding(
+                      padding: EdgeInsets.symmetric(
+                    vertical: AppDimens.appSpacing10,
+                  )),
+                  itemBuilder: (context, index) {
+                    return _fundsCard(index: index);
+                  },
+                  itemCount: ordersController.ordersList.length,
+                );
               },
-              itemCount: 5,
             ),
           ],
         ),
@@ -42,6 +62,7 @@ class _ActiveFundScreenState extends State<ActiveFundScreen> {
   }
 
   Widget _fundsCard({int? index}) {
+    var item = ordersController.ordersList[index!];
     Size size = MediaQuery.of(context).size;
     return GestureDetector(
       onTap: () {

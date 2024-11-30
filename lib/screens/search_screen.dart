@@ -123,3 +123,7 @@ class _SearchScreenState extends State<SearchScreen> with SingleTickerProviderSt
     );
   }
 }
+/*
+Today's Update Today I worked on Bigul UI design changes on 3 screens changes password, login screen, create password
+and Taking overview of Bigul project flow and understanding how it works based on that from the sheet i have resolved issue which im not able to test because market closed and not allowing me to make a trade tommorow will see the result of resolved.
+ */

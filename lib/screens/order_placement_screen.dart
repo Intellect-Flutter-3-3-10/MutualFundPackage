@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:intellect_mutual_fund/controller/order_place_controller/order_place_controller.dart';
 import 'package:intellect_mutual_fund/my_app_exports.dart';
 
 class OrderPlacementScreenArgs {
@@ -26,6 +27,7 @@ class OrderPlacementScreen extends StatefulWidget {
 
 class _OrderPlacementScreenState extends State<OrderPlacementScreen> {
   final TextEditingController _enterAmount = TextEditingController();
+  OrderPlaceController orderController = OrderPlaceController();
 
   // for radio button
   int _selectedValue = 0;
@@ -46,6 +48,7 @@ class _OrderPlacementScreenState extends State<OrderPlacementScreen> {
     Size size = MediaQuery.of(context).size;
     var args = Get.arguments as OrderPlacementScreenArgs;
     debugPrint("SIP Selected  >>>>>>${args.isSip}");
+    debugPrint("SIP Selected Args  >>>>>>${widget.args!.isSip}");
     return Scaffold(
       appBar: const CommonAppBar(
         title: AppString.orderPlacementScreen,
@@ -117,7 +120,7 @@ class _OrderPlacementScreenState extends State<OrderPlacementScreen> {
                   CommonOutlinedButton(
                     height: size.height * 0.065,
                     btnText: AppString.placeOrder,
-                    onTap: () {},
+                    onTap: placeOrder,
                   ),
                 ],
               ),
@@ -126,6 +129,38 @@ class _OrderPlacementScreenState extends State<OrderPlacementScreen> {
         ),
       ),
     );
+  }
+
+  void placeOrder() async {
+    var sipOrder = AddSipOrderModel(
+      clientCode: 'G000001',
+      transactionCode: 'NEW',
+      dpType: 'CDSL',
+      frequencyType: 'MONTHLY',
+      schemeCode: '02-DP',
+      startDate: '01/12/2024',
+      remarks: 'Test Order',
+      installmentAmount: '5000',
+      noOfIntellments: '100',
+      purchaseType: 'TEmp',
+      folioNumber: '',
+    );
+
+    var order = AddOrderModel(
+      clientCode: 'G000001',
+      transactionCode: 'NEW',
+      buySell: 'PURCHASE',
+      buySellType: 'FRESH',
+      dpType: 'CDSL',
+      schemeCode: '02-DP',
+      amount: 1000,
+      quantity: 0,
+      folioNumber: '',
+      remarks: 'Test Order',
+      allRedeem: true,
+    );
+
+    widget.args!.isSip ? await orderController.addSipOrder(sipOrder) : orderController.addOrder(order);
   }
 
   /// fund stats view
@@ -233,7 +268,7 @@ class _OrderPlacementScreenState extends State<OrderPlacementScreen> {
         SizedBox(
           width: size!.width / 3,
           child: TextField(
-            style: AppTextStyles.regular13(),
+            style: AppTextStyles.regular16(),
             controller: _enterAmount,
             decoration: const InputDecoration(
               contentPadding: EdgeInsets.zero,
@@ -372,8 +407,14 @@ class _OrderPlacementScreenState extends State<OrderPlacementScreen> {
   /// expansion tile
   Widget _expansionView({BoxConstraints? constraints, Size? size}) {
     var args = Get.arguments as OrderPlacementScreenArgs;
-    return StatefulBuilder(
-      builder: (context, setState) => CustomExpansionPanelList(
+    bool isExpanded = true;
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          isExpanded = !isExpanded;
+        });
+      },
+      child: CustomExpansionPanelList(
         headerColor: Colors.transparent,
         bodyColor: AppColor.darkPurple,
         elevation: 0,
@@ -381,64 +422,60 @@ class _OrderPlacementScreenState extends State<OrderPlacementScreen> {
         headerTextStyle: AppTextStyles.regular15(),
         panels: [
           CustomExpansionPanel(
-            header: 'Less',
+            header: '',
+            isExpanded: isExpanded,
+            // isExpanded: ,
             body: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               // mainAxisSize: MainAxisSize.min,
               children: [
                 args.isSip
-                    ? StatefulBuilder(
-                        builder: (context, setState) => CustomCheckboxTile(
-                          title: AppString.stepUpSip,
-                          titleStyle: AppTextStyles.regular14(color: AppColor.white),
-                          value: _isStepUpSip,
-                          selected: _isStepUpSip,
-                          onChanged: (bool? value) {
-                            setState(() {
-                              _isStepUpSip = value!;
-                            });
+                    ? CustomCheckboxTile(
+                        title: AppString.stepUpSip,
+                        titleStyle: AppTextStyles.regular14(color: AppColor.white),
+                        value: _isStepUpSip,
+                        selected: _isStepUpSip,
+                        onChanged: (bool? value) {
+                          setState(() {
+                            _isStepUpSip = value!;
+                          });
 
-                            debugPrint("  step up sip >>>>> $_isStepUpSip");
-                          },
-                          trailingIcon: Icons.info,
-                          iconColor: AppColor.white,
-                          iconSize: 18,
-                        ),
+                          debugPrint("  step up sip >>>>> $_isStepUpSip");
+                        },
+                        trailingIcon: Icons.info,
+                        iconColor: AppColor.white,
+                        iconSize: 18,
                       )
                     : const SizedBox.shrink(),
-                StatefulBuilder(
-                  builder: (context, setState) => CustomCheckboxTile(
-                    title: AppString.assistedByEmployeeOrAgent,
-                    titleStyle: AppTextStyles.regular14(color: AppColor.white),
-                    value: _isAssistedByEmpOrAgent,
-                    selected: _isAssistedByEmpOrAgent,
-                    onChanged: (value) {
-                      setState(() {
-                        _isAssistedByEmpOrAgent = value!;
-                      });
-                      debugPrint("  step up sip >>>>> $_isAssistedByEmpOrAgent");
-                    },
-                    // trailingIcon: Icons.warning,
-                    // iconColor: AppColor.white,
-                    // iconSize: 18,
-                  ),
+                CustomCheckboxTile(
+                  title: AppString.assistedByEmployeeOrAgent,
+                  titleStyle: AppTextStyles.regular14(color: AppColor.white),
+                  value: _isAssistedByEmpOrAgent,
+                  selected: _isAssistedByEmpOrAgent,
+                  onChanged: (value) {
+                    setState(() {
+                      _isAssistedByEmpOrAgent = value!;
+                    });
+                    debugPrint("  step up sip >>>>> $_isAssistedByEmpOrAgent");
+                  },
+                  // trailingIcon: Icons.warning,
+                  // iconColor: AppColor.white,
+                  // iconSize: 18,
                 ),
-                StatefulBuilder(
-                  builder: (context, setState) => CustomCheckboxTile(
-                    title: AppString.termsAndCondition,
-                    titleStyle: AppTextStyles.regular14(color: AppColor.white),
-                    value: _termsAndCondition,
-                    selected: _termsAndCondition,
-                    onChanged: (value) {
-                      setState(() {
-                        _termsAndCondition = value!;
-                      });
-                      debugPrint("  step up sip >>>>> $_termsAndCondition");
-                    },
-                    // trailingIcon: Icons.warning,
-                    // iconColor: AppColor.white,
-                    // iconSize: 18,
-                  ),
+                CustomCheckboxTile(
+                  title: AppString.termsAndCondition,
+                  titleStyle: AppTextStyles.regular14(color: AppColor.white),
+                  value: _termsAndCondition,
+                  selected: _termsAndCondition,
+                  onChanged: (value) {
+                    setState(() {
+                      _termsAndCondition = value!;
+                    });
+                    debugPrint("  step up sip >>>>> $_termsAndCondition");
+                  },
+                  // trailingIcon: Icons.warning,
+                  // iconColor: AppColor.white,
+                  // iconSize: 18,
                 ),
                 const SizedBox(
                   height: AppDimens.appSpacing20,

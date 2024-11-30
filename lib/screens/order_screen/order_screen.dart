@@ -10,17 +10,20 @@ class OrdersScreen extends StatefulWidget {
 }
 
 class _OrdersScreenState extends State<OrdersScreen> with SingleTickerProviderStateMixin {
+
   TabController? _tabController;
 
   @override
   void initState() {
     super.initState();
+
     _tabController = TabController(length: 2, vsync: this);
   }
 
   @override
   void dispose() {
     _tabController!.dispose();
+
     super.dispose();
   }
 

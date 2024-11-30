@@ -46,7 +46,9 @@ dependencies:
   adaptive_theme:
   flutter_launcher_icons:
   http:
-  cached_network_image:
+  cached_network_image: ^3.0.1
+  logger: ^2.5.0
+  shimmer: ^3.0.0
 
 
 

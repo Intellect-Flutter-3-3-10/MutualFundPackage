@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:intellect_mutual_fund/my_app_exports.dart';
 
 import '../res/res.dart';
 import '../utils/utils.dart';
@@ -17,6 +18,7 @@ class TitleAndValueWidget extends StatelessWidget {
   final bool isHorizontal;
   final bool isLeadingIcon;
   final bool isValueWidget;
+  final bool isLoading;
   final Widget? valueWidget;
   final TextStyle? titleStyle;
   final TextStyle? valueStyle;
@@ -38,10 +40,12 @@ class TitleAndValueWidget extends StatelessWidget {
     this.valueStyle,
     this.isValueWidget = false,
     this.valueWidget,
+    this.isLoading = false,
   });
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     final defaultTitleStyle = AppTextStyles.regular12(color: AppColor.greyLightest);
     final defaultValueStyle = AppTextStyles.semiBold15(
       color: valueColor ?? UtilsMethod().getColorBasedOnTheme(context),

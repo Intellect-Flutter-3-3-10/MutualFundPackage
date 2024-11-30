@@ -54,11 +54,13 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
     AppString.elss,
   ];
 
+  bool isLoading = true;
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    exploreFundController.fetchExploreFunds();
+    // exploreFundController.fetchExploreFunds();
   }
 
   @override
@@ -129,7 +131,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                 CommonHeader(
                   title: AppString.quickActions,
                   labelOnTap: () {
-                    Get.toNamed(AppRoute.quickActionScreen);
+                    Get.toNamed(AppRoute.quickActionScreen, arguments: QuickActionScreenArgs(tabIndex: 0));
                   },
                 ),
                 Container(
@@ -178,7 +180,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                     return Center(child: Text(exploreFundController.errorMessage.value));
                   }
                   return SizedBox(
-                    height: size.height >= AppDimens.screenLessThan5Inch ? size.height * 0.173 : size.height * 0.198, // for less than 5inch
+                    height: size.height >= AppDimens.screenLessThan5Inch ? size.height * 0.173 : size.height * 0.200, // for less than 5inch
                     width: size.width,
                     child: ListView.separated(
                       separatorBuilder: (context, index) => const Padding(
@@ -252,6 +254,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
 
 // best performing fund widget
   Widget _bestPerformingFund(Size size, int index) {
+    // var isLoading = exploreFundController.isLoading.value;
     var item = exploreFundController.exploreFundList[index];
     return GestureDetector(
       onTap: () {
@@ -290,7 +293,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                   child: CachedNetworkImage(
                     imageUrl: item.amcIcon ?? '',
                     fit: BoxFit.cover,
-                    height: size.height * 0.060,
+                    height: size.height * 0.080,
                     width: size.width * 0.15,
                   ),
                 ),
@@ -309,14 +312,15 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                       ),
                       AutoSizeText(
                         item.riskCategory ?? 'N/A',
-                        style: AppTextStyles.regular13(
+                        style: AppTextStyles.regular12(
                           color: UtilsMethod().getColorBasedOnTheme(context),
                         ),
                         maxLines: 1,
                       ),
-                      SizedBox(height: AppDimens.appSpacing10),
+                      SizedBox(height: AppDimens.appSpacing5),
                       FittedBox(
                         child: Row(
+                          mainAxisSize: MainAxisSize.min,
                           children: [
                             CustomChip(label: item.assetClass ?? 'N/A'),
                             SizedBox(width: size.width * 0.02),
@@ -327,7 +331,12 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                     ],
                   ),
                 ),
-                ShowRatingWidget(rating: item.rating.toString()),
+                isLoading
+                    ? squareShimmer(
+                        height: size.height * 0,
+                        width: size.height * 0,
+                      )
+                    : ShowRatingWidget(rating: item.rating.toString()),
               ],
             ),
             SizedBox(height: AppDimens.appSpacing10),
@@ -336,11 +345,13 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
               children: [
                 TitleAndValueWidget(
                   crossAxisAlignment: CrossAxisAlignment.start,
+                  isLoading: isLoading,
                   title: 'Min Amount',
                   value: item.aum.toString(),
                   valueColor: UtilsMethod().getColorBasedOnTheme(context),
                 ),
                 TitleAndValueWidget(
+                  isLoading: isLoading,
                   crossAxisAlignment: CrossAxisAlignment.end,
                   title: '1 Y Returns',
                   value: '${item.oneYear}%',
@@ -386,6 +397,15 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                         ),
                         borderRadius: BorderRadius.circular(AppDimens.appRadius6)),
                   ),
+                  //                     ClipRRect(
+                  //                     borderRadius: BorderRadius.circular(AppDimens.appRadius6),
+                  //                     child: CachedNetworkImage(
+                  //                     imageUrl: item.amcIcon ?? '',
+                  //                     fit: BoxFit.cover,
+                  //                     height: size.height * 0.080,
+                  //                     width: size.width * 0.15,
+                  //                   ),
+                  //                 ),
                   const SizedBox(
                     width: AppDimens.appSpacing10,
                   ),
@@ -486,6 +506,15 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                       ),
                       borderRadius: BorderRadius.circular(AppDimens.appRadius6)),
                 ),
+                //                  ClipRRect(
+                //                     borderRadius: BorderRadius.circular(AppDimens.appRadius6),
+                //                     child: CachedNetworkImage(
+                //                     imageUrl: item.amcIcon ?? '',
+                //                     fit: BoxFit.cover,
+                //                     height: size.height * 0.080,
+                //                     width: size.width * 0.15,
+                //                   ),
+                //                   ),
                 const SizedBox(
                   width: AppDimens.appSpacing10,
                 ),
@@ -518,19 +547,22 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
             const SizedBox(
               height: AppDimens.appSpacing10,
             ),
-            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: const [
-              TitleAndValueWidget(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                title: 'Min Amount',
-                value: '10,000',
-              ),
-              TitleAndValueWidget(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                title: '1 Y Returns',
-                value: '71.76%',
-                valueColor: Colors.green,
-              ),
-            ]),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: const [
+                TitleAndValueWidget(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  title: 'Min Amount',
+                  value: '10,000',
+                ),
+                TitleAndValueWidget(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  title: '1 Y Returns',
+                  value: '71.76%',
+                  valueColor: Colors.green,
+                ),
+              ],
+            ),
             const SizedBox(
               height: AppDimens.appSpacing5,
             ),

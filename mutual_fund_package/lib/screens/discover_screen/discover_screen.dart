@@ -231,6 +231,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
 
 // best performing fund widget
   Widget _bestPerformingFund(Size size) {
+    bool isLoading = true;
     return GestureDetector(
       onTap: () {
         Get.toNamed(AppRoute.fundDetailScreen);
