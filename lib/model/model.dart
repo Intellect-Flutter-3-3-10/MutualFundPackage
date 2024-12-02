@@ -4,3 +4,4 @@ export 'order_place_models//add_sip_order_model.dart';
 export 'order_place_models/add_order_model.dart';
 export 'order_place_models/order_res_model.dart';
 export 'order_model/order_model.dart';
+export 'script_info_model/script_info_model.dart';
