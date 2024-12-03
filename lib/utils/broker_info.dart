@@ -1,11 +1,10 @@
-
-
 import 'package:http/http.dart';
 
 enum Broker {
   ajmera,
   // icici,
 }
+
 class BrokerInfo {
   static Broker? client;
   static String? brokerName, appName;
@@ -51,8 +50,9 @@ class BrokerInfo {
   static String encryption = '';
   static String onBoardingFrom = "";
   static String moneyUrlScheme = 'https://icicimoney.page.link/dashboard';
+
   // static String masterUrl  = "https://bigul.s3.ap-south-1.amazonaws.com/mastercsv.zip";
-  static String masterUrl  = "https://bigul.s3.ap-south-1.amazonaws.com/CSVFormat/mastercsv.zip";
+  static String masterUrl = "https://bigul.s3.ap-south-1.amazonaws.com/CSVFormat/mastercsv.zip";
   static String iLearnApp = 'https://icicieducation.page.link/zRx8';
   static String commoditiesLink = '';
   static String moneyAppPlaystoreLink = 'https://play.google.com/store/apps/details?id=com.icici.direct&hl=en_IN&gl=US';
@@ -63,6 +63,7 @@ class BrokerInfo {
   static String tWAPriceBand = 'https://www.icicidirect.com/twap-price-band';
   static String averaging = 'https://www.icicidirect.com/fno-execution-averaging';
   static String smallchart = "https://bigulint.bigul.co/chart/api/chart/symbol15minchartdata";
+
   //static String normalchart = "https://bigulint.bigul.co/chart/api/chart/symbolhistoricaldata/";
   static String normalchart = "http://103.174.106.31/chart2/api/chart/symbolhistoricaldata/";
   static String mutualFundsLink = '', referEarnLink = '';
@@ -70,6 +71,7 @@ class BrokerInfo {
   static const timeoutDuration = const Duration(seconds: 20);
   static int algoVersion = 3;
   static String masterdate = "https://bigulint.bigul.co/read-masters/api/MasterDate";
+
   // static String spanMarginurl = "http://180.149.242.215:82/SpanMargincal/Spanapi/EasyOptionSpanMarginCal";
   static String spanMarginurl = "https://trade.ajmeraxchange.co.in/RequiredMarginAPI/Spanapi/EasyOptionSpanMarginCal";
   static String basketMarginurl = "https://trade.ajmeraxchange.co.in/RequiredMarginAPI/Spanapi/SpanBasketMarginCal";
@@ -93,6 +95,7 @@ class BrokerInfo {
   //####################### Global ##########################################
 
   static String LiveURL = "https://trade.ajmeraxchange.co.in/middleware/api/v2/";
+
   // static String UATURL = "https://bigulint.bigul.app/middleware/api/v2/";
   static String UATURL = "http://120.138.100.202:9190/middleware/api/v2/";
   static String baseUrlUAT = "https://trade.ajmeraxchange.co.in/";
@@ -107,12 +110,14 @@ class BrokerInfo {
   static String sipMainUrlBase = "https://trade.ajmeraxchange.co.in/";
   static String flashTradeReportLink = "https://trade.ajmeraxchange.co.in/tools/Report/api/flash/";
   static String flashTradeLink = "https://trade.ajmeraxchange.co.in/tools/Instruction/api/flash/";
+
   // static String paymentGetway = "https://trade.ajmeraxchange.co.in/PaymentGateway/PaymentRequest_mobile.aspx?UID=${Dataconstants.feUserID}";
   static String edisUrl = "https://trade.ajmeraxchange.co.in/clientEdis";
   static String termscondition = "https://trade.ajmeraxchange.co.in/en/index.php/terms-and-conditions/kyc-terms-and-conditions/";
   static String eKycBrowserLink = "https://trade.ajmeraxchange.co.in/open-account/?utm_source=mobileapp1&utm_medium=newmobileapp";
   static String pledge = '';
-      // "https://trade.ajmeraxchange.co.in/pledge-details?client_code=${Dataconstants.feUserID}&key=mEnpsshIYXIp1JXQlsKwRivtyCykdpzH11+/0/dAvAs";
+
+  // "https://trade.ajmeraxchange.co.in/pledge-details?client_code=${Dataconstants.feUserID}&key=mEnpsshIYXIp1JXQlsKwRivtyCykdpzH11+/0/dAvAs";
   // static String ipoLink = "https://trade.ajmeraxchange.co.in/IPO/IPO/IPOLIST?ClientCode=${Dataconstants.feUserID}";
   // static String payOut = "https://trade.ajmeraxchange.co.in/PaymentGateway/PaymentRequest_mobile.aspx?UID=";
   // static String bigulWebLink = "https://trade.ajmeraxchange.co.in";
@@ -164,10 +169,9 @@ class BrokerInfo {
     }
     // Dataconstants.eodIP = servers![0];
     // Dataconstants.iqsIP = servers![0];
-
   }
 
- /* static Future<bool> fetchEncryption() async {
+  /* static Future<bool> fetchEncryption() async {
     setClientInfo(client!);
     String? request, requestPayIn, requestBackoffice;
     switch (client) {
