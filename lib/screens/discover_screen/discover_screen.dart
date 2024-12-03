@@ -180,7 +180,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                     return Center(child: Text(exploreFundController.errorMessage.value));
                   }
                   return SizedBox(
-                    height: size.height >= AppDimens.screenLessThan5Inch ? size.height * 0.173 : size.height * 0.200, // for less than 5inch
+                    height: size.height >= AppDimens.screenLessThan5Inch ? size.height * 0.173 : size.height * 0.210, // for less than 5inch
                     width: size.width,
                     child: ListView.separated(
                       separatorBuilder: (context, index) => const Padding(
@@ -206,7 +206,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                   },
                 ),
                 SizedBox(
-                  height: size.height >= AppDimens.screenLessThan5Inch ? size.height * 0.192 : size.height * 0.218, // for less than 5inch
+                  height: size.height >= AppDimens.screenLessThan5Inch ? size.height * 0.192 : size.height * 0.220, // for less than 5inch
                   width: size.width,
                   child: ListView.separated(
                     separatorBuilder: (context, index) => const Padding(
@@ -229,7 +229,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                   },
                 ),
                 SizedBox(
-                  height: size.height >= AppDimens.screenLessThan5Inch ? size.height * 0.200 : size.height * 0.230, // for less than 5inch
+                  height: size.height >= AppDimens.screenLessThan5Inch ? size.height * 0.200 : size.height * 0.235, // for less than 5inch
                   width: size.width,
                   child: ListView.separated(
                     separatorBuilder: (context, index) => const Padding(
