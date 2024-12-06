@@ -28,4 +28,6 @@ class AppImage {
 
   /// mutual fund data from csv
   static const String mutualFundRawData = 'assets/raw/mutual_fund_master_details.csv';
+
+  //sundar
 }
