@@ -51,7 +51,10 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
     debugPrint(" screen width >>>>> ${MediaQuery.of(context).size.width}");
     debugPrint(" screen height >>>>> ${MediaQuery.of(context).size.height}");
     bool isDark = Theme.of(context).brightness == Brightness.dark;
+
      GlobalController globalController = Get.put(GlobalController());
+
+
 
     globalController.setApiEndpoints(
       baseurl: widget.basUrlEndPoint ?? 'N/A',
