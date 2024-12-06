@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intellect_mutual_fund/my_app_exports.dart';
@@ -6,7 +8,7 @@ void main() {
   runApp(const MutualFund());
 }
 
-class MutualFund extends StatefulWidget {
+class MutualFund extends StatelessWidget {
   final ThemeData? theme;
   final ThemeData? darkTheme;
   final ThemeMode? themeMode;
@@ -34,45 +36,37 @@ class MutualFund extends StatefulWidget {
     this.developer,
   });
 
-  @override
-  State<MutualFund> createState() => _MutualFundState();
-}
-
-class _MutualFundState extends State<MutualFund> {
-  late final GlobalController globalController;
-
-  @override
-  void initState() {
-    super.initState();
-    // Initialize the controller only once
-    globalController = Get.put(GlobalController());
-
-    // Use a post-frame callback to avoid modifying the widget tree during build
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      globalController.setApiEndpoints(
-        baseurl: widget.basUrlEndPoint ?? 'N/A',
-        exploreFund: widget.getExploreFundsEndPoint ?? 'N/A',
-        postOrder: widget.postOrdersEndPoint ?? 'N/A',
-        postSipOrder: widget.postSipOrderEndPoint ?? "N/A",
-        dev: widget.developer ?? 'N/A',
-      );
-
-      if (widget.clientCode != null && widget.mPin != null) {
-        globalController.setUserData(widget.clientCode!, widget.mPin!);
-      }
-    });
-  }
-
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    // final GlobalController globalController = Get.put(GlobalController());
+    //
+    // globalController.setApiEndpoints(
+    //   baseurl: basUrlEndPoint ?? 'N/A',
+    //   exploreFund: getExploreFundsEndPoint ?? 'N/A',
+    //   postOrder: postOrdersEndPoint ?? 'N/A',
+    //   postSipOrder: postSipOrderEndPoint ?? "N/A",
+    //   dev: developer ?? 'N/A',
+    // );
+    //
+    // globalController.setUserData(clientCode!, mPin);
     return GetMaterialApp(
       title: 'Mutual Funds App',
       getPages: AppRoute.getPages(),
       debugShowCheckedModeBanner: false,
-      theme: widget.theme ?? AppTheme.lightTheme,
-      darkTheme: widget.darkTheme ?? AppTheme.darkTheme,
-      themeMode: widget.themeMode ?? AppTheme.systemThemeMode,
-      home: const DashBoardScreen(),
+      theme: theme ?? AppTheme.lightTheme,
+      darkTheme: darkTheme ?? AppTheme.darkTheme,
+      themeMode: themeMode ?? AppTheme.systemThemeMode,
+      home: DashBoardScreen(
+        basUrlEndPoint: basUrlEndPoint,
+        clientCode: clientCode,
+        developer: "Sundar",
+        getExploreFundsEndPoint: getExploreFundsEndPoint,
+        getOrdersEndPoint: getExploreFundsEndPoint,
+        mPin: 333777,
+        postOrdersEndPoint: postOrdersEndPoint,
+        postSipOrderEndPoint: postSipOrderEndPoint,
+      ),
     );
   }
 }
