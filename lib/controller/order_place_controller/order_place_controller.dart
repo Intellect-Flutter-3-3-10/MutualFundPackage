@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:intellect_mutual_fund/my_app_exports.dart';
 
 class OrderPlaceController extends GetxController {
+  final globalController = Get.find<GlobalController>();
   Rx<AddSipOrderModel> placeSipOrder = AddSipOrderModel().obs;
   Rx<AddOrderModel> placeOrder = AddOrderModel().obs;
   RxBool isLoading = false.obs;
@@ -25,7 +26,7 @@ class OrderPlaceController extends GetxController {
       print(' SIP Order >>>>> ${order.toJson()}'); // Debugging serialized data
 
       final response = await http.post(
-        Uri.parse(ApiConstant.postSipOrders),
+        Uri.parse(globalController.postSipOrders),
         headers: {
           'Content-Type': 'application/json', // Set header for JSON
         },
@@ -82,7 +83,7 @@ class OrderPlaceController extends GetxController {
       print('Normal Order >>>>> ${order.toJson()}'); // Debugging serialized data
 
       final response = await http.post(
-        Uri.parse(ApiConstant.postOrders),
+        Uri.parse(globalController.postOrders),
         headers: {
           'Content-Type': 'application/json', // Set header for JSON
         },
