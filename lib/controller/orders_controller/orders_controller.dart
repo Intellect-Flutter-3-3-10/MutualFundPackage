@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import '../../my_app_exports.dart';
 
 class OrdersController extends GetxController {
+  final globalController = Get.find<GlobalController>();
   RxList<OrderData> activeOrderList = <OrderData>[].obs;
   RxBool isLoading = false.obs;
   RxString errorMessage = ''.obs;
@@ -20,7 +21,7 @@ class OrdersController extends GetxController {
       isLoading(true);
 
       // Append clientCode as a query parameter to the URL
-      final uri = Uri.parse(ApiConstant.getOrders).replace(queryParameters: {
+      final uri = Uri.parse(globalController.getOrders).replace(queryParameters: {
         'clientCode': clientCode,
       });
 
