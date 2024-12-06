@@ -39,29 +39,32 @@ class MutualFund extends StatefulWidget {
 }
 
 class _MutualFundState extends State<MutualFund> {
-  late GlobalController globalController = Get.put(GlobalController());
+  late final GlobalController globalController;
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    globalController;
+    // Initialize the controller only once
+    globalController = Get.put(GlobalController());
+
+    // Use a post-frame callback to avoid modifying the widget tree during build
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      globalController.setApiEndpoints(
+        baseurl: widget.basUrlEndPoint ?? 'N/A',
+        exploreFund: widget.getExploreFundsEndPoint ?? 'N/A',
+        postOrder: widget.postOrdersEndPoint ?? 'N/A',
+        postSipOrder: widget.postSipOrderEndPoint ?? "N/A",
+        dev: widget.developer ?? 'N/A',
+      );
+
+      if (widget.clientCode != null && widget.mPin != null) {
+        globalController.setUserData(widget.clientCode!, widget.mPin!);
+      }
+    });
   }
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    // final GlobalController globalController = Get.put(GlobalController());
-
-    globalController.setApiEndpoints(
-      baseurl: widget.basUrlEndPoint ?? 'N/A',
-      exploreFund: widget.getExploreFundsEndPoint ?? 'N/A',
-      postOrder: widget.postOrdersEndPoint ?? 'N/A',
-      postSipOrder: widget.postSipOrderEndPoint ?? "N/A",
-      dev: widget.developer ?? 'N/A',
-    );
-
-    globalController.setUserData(widget.clientCode!, widget.mPin!);
     return GetMaterialApp(
       title: 'Mutual Funds App',
       getPages: AppRoute.getPages(),
