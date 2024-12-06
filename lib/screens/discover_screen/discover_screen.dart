@@ -5,6 +5,7 @@ import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:intellect_mutual_fund/controller/explore_fund_controller/explore_fund_controller.dart';
 import 'package:intellect_mutual_fund/my_app_exports.dart';
 
 class DiscoverScreen extends StatefulWidget {
@@ -172,14 +173,16 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                 ),
                 Obx(() {
                   if (exploreFundController.isLoading.value) {
-                    return Center(child: CircularProgressIndicator.adaptive());
+                    return Center(child: CircularProgressIndicator());
                   }
 
                   if (exploreFundController.errorMessage.value.isNotEmpty) {
                     return Center(child: Text(exploreFundController.errorMessage.value));
                   }
                   return SizedBox(
-                    height: size.height >= AppDimens.screenLessThan5Inch ? size.height * 0.180 : size.height * 0.210, // managed for less than 5inch
+                    height: size.height >= AppDimens.screenLessThan5Inch ? size.height * 0.175 : size.height * 0.210,
+
+                    /// managed for less than 5inch
                     width: size.width,
                     child: ListView.separated(
                       separatorBuilder: (context, index) => const Padding(

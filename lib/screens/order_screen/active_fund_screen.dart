@@ -30,12 +30,12 @@ class _ActiveFundScreenState extends State<ActiveFundScreen> {
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Obx(
               () {
                 if (ordersController.isLoading.value) {
-                  return Center(child: Center(child: Center(child: CircularProgressIndicator.adaptive())));
+                  return Center(child: CircularProgressIndicator());
                 }
 
                 if (ordersController.errorMessage.value.isNotEmpty) {
@@ -51,7 +51,7 @@ class _ActiveFundScreenState extends State<ActiveFundScreen> {
                   itemBuilder: (context, index) {
                     return _fundsCard(index: index);
                   },
-                  itemCount: ordersController.activeOrderList.length,
+                  itemCount: ordersController.ordersList.length,
                 );
               },
             ),
@@ -62,7 +62,7 @@ class _ActiveFundScreenState extends State<ActiveFundScreen> {
   }
 
   Widget _fundsCard({int? index}) {
-    var item = ordersController.activeOrderList[index!];
+    var item = ordersController.ordersList[index!];
     Size size = MediaQuery.of(context).size;
     return GestureDetector(
       onTap: () {

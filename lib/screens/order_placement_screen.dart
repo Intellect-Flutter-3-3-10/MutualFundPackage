@@ -47,7 +47,7 @@ class _OrderPlacementScreenState extends State<OrderPlacementScreen> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     var args = Get.arguments as OrderPlacementScreenArgs;
-
+    debugPrint("SIP Selected  >>>>>>${args.isSip}");
     debugPrint("SIP Selected Args  >>>>>>${widget.args!.isSip}");
     return Scaffold(
       appBar: const CommonAppBar(
