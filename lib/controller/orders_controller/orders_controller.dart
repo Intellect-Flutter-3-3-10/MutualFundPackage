@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 import '../../my_app_exports.dart';
 
 class OrdersController extends GetxController {
-  RxList<OrderData> ordersList = <OrderData>[].obs;
+  RxList<OrderData> activeOrderList = <OrderData>[].obs;
   RxBool isLoading = false.obs;
   RxString errorMessage = ''.obs;
 
@@ -36,7 +36,7 @@ class OrdersController extends GetxController {
         final orders = GetOrdersModel.fromJson(jsonData);
 
         if (orders.status == true) {
-          ordersList.value = orders.data ?? [];
+          activeOrderList.value = orders.data ?? [];
         } else {
           errorMessage.value = orders.message ?? 'Something went wrong';
         }

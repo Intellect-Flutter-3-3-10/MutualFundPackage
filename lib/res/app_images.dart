@@ -25,4 +25,7 @@ class AppImage {
   static const String debt = 'assets/images/debt 1.svg';
   static const String hybrid = 'assets/images/hybrid 1.svg';
   static const String elss = 'assets/images/elss 1.svg';
+
+  /// mutual fund data from csv
+  static const String mutualFundRawData = 'assets/raw/mutual_fund_master_details.csv';
 }
