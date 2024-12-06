@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:intellect_mutual_fund/my_app_exports.dart';
 
 class MutualFundController extends GetxController {
+  final globalController = Get.find<GlobalController>();
   static RxList<ScriptInfoModel> mutualFundData = <ScriptInfoModel>[].obs;
 
   static RxList<MergedDataModel> filteredList = <MergedDataModel>[].obs;
@@ -19,7 +20,7 @@ class MutualFundController extends GetxController {
   Future<void> fetchFundDataFromCsv() async {
     isLoading.value = true;
     try {
-      final csvRawData = await rootBundle.loadString(AppImage.mutualFundRawData);
+      final csvRawData = await rootBundle.loadString(ApiConstant.mutualFundRawData);
 
       final csvData = await compute(parseCsvData, csvRawData);
 
