@@ -2,18 +2,17 @@ import 'package:get/get.dart';
 
 class GlobalController extends GetxController {
   // API Endpoints
-  String baseUrl = '';
-  String getExploreFunds = '';
-  String postOrders = '';
-  String getOrders = '';
-  String getActiveOrders = '';
+  String baseUrl = ''; // baseUrl
+  String getExploreFunds = ''; // explore Fund
+  String postOrders = ''; // POST Orders
+  String getActiveOrders = ''; // GET Orders
 
-  String postSipOrders = '';
+  String postSipOrders = ''; // POST Sip Orders
 
   // User data
-  int? clientCode;
-  int? mPin;
-  String? developer;
+  int? clientCode; // Client Code
+  int? mPin; // mPin
+  String? developer; // Developer Name
 
   RxList orders = <String>[].obs; // Example for storing orders
 
@@ -30,7 +29,7 @@ class GlobalController extends GetxController {
     required String exploreFund,
     required String postOrder,
     required String postSipOrder,
-    required String getActiveOrder,
+    required String activeOrders,
     required String dev,
   }) {
     baseUrl = baseurl;
@@ -38,7 +37,7 @@ class GlobalController extends GetxController {
     postOrders = postOrder;
     postSipOrders = postSipOrder;
     developer = dev;
-    getActiveOrders = getActiveOrder;
+    getActiveOrders = activeOrders;
   }
 
   void setUserData(int clientcode, int mpin) {
@@ -58,6 +57,6 @@ class GlobalController extends GetxController {
     print('$postSipOrders >>>>>>>');
     print('$postOrders >>>>>>>');
     print('$getExploreFunds >>>>>>>');
-    print('$getOrders >>>>>>>');
+    print('$getActiveOrders >>>>>>>');
   }
 }
