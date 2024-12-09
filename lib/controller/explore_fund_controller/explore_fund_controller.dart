@@ -7,7 +7,7 @@ import '../../my_app_exports.dart';
 class ExploreFundsController extends GetxController {
   final Logger logger = Logger();
 
-  final globalController = Get.find<GlobalController>();
+  // final globalController = Get.find<GlobalController>();
 
   RxList<FundData> exploreFundList = <FundData>[].obs;
   RxBool isLoading = false.obs;
@@ -23,7 +23,7 @@ class ExploreFundsController extends GetxController {
     try {
       isLoading(true);
       var response = await http.get(Uri.parse(
-        globalController.getExploreFunds,
+        ApiConstant.getExploreFunds,
       ));
       if (response.statusCode == 200) {
         var jsonData = json.decode(response.body);
