@@ -14,6 +14,7 @@ class MutualFund extends StatelessWidget {
   final String getExploreFundsEndPoint;
   final String postOrdersEndPoint;
   final String getOrdersEndPoint;
+  final String getActiveOrdersEndPoint;
   final String postSipOrderEndPoint;
   final int clientCode;
   final int mPin;
@@ -28,6 +29,7 @@ class MutualFund extends StatelessWidget {
     required this.getExploreFundsEndPoint,
     required this.postOrdersEndPoint,
     required this.getOrdersEndPoint,
+    required this.getActiveOrdersEndPoint,
     required this.postSipOrderEndPoint,
     required this.clientCode,
     required this.mPin,
@@ -46,6 +48,7 @@ class MutualFund extends StatelessWidget {
       postOrder: postOrdersEndPoint,
       postSipOrder: postSipOrderEndPoint,
       dev: developer,
+      getActiveOrder: getActiveOrdersEndPoint,
     );
     globalController.setUserData(clientCode, mPin);
 
