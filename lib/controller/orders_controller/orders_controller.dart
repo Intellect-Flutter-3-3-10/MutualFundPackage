@@ -17,6 +17,7 @@ class OrdersController extends GetxController {
 
   /// fetch active orders
   Future<void> getActiveOrders(String clientCode) async {
+    print('ACTIVE ORDER URL TRIGGERED ');
     try {
       isLoading(true);
 
@@ -24,6 +25,7 @@ class OrdersController extends GetxController {
       final uri = Uri.parse(globalController.getActiveOrders).replace(queryParameters: {
         'clientCode': clientCode,
       });
+      print('ACTIVE ORDER URL ${globalController.getActiveOrders}');
 
       final response = await http.get(
         uri,

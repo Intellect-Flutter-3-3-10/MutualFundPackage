@@ -72,7 +72,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
     print('${globalController.postSipOrders} >>>>>>>');
     print('${globalController.postOrders} >>>>>>>');
     print('${globalController.getExploreFunds}  >>>>>>>');
-    print('${globalController.getOrders} >>>>>>>');
+    // print('${globalController.getOrders} >>>>>>>');
     return Scaffold(
       appBar: CommonAppBar(
         title: AppString.discover,

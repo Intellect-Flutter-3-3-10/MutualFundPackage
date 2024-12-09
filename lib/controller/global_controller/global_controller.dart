@@ -51,12 +51,12 @@ class GlobalController extends GetxController {
   }
 
   void checkDetails() {
-    print('$mPin >>>>>>>');
-    print('$developer >>>>>>>');
-    print('$baseUrl >>>>>>>');
-    print('$postSipOrders >>>>>>>');
-    print('$postOrders >>>>>>>');
-    print('$getExploreFunds >>>>>>>');
-    print('$getActiveOrders >>>>>>>');
+    print('M-PIN $mPin >>>>>>>');
+    print('DEVELOPER NAME $developer >>>>>>>');
+    print('BASE URL $baseUrl >>>>>>>');
+    print('POST SIP ORDER $postSipOrders >>>>>>>');
+    print('POST LUMPSUM ORDER $postOrders >>>>>>>');
+    print('GET EXPLORE FUND $getExploreFunds >>>>>>>');
+    print('GET ACTIVE ORDERS $getActiveOrders >>>>>>>');
   }
 }
