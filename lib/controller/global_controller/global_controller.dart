@@ -6,6 +6,7 @@ class GlobalController extends GetxController {
   String getExploreFunds = '';
   String postOrders = '';
   String getOrders = '';
+  String getActiveOrders = '';
 
   String postSipOrders = '';
 
@@ -29,6 +30,7 @@ class GlobalController extends GetxController {
     required String exploreFund,
     required String postOrder,
     required String postSipOrder,
+    required String getActiveOrder,
     required String dev,
   }) {
     baseUrl = baseurl;
@@ -36,6 +38,7 @@ class GlobalController extends GetxController {
     postOrders = postOrder;
     postSipOrders = postSipOrder;
     developer = dev;
+    getActiveOrders = getActiveOrder;
   }
 
   void setUserData(int clientcode, int mpin) {
