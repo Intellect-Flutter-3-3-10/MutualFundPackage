@@ -21,7 +21,7 @@ class OrdersController extends GetxController {
       isLoading(true);
 
       // Append clientCode as a query parameter to the URL
-      final uri = Uri.parse(globalController.getOrders).replace(queryParameters: {
+      final uri = Uri.parse(globalController.getActiveOrders).replace(queryParameters: {
         'clientCode': clientCode,
       });
 
