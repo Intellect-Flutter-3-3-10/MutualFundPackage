@@ -65,6 +65,14 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    final GlobalController globalController = Get.find<GlobalController>();
+    print('${globalController.mPin} >>>>>>>');
+    print('${globalController.developer} >>>>>>>');
+    print('${globalController.baseUrl} >>>>>>>');
+    print('${globalController.postSipOrders} >>>>>>>');
+    print('${globalController.postOrders} >>>>>>>');
+    print('${globalController.getExploreFunds}  >>>>>>>');
+    print('${globalController.getOrders} >>>>>>>');
     return Scaffold(
       appBar: CommonAppBar(
         title: AppString.discover,
