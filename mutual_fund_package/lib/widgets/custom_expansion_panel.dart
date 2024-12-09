@@ -1,7 +1,7 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 
-import '../my_app_exports.dart';
+// Define the CustomExpansionPanel class
 class CustomExpansionPanel {
   final String header;
   final Widget body;
@@ -44,7 +44,15 @@ class _CustomExpansionPanelListState extends State<CustomExpansionPanelList> {
   @override
   void initState() {
     super.initState();
-    _panels = widget.panels;
+    _panels = List<CustomExpansionPanel>.from(widget.panels);
+  }
+
+  @override
+  void didUpdateWidget(CustomExpansionPanelList oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.panels != oldWidget.panels) {
+      _panels = List<CustomExpansionPanel>.from(widget.panels);
+    }
   }
 
   @override
@@ -56,39 +64,41 @@ class _CustomExpansionPanelListState extends State<CustomExpansionPanelList> {
       expansionCallback: widget.expansionCallbackEnabled
           ? (int index, bool isExpanded) {
               setState(() {
-                _panels[index] = CustomExpansionPanel(header: _panels[index].header, body: _panels[index].body, isExpanded: !isExpanded);
+                _panels[index] = CustomExpansionPanel(
+                  header: _panels[index].header,
+                  body: _panels[index].body,
+                  isExpanded: !isExpanded,
+                );
               });
             }
           : null,
-      children: _panels.map<ExpansionPanel>((CustomExpansionPanel panel) {
-        return ExpansionPanel(
-          canTapOnHeader: true,
-          headerBuilder: (BuildContext context, bool isExpanded) {
-            return StatefulBuilder(
-              builder: (context, setState) => Container(
+      children: _panels.map<ExpansionPanel>(
+        (CustomExpansionPanel panel) {
+          return ExpansionPanel(
+            canTapOnHeader: true,
+            headerBuilder: (BuildContext context, bool isExpanded) {
+              return Container(
                 color: widget.headerColor ?? Theme.of(context).scaffoldBackgroundColor,
-                padding: const EdgeInsets.all(AppDimens.appSpacing10),
+                padding: const EdgeInsets.all(10.0), // Adjust padding as needed
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: AutoSizeText(
                     panel.header,
-                    style: widget.headerTextStyle ?? AppTextStyles.semiBold16(),
+                    style: widget.headerTextStyle ?? TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                   ),
                 ),
-              ),
-            );
-          },
-          body: StatefulBuilder(
-            builder: (context, setState) => Container(
+              );
+            },
+            body: Container(
               color: widget.bodyColor ?? Theme.of(context).scaffoldBackgroundColor,
               alignment: Alignment.centerLeft,
-              padding: const EdgeInsets.all(AppDimens.appSpacing5),
+              padding: const EdgeInsets.all(5.0), // Adjust padding as needed
               child: panel.body,
             ),
-          ),
-          isExpanded: panel.isExpanded,
-        );
-      }).toList(),
+            isExpanded: panel.isExpanded,
+          );
+        },
+      ).toList(),
     );
   }
 }

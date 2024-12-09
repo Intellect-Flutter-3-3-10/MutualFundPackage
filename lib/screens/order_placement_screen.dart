@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:intellect_mutual_fund/controller/order_place_controller/order_place_controller.dart';
+import 'package:intellect_mutual_fund/main.dart';
 import 'package:intellect_mutual_fund/my_app_exports.dart';
 
 class OrderPlacementScreenArgs {

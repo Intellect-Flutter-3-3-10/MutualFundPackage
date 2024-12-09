@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:intellect_mutual_fund/my_app_exports.dart';
 
-import '../my_app_exports.dart';
 import '../res/res.dart';
 
 class CustomTextField extends StatelessWidget {
@@ -47,7 +47,7 @@ class CustomTextField extends StatelessWidget {
       onSubmitted: onSubmitted,
       maxLines: maxLines,
       readOnly: isReadOnly,
-      style: AppTextStyles.regular12(),
+      style: AppTextStyles.regular16(),
       decoration: InputDecoration(
         contentPadding: const EdgeInsets.symmetric(
           horizontal: AppDimens.appSpacing10,

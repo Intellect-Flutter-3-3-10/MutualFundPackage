@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 
 import '../my_app_exports.dart';
+
 class AppRoute {
   static const String searchScreen = '/searchScreen';
   static const String bestPerformingFundScreen = '/bestPerformingFundScreen';
@@ -12,7 +13,6 @@ class AppRoute {
 
   static List<GetPage> getPages() {
     var args = Get.arguments; // declaration for simplicity
-
     return [
       GetPage(name: searchScreen, page: () => const SearchScreen()),
       GetPage(name: bestPerformingFundScreen, page: () => const BestPerformingScreen()),
@@ -25,11 +25,10 @@ class AppRoute {
               )),
       GetPage(name: fundDetailScreen, page: () => const FundDetailScreen()),
       GetPage(
-        name: orderPlacementScreen,
-        page: () => OrderPlacementScreen(
-          args: Get.arguments as OrderPlacementScreenArgs,
-        ),
-      ),
+          name: orderPlacementScreen,
+          page: () => OrderPlacementScreen(
+                args: Get.arguments as OrderPlacementScreenArgs,
+              )),
     ];
   }
 }

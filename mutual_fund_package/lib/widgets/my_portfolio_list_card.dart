@@ -1,7 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:intellect_mutual_fund/widgets/widgets.dart';
 
-import '../my_app_exports.dart';
 import '../res/res.dart';
 
 class MyPortFolioSipListCard extends StatelessWidget {
@@ -94,7 +94,7 @@ class MyPortFolioSipListCard extends StatelessWidget {
               CustomDateChip(
                 date: date,
                 month: month,
-              ),
+              )
             ],
           ),
         ],

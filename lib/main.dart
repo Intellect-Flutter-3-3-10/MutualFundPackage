@@ -3,10 +3,11 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intellect_mutual_fund/my_app_exports.dart';
+
 //
-// void main() {
-//   runApp(const MutualFund());
-// }
+void main() {
+  runApp(const MutualFund());
+}
 
 class MutualFund extends StatelessWidget {
   final ThemeData? theme;

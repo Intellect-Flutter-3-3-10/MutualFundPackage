@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
-import '../../my_app_exports.dart';
+import 'package:intellect_mutual_fund/res/app_colors.dart';
+import 'package:intellect_mutual_fund/res/app_images.dart';
 
 class CommonIconButton extends StatelessWidget {
   final String? pictureIcon;

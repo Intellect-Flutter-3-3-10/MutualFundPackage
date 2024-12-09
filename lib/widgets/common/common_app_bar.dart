@@ -21,6 +21,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       elevation: 0,
+
       title: AutoSizeText(
         title!,
         style: AppTextStyles.regular20(),

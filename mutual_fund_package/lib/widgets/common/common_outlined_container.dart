@@ -31,7 +31,7 @@ class CommonOutLinedContainer extends StatelessWidget {
       decoration: BoxDecoration(
         border: Border.all(color: borderColor!, width: 0.8),
         borderRadius: BorderRadius.circular(borderRadius!),
-        color: bgColor?? tColor,
+        color: bgColor ?? tColor,
       ),
       child: child,
     );

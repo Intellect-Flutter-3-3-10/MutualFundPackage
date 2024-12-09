@@ -19,6 +19,7 @@ class _FundDetailScreenState extends State<FundDetailScreen> with UtilsMethod {
   bool isSip = true;
 
   double _value = 0.0;
+  double amount = 0.0;
   bool isSipSelected = false;
 
   void toggleSave() {
@@ -391,72 +392,63 @@ class _FundDetailScreenState extends State<FundDetailScreen> with UtilsMethod {
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              StatefulBuilder(
-                builder: (context, setState) {
-                  return Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Expanded(
-                        child: CommonOutlinedButton(
-                          borderColor: AppColor.lightAmber,
-                          fgColor: isSip ? AppColor.black : UtilsMethod().getColorBasedOnTheme(context),
-                          bgColor: isSip ? AppColor.lightestAmber : Theme.of(context).scaffoldBackgroundColor,
-                          // Highlight based on `isSip`
-                          btnText: AppString.sip,
-                          onTap: () {
-                            debugPrint("SIP");
-                            setState(() {
-                              isSip = true;
-                            });
-                          },
-                        ),
-                      ),
-                      const SizedBox(
-                        width: AppDimens.appSpacing20,
-                      ),
-                      Expanded(
-                        child: CommonOutlinedButton(
-                          fgColor: !isSip ? AppColor.black : UtilsMethod().getColorBasedOnTheme(context),
-                          borderColor: AppColor.lightAmber,
-                          bgColor: !isSip ? AppColor.lightestAmber : Theme.of(context).scaffoldBackgroundColor,
-                          // Highlight when `isSip` is false
-                          btnText: AppString.lumpSum,
-                          onTap: () {
-                            debugPrint("Lumpsum");
-                            setState(() {
-                              isSip = false;
-                            });
-                          },
-                        ),
-                      ),
-                    ],
-                  );
-                },
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: CommonOutlinedButton(
+                      borderColor: AppColor.lightAmber,
+                      fgColor: isSip ? AppColor.black : UtilsMethod().getColorBasedOnTheme(context),
+                      bgColor: isSip ? AppColor.lightestAmber : Theme.of(context).scaffoldBackgroundColor,
+                      // Highlight based on `isSip`
+                      btnText: AppString.sip,
+                      onTap: () {
+                        debugPrint("SIP");
+                        setState(() {
+                          isSip = true;
+                        });
+                      },
+                    ),
+                  ),
+                  const SizedBox(
+                    width: AppDimens.appSpacing20,
+                  ),
+                  Expanded(
+                    child: CommonOutlinedButton(
+                      fgColor: !isSip ? AppColor.black : UtilsMethod().getColorBasedOnTheme(context),
+                      borderColor: AppColor.lightAmber,
+                      bgColor: !isSip ? AppColor.lightestAmber : Theme.of(context).scaffoldBackgroundColor,
+                      // Highlight when `isSip` is false
+                      btnText: AppString.lumpSum,
+                      onTap: () {
+                        debugPrint("Lumpsum");
+                        setState(() {
+                          isSip = false;
+                        });
+                      },
+                    ),
+                  ),
+                ],
               ),
               const SizedBox(height: AppDimens.appSpacing10),
-              StatefulBuilder(
-                builder: (context, setState) => CommonHeader(
-                  title: '${AppString.rupees} ${_value.toStringAsFixed(0)}',
-                  titleStyle: AppTextStyles.semiBold14(),
-                  labelColor: AppColor.greyLightest,
-                  actionLabel: AppString.monthlyOrLumpSum,
-                ),
+              CommonHeader(
+                title: '${AppString.rupees} ${amount.toStringAsFixed(0)}',
+                titleStyle: AppTextStyles.semiBold14(),
+                labelColor: AppColor.greyLightest,
+                actionLabel: AppString.monthlyOrLumpSum,
               ),
-              StatefulBuilder(
-                builder: (context, setState) {
-                  return Slider(
-                    min: 0.0,
-                    max: 10000,
-                    value: _value,
-                    activeColor: AppColor.lightAmber,
-                    inactiveColor: AppColor.grey300,
-                    onChanged: (dynamic value) {
-                      setState(() {
-                        _value = value;
-                      });
-                      debugPrint("$_value");
-                    },
-                  );
+              Slider(
+                min: 0.0,
+                max: 10000.0,
+                value: _value,
+                activeColor: AppColor.lightAmber,
+                inactiveColor: AppColor.grey300,
+                onChanged: (double value) {
+                  setState(() {
+                    _value = value;
+                    amount = value;
+                  });
+                  debugPrint("$_value");
                 },
               ),
               const SizedBox(
@@ -477,7 +469,6 @@ class _FundDetailScreenState extends State<FundDetailScreen> with UtilsMethod {
                 },
                 isOutlined: true,
                 isFittedBox: true,
-
                 activeColor: AppColor.lightestAmber,
                 inactiveColor: AppColor.white,
                 activeTextColor: UtilsMethod().getColorBasedOnTheme(context),
@@ -495,7 +486,6 @@ class _FundDetailScreenState extends State<FundDetailScreen> with UtilsMethod {
   }
 
   /// returns and rankings view
-
   Widget _returnsAndRankingView({BoxConstraints? constraints, Size? size}) {
     return CustomExpansionPanelList(
       headerColor: Colors.transparent,
@@ -503,86 +493,93 @@ class _FundDetailScreenState extends State<FundDetailScreen> with UtilsMethod {
       panels: [
         CustomExpansionPanel(
           header: AppString.returnsAndRankings,
-          body: StatefulBuilder(
-            builder: (context, setState) => Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                FittedBox(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: AppDimens.appSpacing10),
-                    child: RichText(
-                      text: TextSpan(
-                        style: DefaultTextStyle.of(context).style.copyWith(fontSize: 16),
-                        children: [
-                          TextSpan(
-                            text: 'Total Investments ',
-                            style: AppTextStyles.regular12(),
+          body: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              FittedBox(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: AppDimens.appSpacing10),
+                  child: RichText(
+                    text: TextSpan(
+                      style: DefaultTextStyle.of(context).style.copyWith(
+                            fontSize: 16,
+                            decoration: TextDecoration.none, // Add this line to remove any underline
                           ),
-                          TextSpan(
+                      children: [
+                        TextSpan(
+                          text: 'Total Investments',
+                          style: AppTextStyles.regular12()
+                              .copyWith(decoration: TextDecoration.none, color: UtilsMethod().getColorBasedOnTheme(context)), // Ensure no underline
+                        ),
+                        TextSpan(
                             text: 'Rs 15,441',
-                            style: AppTextStyles.regular12(color: AppColor.lightAmber),
-                          ),
-                          TextSpan(
+                            style: AppTextStyles.regular12(color: AppColor.lightAmber).copyWith(
+                              decoration: TextDecoration.none,
+                            ) // Ensure no underline
+                            ),
+                        TextSpan(
                             text: ' with return of ',
-                            style: AppTextStyles.regular12(),
-                          ),
-                          TextSpan(
+                            style: AppTextStyles.regular12()
+                                .copyWith(decoration: TextDecoration.none, color: UtilsMethod().getColorBasedOnTheme(context)) // Ensure no underline
+                            ),
+                        TextSpan(
                             text: '42.54%',
-                            style: AppTextStyles.regular12(color: AppColor.green),
-                          ),
-                        ],
-                      ),
+                            style: AppTextStyles.regular12(color: AppColor.green).copyWith(
+                              decoration: TextDecoration.none,
+                            ) // Ensure no underline
+                            ),
+                      ],
                     ),
                   ),
                 ),
-                const SizedBox(
-                  width: AppDimens.appSpacing10,
-                ),
-                Column(
-                  children: [
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Text(
-                            "",
-                            style: AppTextStyles.regular14(),
-                          ),
+              ),
+              const SizedBox(
+                height: AppDimens.appSpacing10,
+              ),
+              Column(
+                children: [
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          "",
+                          style: AppTextStyles.regular14(),
                         ),
-                        Expanded(
-                          child: Text(
-                            "Total Value",
-                            textAlign: TextAlign.end,
-                            style: AppTextStyles.regular14(),
-                          ),
+                      ),
+                      Expanded(
+                        child: Text(
+                          "Total Value",
+                          textAlign: TextAlign.end,
+                          style: AppTextStyles.regular14(),
                         ),
-                        SizedBox(width: 10),
-                        Expanded(
-                          child: Text(
-                            "Annualised Rtn%",
-                            textAlign: TextAlign.end,
-                            style: AppTextStyles.regular12(),
-                          ),
+                      ),
+                      SizedBox(width: 10),
+                      Expanded(
+                        child: Text(
+                          "Annualised Rtn%",
+                          textAlign: TextAlign.end,
+                          style: AppTextStyles.regular12(),
                         ),
-                      ],
-                    ),
-                    const SizedBox(
-                      width: AppDimens.appSpacing10,
-                    ),
-                    _returnsStateView(progressLabel: 'This Fund', totalAmount: '28,508.00,', annualReturn: '42.54'),
-                    const SizedBox(
-                      width: AppDimens.appSpacing10,
-                    ),
-                    _returnsStateView(progressLabel: 'Category Average Sundar', totalAmount: '28,508.00,', annualReturn: '34.54'),
-                    const SizedBox(
-                      width: AppDimens.appSpacing10,
-                    ),
-                    _returnsStateView(progressLabel: 'Benchmark Sundar', totalAmount: '28,508.00,', annualReturn: '40.12'),
-                  ],
-                )
-              ],
-            ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: AppDimens.appSpacing10,
+                  ),
+                  _returnsStateView(progressLabel: 'This Fund', totalAmount: '28,508.00,', annualReturn: '42.54'),
+                  const SizedBox(
+                    height: AppDimens.appSpacing10,
+                  ),
+                  _returnsStateView(progressLabel: 'Category Average', totalAmount: '28,508.00,', annualReturn: '34.54'),
+                  const SizedBox(
+                    height: AppDimens.appSpacing10,
+                  ),
+                  _returnsStateView(progressLabel: 'Benchmark', totalAmount: '28,508.00,', annualReturn: '40.12'),
+                ],
+              )
+            ],
           ),
         ),
       ],

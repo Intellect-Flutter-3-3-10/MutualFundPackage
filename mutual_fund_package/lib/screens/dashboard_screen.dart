@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../my_app_exports.dart';
+import '../res/res.dart';
 
 class DashBoardScreen extends StatefulWidget {
-  const DashBoardScreen({super.key});
+  const DashBoardScreen({
+    super.key,
+  });
 
   @override
   State<DashBoardScreen> createState() => _DashBoardScreenState();
@@ -30,6 +33,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
     debugPrint(" screen width >>>>> ${MediaQuery.of(context).size.width}");
     debugPrint(" screen height >>>>> ${MediaQuery.of(context).size.height}");
     bool isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Scaffold(
       body: _pages.elementAt(_selectedIndex),
       bottomNavigationBar: BottomNavigationBar(

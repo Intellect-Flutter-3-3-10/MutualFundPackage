@@ -28,52 +28,52 @@ class ExploreFundsModel {
 }
 
 class FundData {
-  int? schemeCode;
+  num? schemeCode;
   String? schemeName;
   String? riskCategory;
   String? assetClass;
   String? schemeCategory;
-  int? aum;
-  double? oneWeek;
-  double? oneMonth;
-  double? threeMonth;
-  double? sixMonth;
-  double? oneYear;
-  double? threeYear;
-  double? fiveYear;
-  double? tenYear;
-  double? sinceInception;
-  int? rating;
+  num? aum;
+  num? oneWeek;
+  num? oneMonth;
+  num? threeMonth;
+  num? sixMonth;
+  num? oneYear;
+  num? threeYear;
+  num? fiveYear;
+  num? tenYear;
+  num? sinceInception;
+  num? rating;
   String? amcIcon;
-  int? totalRecords;
-  int? totalPages;
-  double? expenseRatio;
+  num? totalRecords;
+  num? totalPages;
+  num? expenseRatio;
   dynamic rtaamcCode;
   dynamic rtaCode;
 
   FundData(
       {this.schemeCode,
-        this.schemeName,
-        this.riskCategory,
-        this.assetClass,
-        this.schemeCategory,
-        this.aum,
-        this.oneWeek,
-        this.oneMonth,
-        this.threeMonth,
-        this.sixMonth,
-        this.oneYear,
-        this.threeYear,
-        this.fiveYear,
-        this.tenYear,
-        this.sinceInception,
-        this.rating,
-        this.amcIcon,
-        this.totalRecords,
-        this.totalPages,
-        this.expenseRatio,
-        this.rtaamcCode,
-        this.rtaCode});
+      this.schemeName,
+      this.riskCategory,
+      this.assetClass,
+      this.schemeCategory,
+      this.aum,
+      this.oneWeek,
+      this.oneMonth,
+      this.threeMonth,
+      this.sixMonth,
+      this.oneYear,
+      this.threeYear,
+      this.fiveYear,
+      this.tenYear,
+      this.sinceInception,
+      this.rating,
+      this.amcIcon,
+      this.totalRecords,
+      this.totalPages,
+      this.expenseRatio,
+      this.rtaamcCode,
+      this.rtaCode});
 
   FundData.fromJson(Map<String, dynamic> json) {
     schemeCode = json['schemeCode'];
