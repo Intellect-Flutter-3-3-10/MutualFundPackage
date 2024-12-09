@@ -34,11 +34,12 @@ class MutualFund extends StatelessWidget {
     required this.developer,
   });
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    // Initialize GlobalController
     final GlobalController globalController = Get.put(GlobalController());
 
+    // Set data in GlobalController
     globalController.setApiEndpoints(
       baseurl: basUrlEndPoint,
       exploreFund: getExploreFundsEndPoint,
@@ -47,22 +48,10 @@ class MutualFund extends StatelessWidget {
       dev: developer,
     );
     globalController.setUserData(clientCode, mPin);
-    print('$mPin >>>>>>>');
-    print('$developer >>>>>>>');
-    print('$basUrlEndPoint >>>>>>>');
-    print('$postSipOrderEndPoint >>>>>>>');
-    print('$postOrdersEndPoint >>>>>>>');
-    print('$getExploreFundsEndPoint >>>>>>>');
-    print('$getOrdersEndPoint >>>>>>>');
-    globalController.setApiEndpoints(
-      baseurl: basUrlEndPoint,
-      exploreFund: getExploreFundsEndPoint,
-      postOrder: postOrdersEndPoint,
-      postSipOrder: postSipOrderEndPoint,
-      dev: developer,
-    );
 
-    globalController.setUserData(clientCode, mPin);
+    // Logging values for debugging
+    globalController.checkDetails();
+
     return GetMaterialApp(
       title: 'Mutual Funds App',
       getPages: AppRoute.getPages(),
