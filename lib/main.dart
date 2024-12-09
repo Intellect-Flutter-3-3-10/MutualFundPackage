@@ -38,7 +38,13 @@ class MutualFund extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final GlobalController globalController = Get.put(GlobalController());
-
+    print('$mPin >>>>>>>');
+    print('$developer >>>>>>>');
+    print('$basUrlEndPoint >>>>>>>');
+    print('$postSipOrderEndPoint >>>>>>>');
+    print('$postOrdersEndPoint >>>>>>>');
+    print('$getExploreFundsEndPoint >>>>>>>');
+    print('$getOrdersEndPoint >>>>>>>');
     globalController.setApiEndpoints(
       baseurl: basUrlEndPoint,
       exploreFund: getExploreFundsEndPoint,

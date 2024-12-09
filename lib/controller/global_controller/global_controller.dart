@@ -40,4 +40,14 @@ class GlobalController extends GetxController {
   void setOrders(List<String> orderList) {
     orders.assignAll(orderList);
   }
+
+  void checkDetails() {
+    print('$mPin >>>>>>>');
+    print('$developer >>>>>>>');
+    print('$baseUrl >>>>>>>');
+    print('$postSipOrders >>>>>>>');
+    print('$postOrders >>>>>>>');
+    print('$getExploreFunds >>>>>>>');
+    print('$getOrders >>>>>>>');
+  }
 }
