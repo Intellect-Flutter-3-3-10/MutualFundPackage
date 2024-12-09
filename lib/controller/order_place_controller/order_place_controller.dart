@@ -4,8 +4,10 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:intellect_mutual_fund/my_app_exports.dart';
 
+import '../global_controller/global_controller.dart';
+
 class OrderPlaceController extends GetxController {
-  final globalController = Get.find<GlobalController>();
+  // final globalController = Get.find<GlobalController>();
   Rx<AddSipOrderModel> placeSipOrder = AddSipOrderModel().obs;
   Rx<AddOrderModel> placeOrder = AddOrderModel().obs;
   RxBool isLoading = false.obs;
@@ -26,7 +28,7 @@ class OrderPlaceController extends GetxController {
       print(' SIP Order >>>>> ${order.toJson()}'); // Debugging serialized data
 
       final response = await http.post(
-        Uri.parse(globalController.postSipOrders),
+        Uri.parse(ApiConstant.postSipOrders),
         headers: {
           'Content-Type': 'application/json', // Set header for JSON
         },
@@ -83,7 +85,7 @@ class OrderPlaceController extends GetxController {
       print('Normal Order >>>>> ${order.toJson()}'); // Debugging serialized data
 
       final response = await http.post(
-        Uri.parse(globalController.postOrders),
+        Uri.parse(ApiConstant.postOrders),
         headers: {
           'Content-Type': 'application/json', // Set header for JSON
         },
@@ -115,8 +117,8 @@ class OrderPlaceController extends GetxController {
         Get.snackbar(
           'Failed',
           orderError,
-          backgroundColor: AppColor.red,
           snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: AppColor.red,
         );
       }
     } catch (e) {
