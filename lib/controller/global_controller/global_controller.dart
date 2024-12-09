@@ -16,6 +16,13 @@ class GlobalController extends GetxController {
 
   RxList orders = <String>[].obs; // Example for storing orders
 
+  @override
+  void onInit() {
+    // TODO: implement onInit
+    super.onInit();
+    checkDetails();
+  }
+
   // Setters for API endpoints and user data
   void setApiEndpoints({
     required String baseurl,
