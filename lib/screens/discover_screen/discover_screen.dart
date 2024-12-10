@@ -7,6 +7,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:intellect_mutual_fund/controller/explore_fund_controller/explore_fund_controller.dart';
 import 'package:intellect_mutual_fund/my_app_exports.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 class DiscoverScreen extends StatefulWidget {
   const DiscoverScreen({super.key});
@@ -105,84 +106,102 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    CarouselSlider(
-                      carouselController: _carouselSliderController,
-                      options: CarouselOptions(
-                        autoPlay: true,
-                        aspectRatio: 20 / 6,
-                        enlargeCenterPage: true,
-                        pageSnapping: true,
-                        // height: size.height*0.020,
-                        onPageChanged: (index, reason) {
-                          setState(() {
-                            currentIndex = index;
-                          });
-                        },
+                    Skeletonizer(
+                      enabled: exploreFundController.isLoading.value,
+                      child: CarouselSlider(
+                        carouselController: _carouselSliderController,
+                        options: CarouselOptions(
+                          autoPlay: true,
+                          aspectRatio: 20 / 6,
+                          enlargeCenterPage: true,
+                          pageSnapping: true,
+                          // height: size.height*0.020,
+                          onPageChanged: (index, reason) {
+                            setState(() {
+                              currentIndex = index;
+                            });
+                          },
+                        ),
+                        items: items,
                       ),
-                      items: items,
                     ),
                     // const SizedBox(height: AppDimens.appSpacing10),
-                    DotsIndicator(
-                      dotsCount: items.length,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      position: currentIndex,
-                      decorator: DotsDecorator(
-                        activeColor: AppColor.blue,
-                        size: const Size.square(6.0),
-                        activeSize: const Size(25.0, 6.0),
-                        spacing: const EdgeInsets.symmetric(horizontal: 2),
-                        activeShape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
+                    Skeletonizer(
+                      enabled: exploreFundController.isLoading.value,
+                      child: DotsIndicator(
+                        dotsCount: items.length,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        position: currentIndex,
+                        decorator: DotsDecorator(
+                          activeColor: AppColor.blue,
+                          size: const Size.square(6.0),
+                          activeSize: const Size(25.0, 6.0),
+                          spacing: const EdgeInsets.symmetric(horizontal: 2),
+                          activeShape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
+                        ),
                       ),
                     ),
                   ],
                 ),
-                CommonHeader(
-                  title: AppString.quickActions,
-                  labelOnTap: () {
-                    Get.toNamed(AppRoute.quickActionScreen, arguments: QuickActionScreenArgs(tabIndex: 0));
-                  },
-                ),
-                Container(
-                  margin: const EdgeInsets.all(AppDimens.appSpacing10),
-                  child: GridView.builder(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: 8,
-                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 4,
-                      childAspectRatio: 6 / 6,
-                      crossAxisSpacing: AppDimens.appHPadding,
-                      mainAxisSpacing: AppDimens.appVPadding,
-                    ),
-                    itemBuilder: (context, index) {
-                      quickAction[index];
-                      label[index];
-                      return QuickActionCard(
-                        // bgColor: UtilsMethod().getColorBasedOnTheme(context),
-                        onTap: () {
-                          Get.toNamed(
-                            AppRoute.quickActionScreen,
-                            arguments: QuickActionScreenArgs(tabIndex: index, indexName: ''),
-                          );
-                        },
-
-                        image: quickAction[index],
-                        label: label[index],
-                      );
+                Skeletonizer(
+                  enabled: exploreFundController.isLoading.value,
+                  child: CommonHeader(
+                    title: AppString.quickActions,
+                    labelOnTap: () {
+                      Get.toNamed(AppRoute.quickActionScreen, arguments: QuickActionScreenArgs(tabIndex: 0));
                     },
                   ),
                 ),
+                Skeletonizer(
+                  enabled: exploreFundController.isLoading.value,
+                  child: Container(
+                    margin: const EdgeInsets.all(AppDimens.appSpacing10),
+                    child: GridView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: 8,
+                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 4,
+                        childAspectRatio: 6 / 6,
+                        crossAxisSpacing: AppDimens.appHPadding,
+                        mainAxisSpacing: AppDimens.appVPadding,
+                      ),
+                      itemBuilder: (context, index) {
+                        quickAction[index];
+                        label[index];
+                        return Skeletonizer(
+                          enabled: exploreFundController.isLoading.value,
+                          child: QuickActionCard(
+                            // bgColor: UtilsMethod().getColorBasedOnTheme(context),
+                            onTap: () {
+                              Get.toNamed(
+                                AppRoute.quickActionScreen,
+                                arguments: QuickActionScreenArgs(tabIndex: index, indexName: ''),
+                              );
+                            },
+
+                            image: quickAction[index],
+                            label: label[index],
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ),
                 const SizedBox(height: AppDimens.appVPadding),
-                CommonHeader(
-                  title: AppString.bestPerformingFund,
-                  labelOnTap: () {
-                    Get.toNamed(AppRoute.bestPerformingFundScreen);
-                  },
+                Skeletonizer(
+                  enabled: exploreFundController.isLoading.value,
+                  child: CommonHeader(
+                    title: AppString.bestPerformingFund,
+                    labelOnTap: () {
+                      Get.toNamed(AppRoute.bestPerformingFundScreen);
+                    },
+                  ),
                 ),
                 Obx(() {
-                  if (exploreFundController.isLoading.value) {
-                    return Center(child: CircularProgressIndicator());
-                  }
+                  // if (exploreFundController.isLoading.value) {
+                  //   return Center(child: CircularProgressIndicator.adaptive());
+                  // }
 
                   if (exploreFundController.errorMessage.value.isNotEmpty) {
                     return Center(child: Text(exploreFundController.errorMessage.value));
@@ -209,49 +228,61 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                   );
                 }),
                 const SizedBox(height: AppDimens.appVPadding),
-                CommonHeader(
-                  title: AppString.fundByUs,
-                  labelOnTap: () {
-                    Get.toNamed(AppRoute.fundByUsScreen);
-                  },
+                Skeletonizer(
+                  enabled: exploreFundController.isLoading.value,
+                  child: CommonHeader(
+                    title: AppString.fundByUs,
+                    labelOnTap: () {
+                      Get.toNamed(AppRoute.fundByUsScreen);
+                    },
+                  ),
                 ),
-                SizedBox(
-                  height: size.height >= AppDimens.screenLessThan5Inch ? size.height * 0.200 : size.height * 0.220, // for less than 5inch
-                  width: size.width,
-                  child: ListView.separated(
-                    separatorBuilder: (context, index) => const Padding(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: AppDimens.appSpacing10,
+                Skeletonizer(
+                  enabled: exploreFundController.isLoading.value,
+                  child: SizedBox(
+                    height: size.height >= AppDimens.screenLessThan5Inch ? size.height * 0.200 : size.height * 0.220, // for less than 5inch
+                    width: size.width,
+                    child: ListView.separated(
+                      separatorBuilder: (context, index) => const Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: AppDimens.appSpacing10,
+                        ),
                       ),
+                      shrinkWrap: true,
+                      itemCount: 5,
+                      scrollDirection: Axis.horizontal,
+                      physics: const ScrollPhysics(),
+                      itemBuilder: (context, index) => _fundByUs(size),
                     ),
-                    shrinkWrap: true,
-                    itemCount: 5,
-                    scrollDirection: Axis.horizontal,
-                    physics: const ScrollPhysics(),
-                    itemBuilder: (context, index) => _fundByUs(size),
                   ),
                 ),
                 const SizedBox(height: AppDimens.appVPadding),
-                CommonHeader(
-                  title: AppString.latestFundRelease,
-                  labelOnTap: () {
-                    Get.toNamed(AppRoute.latestFundRelease);
-                  },
+                Skeletonizer(
+                  enabled: exploreFundController.isLoading.value,
+                  child: CommonHeader(
+                    title: AppString.latestFundRelease,
+                    labelOnTap: () {
+                      Get.toNamed(AppRoute.latestFundRelease);
+                    },
+                  ),
                 ),
-                SizedBox(
-                  height: size.height >= AppDimens.screenLessThan5Inch ? size.height * 0.210 : size.height * 0.240, // for less than 5inch
-                  width: size.width,
-                  child: ListView.separated(
-                    separatorBuilder: (context, index) => const Padding(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: AppDimens.appSpacing10,
+                Skeletonizer(
+                  enabled: exploreFundController.isLoading.value,
+                  child: SizedBox(
+                    height: size.height >= AppDimens.screenLessThan5Inch ? size.height * 0.210 : size.height * 0.240, // for less than 5inch
+                    width: size.width,
+                    child: ListView.separated(
+                      separatorBuilder: (context, index) => const Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: AppDimens.appSpacing10,
+                        ),
                       ),
+                      shrinkWrap: true,
+                      itemCount: 5,
+                      scrollDirection: Axis.horizontal,
+                      physics: const ScrollPhysics(),
+                      itemBuilder: (context, index) => _latestFuncRelease(size),
                     ),
-                    shrinkWrap: true,
-                    itemCount: 5,
-                    scrollDirection: Axis.horizontal,
-                    physics: const ScrollPhysics(),
-                    itemBuilder: (context, index) => _latestFuncRelease(size),
                   ),
                 ),
               ],

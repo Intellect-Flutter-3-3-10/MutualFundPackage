@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 import '../../my_app_exports.dart';
 
 class ActiveFundScreen extends StatefulWidget {
@@ -34,24 +35,27 @@ class _ActiveFundScreenState extends State<ActiveFundScreen> {
           children: [
             Obx(
               () {
-                if (ordersController.isLoading.value) {
-                  return Center(child: CircularProgressIndicator());
-                }
+                // if (ordersController.isLoading.value) {
+                //   return Center(child: CircularProgressIndicator.adaptive());
+                // }
 
                 if (ordersController.errorMessage.value.isNotEmpty) {
                   return Center(child: Text(ordersController.errorMessage.value));
                 }
-                return ListView.separated(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  separatorBuilder: (context, index) => const Padding(
-                      padding: EdgeInsets.symmetric(
-                    vertical: AppDimens.appSpacing10,
-                  )),
-                  itemBuilder: (context, index) {
-                    return _fundsCard(index: index);
-                  },
-                  itemCount: ordersController.activeOrderList.length,
+                return Skeletonizer(
+                  enabled: ordersController.isLoading.value,
+                  child: ListView.separated(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    separatorBuilder: (context, index) => const Padding(
+                        padding: EdgeInsets.symmetric(
+                      vertical: AppDimens.appSpacing10,
+                    )),
+                    itemBuilder: (context, index) {
+                      return _fundsCard(index: index);
+                    },
+                    itemCount: ordersController.activeOrderList.length,
+                  ),
                 );
               },
             ),

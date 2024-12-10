@@ -3,18 +3,30 @@ import 'package:get/get.dart';
 import 'package:intellect_mutual_fund/my_app_exports.dart';
 
 void main() {
-  // var mutualFundBaseUrl = 'https://trade.aionioncapital.com/test/MutulFunds/api/v1';
-  // runApp(MutualFund(
-  //   themeMode: ThemeMode.system,
-  //   postSipOrderEndPoint: '$mutualFundBaseUrl/SipOrders',
-  //   postOrdersEndPoint: '$mutualFundBaseUrl/Orders',
-  //   getExploreFundsEndPoint: '$mutualFundBaseUrl/ExploreFunds',
-  //   developer: 'Sundar',
-  //   clientCode: 123456,
-  //   mPin: 111111,
-  //   basUrlEndPoint: mutualFundBaseUrl,
-  //   getActiveOrdersEndPoint: '$mutualFundBaseUrl/Orders',
-  // ));
+  var mutualFundBaseUrl = 'https://trade.aionioncapital.com/test/MutulFunds/api/v1';
+  runApp(MutualFund(
+    themeMode: ThemeMode.system,
+    // postSipOrderEndPoint: '$mutualFundBaseUrl/SipOrders',
+    // postOrdersEndPoint: '$mutualFundBaseUrl/Orders',
+    // getExploreFundsEndPoint: '$mutualFundBaseUrl/ExploreFunds',
+    // developer: 'Sundar',
+    // clientCode: 123456,
+    // mPin: 111111,
+    // basUrlEndPoint: mutualFundBaseUrl,
+    // getActiveOrdersEndPoint: '$mutualFundBaseUrl/Orders',
+    apiEndPoints: ApiEndPoints(
+      postSipOrderEndPoint: '$mutualFundBaseUrl/SipOrders',
+      postOrdersEndPoint: '$mutualFundBaseUrl/Orders',
+      getExploreFundsEndPoint: '$mutualFundBaseUrl/ExploreFunds',
+      basUrlEndPoint: mutualFundBaseUrl,
+      getActiveOrdersEndPoint: '$mutualFundBaseUrl/Orders',
+    ),
+    userData: UserData(
+      userName: 'Sundar',
+      clientCode: 123456,
+      mPin: 111111,
+    ),
+  ));
 }
 
 class MutualFund extends StatelessWidget {
@@ -62,6 +74,7 @@ class MutualFund extends StatelessWidget {
       postSipOrder: apiEndPoints.postSipOrderEndPoint,
       activeOrders: apiEndPoints.getActiveOrdersEndPoint,
     );
+
     globalController.setUserData(
       userData.clientCode,
       userData.mPin,
