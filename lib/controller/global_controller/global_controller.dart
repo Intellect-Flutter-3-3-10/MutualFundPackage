@@ -12,7 +12,7 @@ class GlobalController extends GetxController {
   // User data
   int? clientCode; // Client Code
   int? mPin; // mPin
-  String? developer; // Developer Name
+  String? userName; // Developer Name
 
   RxList orders = <String>[].obs; // Example for storing orders
 
@@ -30,19 +30,19 @@ class GlobalController extends GetxController {
     required String postOrder,
     required String postSipOrder,
     required String activeOrders,
-    required String dev,
   }) {
     baseUrl = baseurl;
     getExploreFunds = exploreFund;
     postOrders = postOrder;
     postSipOrders = postSipOrder;
-    developer = dev;
+    // developer = dev;
     getActiveOrders = activeOrders;
   }
 
-  void setUserData(int clientcode, int mpin) {
+  void setUserData(int clientcode, int mpin, String userName) {
     this.clientCode = clientcode;
     this.mPin = mpin;
+    this.userName = userName;
   }
 
   // You can also create other methods to manipulate global data like orders
@@ -52,7 +52,7 @@ class GlobalController extends GetxController {
 
   void checkDetails() {
     print('M-PIN $mPin >>>>>>>');
-    print('DEVELOPER NAME $developer >>>>>>>');
+    print('USER NAME $userName >>>>>>>');
     print('BASE URL $baseUrl >>>>>>>');
     print('POST SIP ORDER $postSipOrders >>>>>>>');
     print('POST LUMPSUM ORDER $postOrders >>>>>>>');

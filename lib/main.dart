@@ -21,48 +21,53 @@ class MutualFund extends StatelessWidget {
   final ThemeData? theme;
   final ThemeData? darkTheme;
   final ThemeMode? themeMode;
-  final String basUrlEndPoint;
-  final String getExploreFundsEndPoint;
-  final String postOrdersEndPoint;
+  final ApiEndPoints apiEndPoints;
 
-  final String getActiveOrdersEndPoint;
-  final String postSipOrderEndPoint;
-  final int clientCode;
-  final int mPin;
-  final String developer;
+  // final String basUrlEndPoint;
+  // final String getExploreFundsEndPoint;
+  // final String postOrdersEndPoint;
+  // final String getActiveOrdersEndPoint;
+  // final String postSipOrderEndPoint;
+  final UserData userData;
+
+  // final int clientCode;
+  // final int mPin;
+  // final String userName;
 
   const MutualFund({
     super.key,
     this.theme,
     this.darkTheme,
     this.themeMode,
-    required this.basUrlEndPoint,
-    required this.getExploreFundsEndPoint,
-    required this.postOrdersEndPoint,
-    required this.getActiveOrdersEndPoint,
-    required this.postSipOrderEndPoint,
-    required this.clientCode,
-    required this.mPin,
-    required this.developer,
+    required this.apiEndPoints,
+    required this.userData,
+    // required this.clientCode,
+    // required this.developer,
+    // required this.mPin,
+    // required this.basUrlEndPoint,
+    // required this.getExploreFundsEndPoint,
+    // required this.postOrdersEndPoint,
+    // required this.getActiveOrdersEndPoint,
+    // required this.postSipOrderEndPoint,
   });
 
   @override
   Widget build(BuildContext context) {
-    // Initialize GlobalController
     final GlobalController globalController = Get.put(GlobalController());
 
-    // Set data in GlobalController
     globalController.setApiEndpoints(
-      baseurl: basUrlEndPoint,
-      exploreFund: getExploreFundsEndPoint,
-      postOrder: postOrdersEndPoint,
-      postSipOrder: postSipOrderEndPoint,
-      dev: developer,
-      activeOrders: getActiveOrdersEndPoint,
+      baseurl: apiEndPoints.basUrlEndPoint,
+      exploreFund: apiEndPoints.getExploreFundsEndPoint,
+      postOrder: apiEndPoints.postOrdersEndPoint,
+      postSipOrder: apiEndPoints.postSipOrderEndPoint,
+      activeOrders: apiEndPoints.getActiveOrdersEndPoint,
     );
-    globalController.setUserData(clientCode, mPin);
+    globalController.setUserData(
+      userData.clientCode,
+      userData.mPin,
+      userData.userName,
+    );
 
-    // Logging values for debugging
     globalController.checkDetails();
 
     return GetMaterialApp(

@@ -67,7 +67,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
     Size size = MediaQuery.of(context).size;
     final GlobalController globalController = Get.find<GlobalController>();
     print('${globalController.mPin} >>>>>>>');
-    print('${globalController.developer} >>>>>>>');
+    print('${globalController.userName} >>>>>>>');
     print('${globalController.baseUrl} >>>>>>>');
     print('${globalController.postSipOrders} >>>>>>>');
     print('${globalController.postOrders} >>>>>>>');
