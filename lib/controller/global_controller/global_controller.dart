@@ -39,7 +39,11 @@ class GlobalController extends GetxController {
     getActiveOrders = activeOrders;
   }
 
-  void setUserData(int clientcode, int mpin, String userName) {
+  void setUserData({
+    required int clientcode,
+    required int mpin,
+    required String userName,
+  }) {
     this.clientCode = clientcode;
     this.mPin = mpin;
     this.userName = userName;
