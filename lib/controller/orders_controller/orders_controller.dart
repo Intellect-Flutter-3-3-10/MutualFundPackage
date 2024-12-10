@@ -5,7 +5,8 @@ import 'package:http/http.dart' as http;
 import '../../my_app_exports.dart';
 
 class OrdersController extends GetxController {
-  RxList<OrderData> ordersList = <OrderData>[].obs;
+  final globalController = Get.find<GlobalController>();
+  RxList<OrderData> activeOrderList = <OrderData>[].obs;
   RxBool isLoading = false.obs;
   RxString errorMessage = ''.obs;
 
@@ -16,13 +17,15 @@ class OrdersController extends GetxController {
 
   /// fetch active orders
   Future<void> getActiveOrders(String clientCode) async {
+    print('ACTIVE ORDER URL TRIGGERED ');
     try {
       isLoading(true);
 
       // Append clientCode as a query parameter to the URL
-      final uri = Uri.parse(ApiConstant.getOrders).replace(queryParameters: {
+      final uri = Uri.parse(globalController.getActiveOrders).replace(queryParameters: {
         'clientCode': clientCode,
       });
+      print('ACTIVE ORDER URL ${globalController.getActiveOrders}');
 
       final response = await http.get(
         uri,
@@ -36,7 +39,7 @@ class OrdersController extends GetxController {
         final orders = GetOrdersModel.fromJson(jsonData);
 
         if (orders.status == true) {
-          ordersList.value = orders.data ?? [];
+          activeOrderList.value = orders.data ?? [];
         } else {
           errorMessage.value = orders.message ?? 'Something went wrong';
         }
