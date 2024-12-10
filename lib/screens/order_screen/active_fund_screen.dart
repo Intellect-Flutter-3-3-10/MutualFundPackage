@@ -51,7 +51,7 @@ class _ActiveFundScreenState extends State<ActiveFundScreen> {
                   itemBuilder: (context, index) {
                     return _fundsCard(index: index);
                   },
-                  itemCount: ordersController.ordersList.length,
+                  itemCount: ordersController.activeOrderList.length,
                 );
               },
             ),
@@ -62,7 +62,7 @@ class _ActiveFundScreenState extends State<ActiveFundScreen> {
   }
 
   Widget _fundsCard({int? index}) {
-    var item = ordersController.ordersList[index!];
+    var item = ordersController.activeOrderList[index!];
     Size size = MediaQuery.of(context).size;
     return GestureDetector(
       onTap: () {
