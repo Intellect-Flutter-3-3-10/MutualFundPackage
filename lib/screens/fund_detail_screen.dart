@@ -90,31 +90,22 @@ class _FundDetailScreenState extends State<FundDetailScreen> with UtilsMethod {
                       /// chart view duration button
                       _chartViewDurationButton(constraint: constraint, size: size),
 
-                      const SizedBox(height: AppDimens.appSpacing10),
+                      // const SizedBox(height: AppDimens.appSpacing10),
 
                       /// schema details panel
-                      _schemaDetailsPanel(constraint: constraint, size: size),
+                      // _schemaDetailsPanel(constraint: constraint, size: size),
 
-                      const SizedBox(height: AppDimens.appSpacing10),
+                      // const SizedBox(height: AppDimens.appSpacing10),
 
                       /// returns calculator
-                      _returnsCalculatorPanel(constraint: constraint, size: size),
+                      // _returnsCalculatorPanel(constraint: constraint, size: size),
 
-                      const SizedBox(height: AppDimens.appSpacing10),
+                      // const SizedBox(height: AppDimens.appSpacing10),
 
                       /// returns and rankings
-                      _returnsAndRankingView(constraints: constraint, size: size),
+                      // _returnsAndRankingView(constraints: constraint, size: size),
 
                       const SizedBox(height: AppDimens.appSpacing10),
-
-                      /// invest button
-                      CommonOutlinedButton(
-                        // borderColor: AppColor.lightAmber,
-                        btnText: AppString.investNow,
-                        onTap: () {
-                          _showBottomSheet();
-                        },
-                      ),
                     ],
                   );
                 },
@@ -122,6 +113,20 @@ class _FundDetailScreenState extends State<FundDetailScreen> with UtilsMethod {
             ),
           );
         },
+      ),
+
+      /// invest button
+      bottomNavigationBar: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(AppDimens.appSpacing20),
+          child: CommonOutlinedButton(
+            // borderColor: AppColor.lightAmber,
+            btnText: AppString.investNow,
+            onTap: () {
+              _showBottomSheet();
+            },
+          ),
+        ),
       ),
     );
   }
@@ -142,7 +147,6 @@ class _FundDetailScreenState extends State<FundDetailScreen> with UtilsMethod {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Expanded(
-                flex: 5,
                 child: Row(
                   children: [
                     CustomImageCard(
@@ -153,66 +157,68 @@ class _FundDetailScreenState extends State<FundDetailScreen> with UtilsMethod {
                     SizedBox(
                       width: size.height * 0.010,
                     ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        AutoSizeText(
-                          fundDetail?.schemeName ?? 'N/A',
-                          style: AppTextStyles.regular15(),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          softWrap: true,
-                        ),
-                        AutoSizeText(
-                          fundDetail?.riskCategory ?? 'N?A',
-                          style: AppTextStyles.regular13(),
-                          // maxLines: ,
-                        ),
-                        Row(
-                          // mainAxisSize: MainAxisSize.min,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Row(
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          AutoSizeText(
+                            fundDetail?.schemeName ?? 'N/A',
+                            // " Kotak Emerging Equity",
+                            style: AppTextStyles.regular15(),
+                            // maxLines: 1,
+                            overflow: TextOverflow.visible,
+                            // softWrap: true,
+                          ),
+                          AutoSizeText(
+                            fundDetail?.riskCategory ?? 'N?A',
+                            style: AppTextStyles.regular13(),
+                            // maxLines: ,
+                          ),
+                          FittedBox(
+                            child: Row(
+                              // mainAxisSize: MainAxisSize.min,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                CustomChip(
-                                  label: fundDetail?.assetClass ?? "N/A",
-                                ),
-                                SizedBox(
-                                  width: AppDimens.appSpacing10,
-                                ),
-                                CustomChip(
-                                  label: fundDetail?.schemeCategory ?? "N/A",
+                                Row(
+                                  children: [
+                                    CustomChip(
+                                      label: fundDetail?.assetClass ?? "N/A",
+                                    ),
+                                    SizedBox(
+                                      width: AppDimens.appSpacing10,
+                                    ),
+                                    CustomChip(
+                                      label: fundDetail?.schemeCategory ?? "N/A",
+                                    ),
+                                  ],
                                 ),
                               ],
                             ),
-                          ],
-                        ),
-                      ],
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),
               ),
-              Expanded(
-                flex: 3,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    CommonIconButton(
-                      onTap: toggleSave,
-                      isSvg: false,
-                      icon: isSaved ? Icons.bookmark : Icons.bookmark_border_outlined,
-                      pictureIcon: AppImage.all,
-                      iconColor: AppColor.blue,
-                    ),
-                    ShowRatingWidget(
-                      rating: "4" ?? "N/A",
-                    ),
-                  ],
-                ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  CommonIconButton(
+                    onTap: toggleSave,
+                    isSvg: false,
+                    icon: isSaved ? Icons.bookmark : Icons.bookmark_border_outlined,
+                    pictureIcon: AppImage.all,
+                    iconColor: AppColor.blue,
+                  ),
+                  ShowRatingWidget(
+                    rating: "4" ?? "N/A",
+                  ),
+                ],
               ),
             ],
           ),
@@ -286,7 +292,7 @@ class _FundDetailScreenState extends State<FundDetailScreen> with UtilsMethod {
             (entry) {
               final index = entry.key;
               final point = entry.value;
-              return FlSpot(index.toDouble(), point.nav ?? 0);
+              return FlSpot(index.toDouble(), point.nav.toPrecision(2) ?? 0);
             },
           ).toList(),
         ),
@@ -303,11 +309,11 @@ class _FundDetailScreenState extends State<FundDetailScreen> with UtilsMethod {
         onToggle: (index) {
           debugPrint('Selected Button Index: $index');
 
-          fundDetailController.fetchFundOverviewCalInfo(
-            schemeCode: widget.args.schemeCode ?? '',
-            investmentType: "B",
-            investedAmount: "500",
-          );
+          // fundDetailController.fetchFundOverviewCalInfo(
+          //   schemeCode: widget.args.schemeCode ?? '',
+          //   investmentType: "B",
+          //   investedAmount: "500",
+          // );
         },
 
         activeColor: AppColor.lightestAmber,
