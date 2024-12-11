@@ -9,6 +9,8 @@ class GlobalController extends GetxController {
 
   String postSipOrders = ''; // POST Sip Orders
 
+  String getFundOverview = ''; // post method // fund details
+  String getFundOverViewCalcInfo = ''; // post method // calculation details
   // User data
   int? clientCode; // Client Code
   int? mPin; // mPin
@@ -30,6 +32,8 @@ class GlobalController extends GetxController {
     required String postOrder,
     required String postSipOrder,
     required String activeOrders,
+    required String fundOverview,
+    required String fundOverviewCalInfo,
   }) {
     baseUrl = baseurl;
     getExploreFunds = exploreFund;
@@ -37,6 +41,8 @@ class GlobalController extends GetxController {
     postSipOrders = postSipOrder;
     // developer = dev;
     getActiveOrders = activeOrders;
+    getFundOverview = fundOverview;
+    getFundOverViewCalcInfo = fundOverviewCalInfo;
   }
 
   void setUserData({

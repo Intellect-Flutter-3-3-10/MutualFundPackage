@@ -6,3 +6,5 @@ export 'order_place_models/order_res_model.dart';
 export 'order_model/order_model.dart';
 export 'api_end_point_model/api_end_point_model.dart';
 export 'user_data_model/user_data_model.dart';
+export 'get_mutual_fund_overview_model/get_mutual_fund_overview_model.dart';
+export 'get_mutual_fund_overview_model/fund_overview_cal_info_model.dart';

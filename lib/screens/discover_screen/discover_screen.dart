@@ -5,7 +5,6 @@ import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:intellect_mutual_fund/controller/explore_fund_controller/explore_fund_controller.dart';
 import 'package:intellect_mutual_fund/my_app_exports.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
@@ -207,7 +206,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                     return Center(child: Text(exploreFundController.errorMessage.value));
                   }
                   return SizedBox(
-                    height: size.height >= AppDimens.screenLessThan5Inch ? size.height * 0.175 : size.height * 0.210,
+                    height: size.height >= AppDimens.screenLessThan5Inch ? size.height * 0.180 : size.height * 0.210,
 
                     /// managed for less than 5inch
                     width: size.width,
@@ -299,7 +298,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
     var item = exploreFundController.exploreFundList[index];
     return GestureDetector(
       onTap: () {
-        Get.toNamed(AppRoute.fundDetailScreen);
+        Get.toNamed(AppRoute.fundDetailScreen, arguments: FundDetailScreenArgs(item.schemeCode.toString()));
       },
       child: Container(
         width: size.width * 0.90,
@@ -329,14 +328,11 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                 //     borderRadius: BorderRadius.circular(AppDimens.appRadius6),
                 //   ),
                 // ),
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(AppDimens.appRadius6),
-                  child: CachedNetworkImage(
-                    imageUrl: item.amcIcon ?? '',
-                    fit: BoxFit.cover,
-                    height: size.height * 0.080,
-                    width: size.width * 0.15,
-                  ),
+
+                CustomImageCard(
+                  image: item.amcIcon ?? '',
+                  height: size.height * 0.080,
+                  width: size.width * 0.15,
                 ),
                 SizedBox(width: size.width * 0.025), // Dynamic spacing based on width
                 Expanded(

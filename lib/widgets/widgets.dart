@@ -12,3 +12,4 @@ export 'custom_expansion_panel.dart';
 export 'custom_price_chip.dart';
 export 'custom_radio_tile.dart';
 export 'custom_check_box_tile.dart';
+export 'custom_image_card.dart';

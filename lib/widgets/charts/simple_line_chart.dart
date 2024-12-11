@@ -44,6 +44,7 @@ class CustomLineChart extends StatelessWidget {
                 ],
             // Default spots if no spots are provided
             isCurved: isCurved,
+
             color: lineColor,
             barWidth: 1,
             isStrokeCapRound: true,
@@ -77,8 +78,8 @@ class CustomLineChart extends StatelessWidget {
         lineTouchData: LineTouchData(
           enabled: true,
           touchTooltipData: LineTouchTooltipData(
-            // tooltipBgColor: Theme.of(context).scaffoldBackgroundColor,
-          ),
+              // tooltipBgColor: Theme.of(context).scaffoldBackgroundColor,
+              ),
         ),
       ),
     );
