@@ -22,7 +22,11 @@ class AppRoute {
           page: () => QuickActionScreen(
                 args: Get.arguments as QuickActionScreenArgs,
               )),
-      GetPage(name: fundDetailScreen, page: () => const FundDetailScreen()),
+      GetPage(
+          name: fundDetailScreen,
+          page: () => FundDetailScreen(
+                args: Get.arguments as FundDetailScreenArgs,
+              )),
       GetPage(
           name: orderPlacementScreen,
           page: () => OrderPlacementScreen(

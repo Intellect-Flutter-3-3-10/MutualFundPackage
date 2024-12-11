@@ -4,22 +4,22 @@ import 'package:intellect_mutual_fund/my_app_exports.dart';
 
 void main() {
   // var mutualFundBaseUrl = 'https://trade.aionioncapital.com/test/MutulFunds/api/v1';
-  // runApp(MutualFund(
-  //   themeMode: ThemeMode.system,
-  //   postSipOrderEndPoint: '$mutualFundBaseUrl/SipOrders',
-  //   postOrdersEndPoint: '$mutualFundBaseUrl/Orders',
-  //   getExploreFundsEndPoint: '$mutualFundBaseUrl/ExploreFunds',
-  //   userName: 'Sundar',
-  //   clientCode: 123456,
-  //   mPin: 111111,
-  //   basUrlEndPoint: mutualFundBaseUrl,
-  //   getActiveOrdersEndPoint: '$mutualFundBaseUrl/Orders',
-  //   userData: UserData(
+  // runApp(
+  //   MutualFund(
+  //     themeMode: ThemeMode.system,
+  //     theme: ThemeData(useMaterial3: false),
+  //     postSipOrderEndPoint: '$mutualFundBaseUrl/SipOrders',
+  //     postOrdersEndPoint: '$mutualFundBaseUrl/Orders',
+  //     getExploreFundsEndPoint: '$mutualFundBaseUrl/ExploreFunds',
+  //     basUrlEndPoint: mutualFundBaseUrl,
+  //     getActiveOrdersEndPoint: '$mutualFundBaseUrl/Orders',
+  //     getFundOverViewEndPoint: '$mutualFundBaseUrl/GetFundOverview',
+  //     getFundOverViewCalInfoEndPoint: '$mutualFundBaseUrl/GetFundOverViewCalcInfo',
+  //     mPin: 111111,
   //     userName: 'Sundar',
   //     clientCode: 123456,
-  //     mPin: 111111,
   //   ),
-  // ));
+  // );
 }
 
 class MutualFund extends StatelessWidget {
@@ -34,6 +34,9 @@ class MutualFund extends StatelessWidget {
   final String postOrdersEndPoint;
   final String getActiveOrdersEndPoint;
   final String postSipOrderEndPoint;
+  final String getFundOverViewEndPoint;
+  final String getFundOverViewCalInfoEndPoint;
+
   // final UserData userData;
 
   final int clientCode;
@@ -55,6 +58,8 @@ class MutualFund extends StatelessWidget {
     required this.postOrdersEndPoint,
     required this.getActiveOrdersEndPoint,
     required this.postSipOrderEndPoint,
+    required this.getFundOverViewEndPoint,
+    required this.getFundOverViewCalInfoEndPoint,
   });
 
   @override
@@ -67,6 +72,8 @@ class MutualFund extends StatelessWidget {
       postOrder: postOrdersEndPoint,
       postSipOrder: postSipOrderEndPoint,
       activeOrders: getActiveOrdersEndPoint,
+      fundOverview: getFundOverViewEndPoint,
+      fundOverviewCalInfo: getFundOverViewCalInfoEndPoint,
     );
 
     globalController.setUserData(

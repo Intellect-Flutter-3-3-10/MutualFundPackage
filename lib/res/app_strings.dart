@@ -50,6 +50,7 @@ class AppString {
   static const String minAmount = "Min Amount";
   static const String returns = "Returns";
   static const String oneYearReturn = "1 Y return";
+  static const String oneWeekReturn = "1 W return";
   static const String amount = "Amount";
   static const String enterAmount = "Enter Amount";
   static const String search = "Search";
@@ -75,8 +76,6 @@ class AppString {
   static const String upiTransfer = "UPI Transfer";
   static const String placeOrder = "Place Order";
 
-
-
-
-  static const String termsAndCondition = "I/We hereby confirm that the EUIN box has been intentionally left blank by me/us as this is an “execution only transaction without any interaction or advise by the employee or the relationship manager of ICICI securities or notwithstanding the advise of inappropriateness, if any, provided by the employee/relationship manager/sales person of the distributor and the distributor has not charged any advisory fees on this transaction.";
+  static const String termsAndCondition =
+      "I/We hereby confirm that the EUIN box has been intentionally left blank by me/us as this is an “execution only transaction without any interaction or advise by the employee or the relationship manager of ICICI securities or notwithstanding the advise of inappropriateness, if any, provided by the employee/relationship manager/sales person of the distributor and the distributor has not charged any advisory fees on this transaction.";
 }
