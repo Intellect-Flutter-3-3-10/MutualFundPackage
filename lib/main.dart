@@ -44,7 +44,10 @@ class MutualFund extends StatefulWidget {
   final int mPin;
   final String userName;
 
-  const MutualFund({
+  final GlobalKey<ScaffoldMessengerState> scaffoldKey;
+
+  MutualFund({
+    required this.scaffoldKey,
     this.theme,
     this.darkTheme,
     this.themeMode,
@@ -70,7 +73,6 @@ class MutualFund extends StatefulWidget {
 class _MutualFundState extends State<MutualFund> {
   @override
   Widget build(BuildContext context) {
-    final GlobalKey<ScaffoldMessengerState> scaffoldKey = GlobalKey<ScaffoldMessengerState>();
     final GlobalController globalController = Get.put(GlobalController());
     var mutualFundBaseUrl = 'https://trade.aionioncapital.com/test/MutulFunds/api/v1';
 
@@ -93,7 +95,7 @@ class _MutualFundState extends State<MutualFund> {
     globalController.checkDetails();
 
     return GetMaterialApp(
-      key: scaffoldKey,
+      key: widget.scaffoldKey,
       navigatorKey: widget.navigatorKey,
       title: 'Mutual Funds App',
       getPages: AppRoute.getPages(),
