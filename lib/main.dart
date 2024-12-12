@@ -2,25 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intellect_mutual_fund/my_app_exports.dart';
 
-void main() {
-  var mutualFundBaseUrl = 'https://trade.aionioncapital.com/test/MutulFunds/api/v1';
-  runApp(
-    MutualFund(
-      themeMode: ThemeMode.system,
-      // theme: ThemeData(useMaterial3: false),
-      postSipOrderEndPoint: '$mutualFundBaseUrl/SipOrders',
-      postOrdersEndPoint: '$mutualFundBaseUrl/Orders',
-      getExploreFundsEndPoint: '$mutualFundBaseUrl/ExploreFunds',
-      basUrlEndPoint: mutualFundBaseUrl,
-      getActiveOrdersEndPoint: '$mutualFundBaseUrl/Orders',
-      getFundOverViewEndPoint: '$mutualFundBaseUrl/GetFundOverview',
-      getFundOverViewCalInfoEndPoint: '$mutualFundBaseUrl/GetFundOverViewCalcInfo',
-      mPin: 111111,
-      userName: 'Sundar',
-      clientCode: 123456,
-    ),
-  );
-}
+// void main() {
+//   var mutualFundBaseUrl = 'https://trade.aionioncapital.com/test/MutulFunds/api/v1';
+//   runApp(
+//     MutualFund(
+//       themeMode: ThemeMode.system,
+//       // theme: ThemeData(useMaterial3: false),
+//       postSipOrderEndPoint: '$mutualFundBaseUrl/SipOrders',
+//       postOrdersEndPoint: '$mutualFundBaseUrl/Orders',
+//       getExploreFundsEndPoint: '$mutualFundBaseUrl/ExploreFunds',
+//       basUrlEndPoint: mutualFundBaseUrl,
+//       getActiveOrdersEndPoint: '$mutualFundBaseUrl/Orders',
+//       getFundOverViewEndPoint: '$mutualFundBaseUrl/GetFundOverview',
+//       getFundOverViewCalInfoEndPoint: '$mutualFundBaseUrl/GetFundOverViewCalcInfo',
+//       mPin: 111111,
+//       userName: 'Sundar',
+//       clientCode: 123456,
+//     ),
+//   );
+// }
 
 class MutualFund extends StatelessWidget {
   final ThemeData? theme;
@@ -44,7 +44,6 @@ class MutualFund extends StatelessWidget {
   final String userName;
 
   const MutualFund({
-    super.key,
     this.theme,
     this.darkTheme,
     this.themeMode,
