@@ -70,6 +70,7 @@ class _MutualFundState extends State<MutualFund> {
   Widget build(BuildContext context) {
     final GlobalKey<ScaffoldMessengerState> scaffoldKey = GlobalKey<ScaffoldMessengerState>();
     final GlobalController globalController = Get.put(GlobalController());
+    var mutualFundBaseUrl = 'https://trade.aionioncapital.com/test/MutulFunds/api/v1';
 
     globalController.setApiEndpoints(
       baseurl: widget.basUrlEndPoint,
@@ -97,7 +98,18 @@ class _MutualFundState extends State<MutualFund> {
       darkTheme: widget.darkTheme ?? AppTheme.darkTheme,
       themeMode: widget.themeMode ?? AppTheme.systemThemeMode,
       home: DashBoardScreen(
-        key: scaffoldKey,
+        // themeMode: ThemeMode.system,
+        // theme: ThemeData(useMaterial3: false),
+        postSipOrderEndPoint: '$mutualFundBaseUrl/SipOrders',
+        postOrdersEndPoint: '$mutualFundBaseUrl/Orders',
+        getExploreFundsEndPoint: '$mutualFundBaseUrl/ExploreFunds',
+        basUrlEndPoint: mutualFundBaseUrl,
+        getActiveOrdersEndPoint: '$mutualFundBaseUrl/Orders',
+        getFundOverViewEndPoint: '$mutualFundBaseUrl/GetFundOverview',
+        getFundOverViewCalInfoEndPoint: '$mutualFundBaseUrl/GetFundOverViewCalcInfo',
+        mPin: 111111,
+        userName: 'Sundar',
+        clientCode: 123456,
       ),
     );
   }

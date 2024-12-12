@@ -6,8 +6,31 @@ import '../my_app_exports.dart';
 import '../res/res.dart';
 
 class DashBoardScreen extends StatefulWidget {
+  final String basUrlEndPoint;
+  final String getExploreFundsEndPoint;
+  final String postOrdersEndPoint;
+  final String getActiveOrdersEndPoint;
+  final String postSipOrderEndPoint;
+  final String getFundOverViewEndPoint;
+  final String getFundOverViewCalInfoEndPoint;
+
+  // final UserData userData;
+
+  final int clientCode;
+  final int mPin;
+  final String userName;
+
   const DashBoardScreen({
-    super.key,
+    required this.clientCode,
+    required this.userName,
+    required this.mPin,
+    required this.basUrlEndPoint,
+    required this.getExploreFundsEndPoint,
+    required this.postOrdersEndPoint,
+    required this.getActiveOrdersEndPoint,
+    required this.postSipOrderEndPoint,
+    required this.getFundOverViewEndPoint,
+    required this.getFundOverViewCalInfoEndPoint,
   });
 
   @override
@@ -32,6 +55,25 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final GlobalController globalController = Get.put(GlobalController());
+
+    globalController.setApiEndpoints(
+      baseurl: widget.basUrlEndPoint,
+      exploreFund: widget.getExploreFundsEndPoint,
+      postOrder: widget.postOrdersEndPoint,
+      postSipOrder: widget.postSipOrderEndPoint,
+      activeOrders: widget.getActiveOrdersEndPoint,
+      fundOverview: widget.getFundOverViewEndPoint,
+      fundOverviewCalInfo: widget.getFundOverViewCalInfoEndPoint,
+    );
+
+    globalController.setUserData(
+      clientcode: widget.clientCode,
+      mpin: widget.mPin,
+      userName: widget.userName,
+    );
+
+    globalController.checkDetails();
     debugPrint(" screen width >>>>> ${MediaQuery.of(context).size.width}");
     debugPrint(" screen height >>>>> ${MediaQuery.of(context).size.height}");
     bool isDark = Theme.of(context).brightness == Brightness.dark;
