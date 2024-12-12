@@ -36,6 +36,7 @@ class MutualFund extends StatefulWidget {
   final String postSipOrderEndPoint;
   final String getFundOverViewEndPoint;
   final String getFundOverViewCalInfoEndPoint;
+  final GlobalKey<NavigatorState>? navigatorKey;
 
   // final UserData userData;
 
@@ -59,6 +60,7 @@ class MutualFund extends StatefulWidget {
     required this.postSipOrderEndPoint,
     required this.getFundOverViewEndPoint,
     required this.getFundOverViewCalInfoEndPoint,
+    this.navigatorKey,
   });
 
   @override
@@ -98,19 +100,19 @@ class _MutualFundState extends State<MutualFund> {
       darkTheme: widget.darkTheme ?? AppTheme.darkTheme,
       themeMode: widget.themeMode ?? AppTheme.systemThemeMode,
       home: DashBoardScreen(
-        // themeMode: ThemeMode.system,
-        // theme: ThemeData(useMaterial3: false),
-        postSipOrderEndPoint: '$mutualFundBaseUrl/SipOrders',
-        postOrdersEndPoint: '$mutualFundBaseUrl/Orders',
-        getExploreFundsEndPoint: '$mutualFundBaseUrl/ExploreFunds',
-        basUrlEndPoint: mutualFundBaseUrl,
-        getActiveOrdersEndPoint: '$mutualFundBaseUrl/Orders',
-        getFundOverViewEndPoint: '$mutualFundBaseUrl/GetFundOverview',
-        getFundOverViewCalInfoEndPoint: '$mutualFundBaseUrl/GetFundOverViewCalcInfo',
-        mPin: 111111,
-        userName: 'Sundar',
-        clientCode: 123456,
-      ),
+          // themeMode: ThemeMode.system,
+          // theme: ThemeData(useMaterial3: false),
+          // postSipOrderEndPoint: '$mutualFundBaseUrl/SipOrders',
+          // postOrdersEndPoint: '$mutualFundBaseUrl/Orders',
+          // getExploreFundsEndPoint: '$mutualFundBaseUrl/ExploreFunds',
+          // basUrlEndPoint: mutualFundBaseUrl,
+          // getActiveOrdersEndPoint: '$mutualFundBaseUrl/Orders',
+          // getFundOverViewEndPoint: '$mutualFundBaseUrl/GetFundOverview',
+          // getFundOverViewCalInfoEndPoint: '$mutualFundBaseUrl/GetFundOverViewCalcInfo',
+          // mPin: 111111,
+          // userName: 'Sundar',
+          // clientCode: 123456,
+          ),
     );
   }
 }
