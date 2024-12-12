@@ -298,9 +298,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
     var item = exploreFundController.exploreFundList[index];
     return GestureDetector(
       onTap: () {
-        setState(() {
-          Get.toNamed(AppRoute.fundDetailScreen, arguments: FundDetailScreenArgs(item.schemeCode.toString()));
-        });
+        Get.toNamed(AppRoute.fundDetailScreen, arguments: FundDetailScreenArgs(item.schemeCode.toString()));
       },
       child: Container(
         width: size.width * 0.90,
