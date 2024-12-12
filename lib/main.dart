@@ -93,6 +93,7 @@ class _MutualFundState extends State<MutualFund> {
     globalController.checkDetails();
 
     return GetMaterialApp(
+      key: scaffoldKey,
       navigatorKey: widget.navigatorKey,
       title: 'Mutual Funds App',
       getPages: AppRoute.getPages(),
