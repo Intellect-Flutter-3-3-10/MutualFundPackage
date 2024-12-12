@@ -55,7 +55,7 @@ class _InvestmentScreenState extends State<InvestmentScreen> {
     return GestureDetector(
       onTap: () {
         debugPrint("");
-        Get.toNamed(AppRoute.fundDetailScreen);
+        Get.toNamed(AppRoute.fundDetailScreen, arguments: FundDetailScreenArgs("item.schemeCode.toString()"));
       },
       child: CommonOutLinedContainer(
         borderColor: AppColor.greyLightest,

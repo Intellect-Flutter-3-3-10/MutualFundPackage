@@ -70,7 +70,7 @@ class _ActiveFundScreenState extends State<ActiveFundScreen> {
     Size size = MediaQuery.of(context).size;
     return GestureDetector(
       onTap: () {
-        Get.toNamed(AppRoute.fundDetailScreen);
+        // Get.toNamed(AppRoute.fundDetailScreen, arguments: FundDetailScreenArgs("item.schemeCode.toString()"));
       },
       child: Container(
         width: size.width * 0.76,

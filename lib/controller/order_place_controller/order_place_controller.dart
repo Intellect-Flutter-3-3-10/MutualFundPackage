@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:intellect_mutual_fund/my_app_exports.dart';
@@ -12,6 +13,8 @@ class OrderPlaceController extends GetxController {
   RxBool isOrderLoading = false.obs;
   RxString errorMessage = ''.obs;
   RxString orderError = ''.obs;
+
+  RxString selectedDate = ''.obs;
 
   @override
   void onInit() {
@@ -128,6 +131,43 @@ class OrderPlaceController extends GetxController {
       );
     } finally {
       isOrderLoading(false); // Ensure loading state is updated
+    }
+  }
+
+  Future<void> pickDate(BuildContext context) async {
+    DateTime initialDate = DateTime.now();
+    DateTime firstDate = DateTime(1900); // Define the first selectable date
+    DateTime lastDate = DateTime(2100); // Define the last selectable date
+
+    // Show the date picker
+    DateTime? pickedDate = await showDatePicker(
+      context: context,
+      initialDate: initialDate,
+      firstDate: firstDate,
+      lastDate: lastDate,
+    );
+
+    if (pickedDate != null) {
+      // Extract day, month, and year separately
+      int day = pickedDate.day;
+      int month = pickedDate.month;
+      int year = pickedDate.year;
+
+      // Format and store them in your desired format
+      // selectedDate.value = '$year-${month.toString().padLeft(2, '0')}-${day.toString().padLeft(2, '0')}';
+      selectedDate.value = '${day.toString().padLeft(2, '0')}';
+      // OrderPlaceController().selectedDate.value = day.toString();
+      print("SELECTED DATE >>>>>${day.toString().padLeft(2, '0')}");
+      update();
+
+      // This will save as "YYYY-MM-DD"
+
+      // Optionally, if you need separate values
+      String formattedDay = day.toString().padLeft(2, '0');
+      String formattedMonth = month.toString().padLeft(2, '0');
+      String formattedYear = year.toString();
+
+      // You can now use formattedDay, formattedMonth, and formattedYear individually as needed
     }
   }
 }

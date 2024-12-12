@@ -27,11 +27,15 @@ class OrderPlacementScreen extends StatefulWidget {
 }
 
 class _OrderPlacementScreenState extends State<OrderPlacementScreen> {
+  final OrderPlaceController orderPlaceController = Get.put(OrderPlaceController());
   final TextEditingController _enterAmount = TextEditingController();
+
+  final TextEditingController _selectedData = TextEditingController();
   OrderPlaceController orderController = OrderPlaceController();
 
   // for radio button
   int _selectedValue = 0;
+  String _selectedDate = '';
 
   // for checkbox
   bool _isStepUpSip = false;
@@ -41,6 +45,7 @@ class _OrderPlacementScreenState extends State<OrderPlacementScreen> {
   @override
   void dispose() {
     _enterAmount.dispose();
+    _selectedData.dispose();
     super.dispose();
   }
 
@@ -271,8 +276,10 @@ class _OrderPlacementScreenState extends State<OrderPlacementScreen> {
           child: TextField(
             style: AppTextStyles.regular16(),
             controller: _enterAmount,
+            maxLength: 6,
             decoration: const InputDecoration(
               contentPadding: EdgeInsets.zero,
+              counterText: "",
               hintText: AppString.enterAmount,
               prefixIconConstraints: BoxConstraints(minWidth: 25, maxHeight: 25),
               prefixIcon: Padding(
@@ -308,6 +315,9 @@ class _OrderPlacementScreenState extends State<OrderPlacementScreen> {
                 text: "+ ${AppString.rupees}${index + 1}00",
                 onTap: () {
                   debugPrint("${index + 1}");
+                  setState(() {
+                    _enterAmount.text = "${index + 1}00";
+                  });
                 },
               );
             },
@@ -337,20 +347,42 @@ class _OrderPlacementScreenState extends State<OrderPlacementScreen> {
             AppString.sipDate,
             style: AppTextStyles.regular12(),
           ),
+          // InkWell(
+          //   onTap: () {
+          //     // if(widget.isModify==false)
+          //     _selectDate(context);
+          //   },
+          //   child: Container(
+          //     height: 43,
+          //     width: 45,
+          //     decoration: BoxDecoration(
+          //         // color: ThemeConstants.buyColor
+          //         //     .withOpacity(0.4),
+          //         borderRadius: BorderRadius.circular(5)),
+          //     child: Icon(
+          //       Icons.calendar_month_outlined,
+          //       // color: ThemeConstants.buyColor,
+          //     ),
+          //   ),
+          // ),
           Row(
             children: [
               AutoSizeText(
-                "16th ${AppString.ofEveryMonth}",
-                style: AppTextStyles.semiBold14(
-                    // color: AppColor.greyLightest,
-                    ),
+                "${_selectedDate} ${AppString.ofEveryMonth}",
+                style: AppTextStyles.semiBold14(),
               ),
               const SizedBox(
                 width: AppDimens.appSpacing5,
               ),
-              SvgPicture.asset(
-                AppImage.calenderIcon,
-                color: UtilsMethod().getColorBasedOnTheme(context),
+              GestureDetector(
+                onTap: () {
+                  // OrderPlaceController().pickDate(context);
+                  _selectDate(context);
+                },
+                child: SvgPicture.asset(
+                  AppImage.calenderIcon,
+                  color: UtilsMethod().getColorBasedOnTheme(context),
+                ),
               ),
             ],
           )
@@ -440,7 +472,6 @@ class _OrderPlacementScreenState extends State<OrderPlacementScreen> {
                           setState(() {
                             _isStepUpSip = value!;
                           });
-
                           debugPrint("  step up sip >>>>> $_isStepUpSip");
                         },
                         trailingIcon: Icons.info,
@@ -546,5 +577,20 @@ class _OrderPlacementScreenState extends State<OrderPlacementScreen> {
         ),
       ),
     );
+  }
+
+  Future<void> _selectDate(BuildContext context) async {
+    var date;
+    final DateTime? picked = await showDatePicker(
+        context: context,
+        // initialDate: date,
+        firstDate: DateTime.now(),
+        lastDate: DateTime(2101),
+        builder: (context, child) => child!);
+    if (picked != null && picked != date) {
+      setState(() {
+        _selectedDate = picked.day.toString();
+      });
+    }
   }
 }

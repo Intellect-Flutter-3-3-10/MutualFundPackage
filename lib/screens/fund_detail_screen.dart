@@ -21,7 +21,7 @@ class FundDetailScreen extends StatefulWidget {
   State<FundDetailScreen> createState() => _FundDetailScreenState();
 }
 
-class _FundDetailScreenState extends State<FundDetailScreen> with UtilsMethod {
+class _FundDetailScreenState extends State<FundDetailScreen> {
   final fundDetailController = Get.put(FundDetailController());
   bool isSaved = false;
 
@@ -72,42 +72,42 @@ class _FundDetailScreenState extends State<FundDetailScreen> with UtilsMethod {
                 horizontal: AppDimens.appHPadding,
                 vertical: AppDimens.appVPadding,
               ),
-              child: Obx(
-                () {
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      /// fund stats details
-                      Obx(() => _fundStatsView(constraints: constraint, size: size)),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  /// fund stats details
+                  Obx(() => _fundStatsView(constraints: constraint, size: size)),
 
-                      ///line chart
-                      Obx(() => _lineChart(constraint: constraint, size: size)),
+                  ///line chart
+                  Obx(
+                    () => Skeletonizer(
+                      enabled: fundDetailController.isLoading.value,
+                      child: _lineChart(constraint: constraint, size: size),
+                    ),
+                  ),
 
-                      const SizedBox(height: AppDimens.appSpacing10),
+                  const SizedBox(height: AppDimens.appSpacing10),
 
-                      /// chart view duration button
-                      _chartViewDurationButton(constraint: constraint, size: size),
+                  /// chart view duration button
+                  _chartViewDurationButton(constraint: constraint, size: size),
+                  // const SizedBox(height: AppDimens.appSpacing10),
 
-                      // const SizedBox(height: AppDimens.appSpacing10),
+                  /// schema details panel
+                  // _schemaDetailsPanel(constraint: constraint, size: size),
 
-                      /// schema details panel
-                      // _schemaDetailsPanel(constraint: constraint, size: size),
+                  // const SizedBox(height: AppDimens.appSpacing10),
 
-                      // const SizedBox(height: AppDimens.appSpacing10),
+                  /// returns calculator
+                  // _returnsCalculatorPanel(constraint: constraint, size: size),
 
-                      /// returns calculator
-                      // _returnsCalculatorPanel(constraint: constraint, size: size),
+                  // const SizedBox(height: AppDimens.appSpacing10),
 
-                      // const SizedBox(height: AppDimens.appSpacing10),
+                  /// returns and rankings
+                  // _returnsAndRankingView(constraints: constraint, size: size),
 
-                      /// returns and rankings
-                      // _returnsAndRankingView(constraints: constraint, size: size),
-
-                      const SizedBox(height: AppDimens.appSpacing10),
-                    ],
-                  );
-                },
+                  const SizedBox(height: AppDimens.appSpacing10),
+                ],
               ),
             ),
           );
@@ -267,65 +267,68 @@ class _FundDetailScreenState extends State<FundDetailScreen> with UtilsMethod {
   /// line chart
   Widget _lineChart({BoxConstraints? constraint, Size? size}) {
     bool isDark = Theme.of(context).brightness == Brightness.dark;
-    return Skeletonizer(
-      enabled: fundDetailController.isLoading.value,
-      child: SizedBox(
-        height: constraint!.maxHeight * 0.35,
-        width: constraint.maxHeight,
-        child: CustomLineChart(
-          belowBarGradientColors: isDark
-              ? [
-                  AppColor.lightAmber,
-                  AppColor.lightestAmber,
-                  AppColor.black.withOpacity(0.2),
-                  AppColor.black,
-                ]
-              : [
-                  AppColor.lightestAmber,
-                  AppColor.lightestAmber,
-                  AppColor.offWhite,
-                  AppColor.white,
-                ],
-          isCurved: true,
-          spots: FundDetailController.historicalNAVDetails.asMap().entries.map(
-            (entry) {
-              final index = entry.key;
-              final point = entry.value;
-              return FlSpot(index.toDouble(), point.nav.toPrecision(2) ?? 0);
-            },
-          ).toList(),
-        ),
+    return SizedBox(
+      height: constraint!.maxHeight * 0.35,
+      width: constraint.maxHeight,
+      child: CustomLineChart(
+        belowBarGradientColors: isDark
+            ? [
+                AppColor.lightAmber,
+                AppColor.lightestAmber,
+                AppColor.black.withOpacity(0.2),
+                AppColor.black,
+              ]
+            : [
+                AppColor.lightestAmber,
+                AppColor.lightestAmber,
+                AppColor.offWhite,
+                AppColor.white,
+              ],
+        isCurved: true,
+        spots: FundDetailController.filteredNAVDetails.asMap().entries.map(
+          (entry) {
+            final index = entry.key;
+            final point = entry.value;
+            return FlSpot(index.toDouble(), point.nav.toPrecision(2) ?? 0);
+          },
+        ).toList(),
       ),
     );
   }
 
   /// chart view duration button
   Widget _chartViewDurationButton({BoxConstraints? constraint, Size? size}) {
-    return Skeletonizer(
-      enabled: fundDetailController.isLoading.value,
-      child: CustomToggleButtons(
-        buttonLabels: const ['1D', '1W', '1M', '1Y', 'All'],
-        onToggle: (index) {
-          debugPrint('Selected Button Index: $index');
-
-          // fundDetailController.fetchFundOverviewCalInfo(
-          //   schemeCode: widget.args.schemeCode ?? '',
-          //   investmentType: "B",
-          //   investedAmount: "500",
-          // );
-        },
-
-        activeColor: AppColor.lightestAmber,
-        inactiveColor: AppColor.white,
-        activeTextColor: AppColor.greyLight,
-        inactiveTextColor: AppColor.greyLight,
-        // borderRadius: 12.0,
-        spacing: 8.0,
-        buttonHeight: constraint!.maxHeight * 0.045,
-        buttonWidth: constraint.maxHeight * 0.070,
-      ),
+    return Obx(
+      () {
+        return Skeletonizer(
+          enabled: fundDetailController.isLoading.value,
+          child: CustomToggleButtons(
+            buttonLabels: FundDetailController.chartPeriods.map((period) => period.periodName).toList(),
+            onToggle: (index) {
+              // Call the controller method to handle the toggle
+              FundDetailController().onPeriodToggle(index);
+            },
+            // Highlight the currently selected button
+            defaultSelectedIndex: FundDetailController.chartPeriods.indexWhere((period) => period.periodName == "ALL"),
+            activeColor: AppColor.lightestAmber,
+            inactiveColor: AppColor.white,
+            activeTextColor: AppColor.greyLight,
+            inactiveTextColor: AppColor.greyLight,
+            spacing: 8.0,
+            buttonHeight: constraint!.maxHeight * 0.045,
+            buttonWidth: constraint.maxHeight * 0.070,
+          ),
+        );
+      },
     );
   }
+
+  /// fundCalculationInfoData POST API
+  // fundDetailController.fetchFundOverviewCalInfo(
+  //   schemeCode: widget.args.schemeCode ?? '',
+  //   investmentType: "B",
+  //   investedAmount: "500",
+  // );
 
   /// schema details panel
   Widget _schemaDetailsPanel({BoxConstraints? constraint, Size? size}) {

@@ -188,44 +188,44 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                   ),
                 ),
                 const SizedBox(height: AppDimens.appVPadding),
+                CommonHeader(
+                  title: AppString.bestPerformingFund,
+                  labelOnTap: () {
+                    Get.toNamed(AppRoute.bestPerformingFundScreen);
+                  },
+                ),
                 Skeletonizer(
                   enabled: exploreFundController.isLoading.value,
-                  child: CommonHeader(
-                    title: AppString.bestPerformingFund,
-                    labelOnTap: () {
-                      Get.toNamed(AppRoute.bestPerformingFundScreen);
-                    },
-                  ),
-                ),
-                Obx(() {
-                  // if (exploreFundController.isLoading.value) {
-                  //   return Center(child: CircularProgressIndicator.adaptive());
-                  // }
+                  child: Obx(() {
+                    // if (exploreFundController.isLoading.value) {
+                    //   return Center(child: CircularProgressIndicator.adaptive());
+                    // }
 
-                  if (exploreFundController.errorMessage.value.isNotEmpty) {
-                    return Center(child: Text(exploreFundController.errorMessage.value));
-                  }
-                  return SizedBox(
-                    height: size.height >= AppDimens.screenLessThan5Inch ? size.height * 0.180 : size.height * 0.210,
+                    if (exploreFundController.errorMessage.value.isNotEmpty) {
+                      return Center(child: Text(exploreFundController.errorMessage.value));
+                    }
+                    return SizedBox(
+                      height: size.height >= AppDimens.screenLessThan5Inch ? size.height * 0.180 : size.height * 0.210,
 
-                    /// managed for less than 5inch
-                    width: size.width,
-                    child: ListView.separated(
-                      separatorBuilder: (context, index) => const Padding(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: AppDimens.appSpacing10,
+                      /// managed for less than 5inch
+                      width: size.width,
+                      child: ListView.separated(
+                        separatorBuilder: (context, index) => const Padding(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: AppDimens.appSpacing10,
+                          ),
                         ),
+                        shrinkWrap: true,
+                        itemCount: exploreFundController.exploreFundList.length,
+                        scrollDirection: Axis.horizontal,
+                        physics: const ScrollPhysics(),
+                        itemBuilder: (context, index) {
+                          return _bestPerformingFund(size, index);
+                        },
                       ),
-                      shrinkWrap: true,
-                      itemCount: exploreFundController.exploreFundList.length,
-                      scrollDirection: Axis.horizontal,
-                      physics: const ScrollPhysics(),
-                      itemBuilder: (context, index) {
-                        return _bestPerformingFund(size, index);
-                      },
-                    ),
-                  );
-                }),
+                    );
+                  }),
+                ),
                 const SizedBox(height: AppDimens.appVPadding),
                 Skeletonizer(
                   enabled: exploreFundController.isLoading.value,
@@ -298,7 +298,9 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
     var item = exploreFundController.exploreFundList[index];
     return GestureDetector(
       onTap: () {
-        Get.toNamed(AppRoute.fundDetailScreen, arguments: FundDetailScreenArgs(item.schemeCode.toString()));
+        setState(() {
+          Get.toNamed(AppRoute.fundDetailScreen, arguments: FundDetailScreenArgs(item.schemeCode.toString()));
+        });
       },
       child: Container(
         width: size.width * 0.90,
@@ -407,7 +409,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
     // Size size = MediaQuery.of(context).size;
     return GestureDetector(
       onTap: () {
-        Get.toNamed(AppRoute.fundDetailScreen);
+        Get.toNamed(AppRoute.fundDetailScreen, arguments: FundDetailScreenArgs("item.schemeCode.toString()"));
       },
       child: Container(
         width: size.width * 0.92,
@@ -517,7 +519,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
     // Size size = MediaQuery.of(context).size;
     return GestureDetector(
       onTap: () {
-        Get.toNamed(AppRoute.fundDetailScreen);
+        Get.toNamed(AppRoute.fundDetailScreen, arguments: FundDetailScreenArgs("item.schemeCode.toString()"));
       },
       child: Container(
         width: size.width * 0.90,

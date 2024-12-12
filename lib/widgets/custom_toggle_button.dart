@@ -16,6 +16,7 @@ class CustomToggleButtons extends StatefulWidget {
   final TextStyle? textStyle;
   final bool isOutlined;
   final bool isFittedBox;
+  final int? defaultSelectedIndex; // Add this parameter
 
   const CustomToggleButtons({
     Key? key,
@@ -32,6 +33,7 @@ class CustomToggleButtons extends StatefulWidget {
     this.textStyle,
     this.isOutlined = false,
     this.isFittedBox = false,
+    this.defaultSelectedIndex, // Optional default selected index
   }) : super(key: key);
 
   @override
@@ -39,7 +41,14 @@ class CustomToggleButtons extends StatefulWidget {
 }
 
 class _CustomToggleButtonsState extends State<CustomToggleButtons> {
-  int _selectedIndex = 0;
+  late int _selectedIndex;
+
+  @override
+  void initState() {
+    super.initState();
+    // Initialize the selected index with the default value or 0
+    _selectedIndex = widget.defaultSelectedIndex ?? 0;
+  }
 
   void _onButtonTap(int index) {
     setState(() {
@@ -67,13 +76,14 @@ class _CustomToggleButtonsState extends State<CustomToggleButtons> {
                     height: widget.buttonHeight,
                     width: widget.buttonWidth,
                     decoration: BoxDecoration(
-                        color: widget.isOutlined
-                            ? Colors.transparent
-                            : isSelected
-                                ? widget.activeColor
-                                : widget.inactiveColor,
-                        borderRadius: BorderRadius.circular(widget.borderRadius),
-                        border: Border.all(color: isSelected ? widget.activeColor : widget.inactiveColor)),
+                      color: widget.isOutlined
+                          ? Colors.transparent
+                          : isSelected
+                              ? widget.activeColor
+                              : widget.inactiveColor,
+                      borderRadius: BorderRadius.circular(widget.borderRadius),
+                      border: Border.all(color: isSelected ? widget.activeColor : widget.inactiveColor),
+                    ),
                     alignment: Alignment.center,
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
@@ -95,45 +105,50 @@ class _CustomToggleButtonsState extends State<CustomToggleButtons> {
               }),
             ),
           )
-        : Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: List.generate(widget.buttonLabels.length, (index) {
-              final isSelected = _selectedIndex == index;
-              return GestureDetector(
-                onTap: () => _onButtonTap(index),
-                child: Container(
-                  margin: EdgeInsets.symmetric(
-                    horizontal: widget.spacing / 1,
-                  ),
-                  height: widget.buttonHeight,
-                  width: widget.buttonWidth,
-                  decoration: BoxDecoration(
+        : SingleChildScrollView(
+            physics: const ScrollPhysics(),
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: List.generate(widget.buttonLabels.length, (index) {
+                final isSelected = _selectedIndex == index;
+                return GestureDetector(
+                  onTap: () => _onButtonTap(index),
+                  child: Container(
+                    margin: EdgeInsets.symmetric(
+                      horizontal: widget.spacing / 1,
+                    ),
+                    height: widget.buttonHeight,
+                    width: widget.buttonWidth,
+                    decoration: BoxDecoration(
                       color: widget.isOutlined
                           ? Colors.transparent
                           : isSelected
                               ? widget.activeColor
                               : widget.inactiveColor,
                       borderRadius: BorderRadius.circular(widget.borderRadius),
-                      border: Border.all(color: isSelected ? widget.activeColor : widget.inactiveColor)),
-                  alignment: Alignment.center,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: AppDimens.appSpacing5,
+                      border: Border.all(color: isSelected ? widget.activeColor : widget.inactiveColor),
                     ),
-                    child: AutoSizeText(
-                      widget.buttonLabels[index],
-                      maxLines: 1,
-                      style: widget.textStyle?.copyWith(
-                            color: isSelected ? widget.activeTextColor : widget.inactiveTextColor,
-                          ) ??
-                          AppTextStyles.regular16(
-                            color: isSelected ? widget.activeTextColor : widget.inactiveTextColor,
-                          ),
+                    alignment: Alignment.center,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: AppDimens.appSpacing5,
+                      ),
+                      child: AutoSizeText(
+                        widget.buttonLabels[index],
+                        maxLines: 1,
+                        style: widget.textStyle?.copyWith(
+                              color: isSelected ? widget.activeTextColor : widget.inactiveTextColor,
+                            ) ??
+                            AppTextStyles.regular16(
+                              color: isSelected ? widget.activeTextColor : widget.inactiveTextColor,
+                            ),
+                      ),
                     ),
                   ),
-                ),
-              );
-            }),
+                );
+              }),
+            ),
           );
   }
 }

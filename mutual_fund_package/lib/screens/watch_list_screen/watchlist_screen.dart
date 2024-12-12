@@ -78,7 +78,7 @@ class _WatchListScreenState extends State<WatchListScreen> with SingleTickerProv
   Widget _fundsCard({Size? size, int? index}) {
     return GestureDetector(
       onTap: () {
-        Get.toNamed(AppRoute.fundDetailScreen);
+        Get.toNamed(AppRoute.fundDetailScreen, arguments: FundDetailScreenArgs("item.schemeCode.toString()"));
       },
       child: Container(
         width: size!.width * 0.90,

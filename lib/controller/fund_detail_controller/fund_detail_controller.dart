@@ -11,6 +11,8 @@ class FundDetailController extends GetxController {
 
   static RxList<HistoricalNavDetail> historicalNAVDetails = <HistoricalNavDetail>[].obs;
 
+  static RxList<HistoricalNavDetail> filteredNAVDetails = <HistoricalNavDetail>[].obs;
+
   static RxList<ChartPeriod> chartPeriods = <ChartPeriod>[].obs;
 
   var fundOverviewCalInfoData = FundOverviewCalInfoModel().obs;
@@ -20,10 +22,26 @@ class FundDetailController extends GetxController {
   RxString errorMessage = ''.obs;
   RxString errorMessageCalInfo = ''.obs;
 
+  // The current selected period ID (default is "ALL")
+  var selectedPeriodId = "ALL".obs;
+  var selectedIndex = 0.obs;
+
   @override
   void onInit() {
-    // TODO: implement onInit
     super.onInit();
+
+    // Initial filtering with "ALL"
+    filterChartData("ALL");
+
+    // Automatically filter whenever historicalNAVDetails changes
+    ever(historicalNAVDetails, (_) {
+      filterChartData(selectedPeriodId.value);
+    });
+
+    // Automatically filter whenever the selected period changes
+    ever(selectedPeriodId, (newPeriodId) {
+      filterChartData(newPeriodId);
+    });
   }
 
   Future<void> fetchMutualFundOverview({required String schemeCode}) async {
@@ -111,5 +129,67 @@ class FundDetailController extends GetxController {
     } finally {
       isCalInfoLoading.value = false;
     }
+  }
+
+  // Filter chart data based on the selected period
+  void filterChartData(String periodId) {
+    debugPrint("Filtering data for period: $periodId");
+
+    if (periodId == "ALL") {
+      // Show all data
+      filteredNAVDetails.value = List.from(historicalNAVDetails);
+      debugPrint("Filtered Data (ALL): ${filteredNAVDetails.length}");
+      return;
+    }
+
+    // Get the current date
+    DateTime now = DateTime.now();
+
+    // Calculate the cutoff date
+    DateTime cutoffDate;
+    switch (periodId) {
+      case "1M":
+        cutoffDate = now.subtract(const Duration(days: 30));
+        break;
+      case "6M":
+        cutoffDate = now.subtract(const Duration(days: 182)); // Approx 6 months
+        break;
+      case "1Y":
+        cutoffDate = now.subtract(const Duration(days: 365));
+        break;
+      case "3Y":
+        cutoffDate = now.subtract(const Duration(days: 1095)); // Approx 3 years
+        break;
+      case "5Y":
+        cutoffDate = now.subtract(const Duration(days: 1825)); // Approx 5 years
+        break;
+      default:
+        filteredNAVDetails.value = List.from(historicalNAVDetails);
+        debugPrint("Filtered Data (Default): ${filteredNAVDetails.length}");
+        return;
+    }
+
+    // Filter the historicalNAVDetails list
+    filteredNAVDetails.value = historicalNAVDetails.where((detail) => DateTime.parse(detail.navDate.toString()).isAfter(cutoffDate)).toList();
+
+    // Debug log for filtered data
+    debugPrint("Filtered Data (${periodId}): ${filteredNAVDetails.length}");
+  }
+
+  // Call this when toggling between periods
+  void selectPeriod(String periodId) {
+    selectedPeriodId.value = periodId;
+  }
+
+  void onPeriodToggle(int index) {
+    // Update the selected index
+    selectedIndex.value = index;
+
+    // Get the corresponding period ID and filter data
+    final periodId = chartPeriods[index].periodName;
+    filterChartData(periodId);
+
+    debugPrint('Selected Period: $periodId');
+    debugPrint('Filtered Data: ${filteredNAVDetails.length}');
   }
 }

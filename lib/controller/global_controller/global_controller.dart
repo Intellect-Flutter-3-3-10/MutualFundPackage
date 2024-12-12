@@ -10,6 +10,7 @@ class GlobalController extends GetxController {
   String postSipOrders = ''; // POST Sip Orders
 
   String getFundOverview = ''; // post method // fund details
+
   String getFundOverViewCalcInfo = ''; // post method // calculation details
   // User data
   int? clientCode; // Client Code
@@ -35,11 +36,11 @@ class GlobalController extends GetxController {
     required String fundOverview,
     required String fundOverviewCalInfo,
   }) {
+    // developer = dev;
     baseUrl = baseurl;
     getExploreFunds = exploreFund;
     postOrders = postOrder;
     postSipOrders = postSipOrder;
-    // developer = dev;
     getActiveOrders = activeOrders;
     getFundOverview = fundOverview;
     getFundOverViewCalcInfo = fundOverviewCalInfo;
@@ -63,6 +64,7 @@ class GlobalController extends GetxController {
   void checkDetails() {
     print('M-PIN $mPin >>>>>>>');
     print('USER NAME $userName >>>>>>>');
+    print('CLIENT CODE $clientCode >>>>>>>');
     print('BASE URL $baseUrl >>>>>>>');
     print('POST SIP ORDER $postSipOrders >>>>>>>');
     print('POST LUMPSUM ORDER $postOrders >>>>>>>');

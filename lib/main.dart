@@ -7,7 +7,7 @@ void main() {
   runApp(
     MutualFund(
       themeMode: ThemeMode.system,
-      theme: ThemeData(useMaterial3: false),
+      // theme: ThemeData(useMaterial3: false),
       postSipOrderEndPoint: '$mutualFundBaseUrl/SipOrders',
       postOrdersEndPoint: '$mutualFundBaseUrl/Orders',
       getExploreFundsEndPoint: '$mutualFundBaseUrl/ExploreFunds',
