@@ -22,7 +22,7 @@ import 'package:intellect_mutual_fund/my_app_exports.dart';
 //   );
 // }
 
-class MutualFund extends StatelessWidget {
+class MutualFund extends StatefulWidget {
   final ThemeData? theme;
   final ThemeData? darkTheme;
   final ThemeMode? themeMode;
@@ -62,23 +62,29 @@ class MutualFund extends StatelessWidget {
   });
 
   @override
+  State<MutualFund> createState() => _MutualFundState();
+}
+
+class _MutualFundState extends State<MutualFund> {
+  @override
   Widget build(BuildContext context) {
+    final GlobalKey<ScaffoldMessengerState> scaffoldKey = GlobalKey<ScaffoldMessengerState>();
     final GlobalController globalController = Get.put(GlobalController());
 
     globalController.setApiEndpoints(
-      baseurl: basUrlEndPoint,
-      exploreFund: getExploreFundsEndPoint,
-      postOrder: postOrdersEndPoint,
-      postSipOrder: postSipOrderEndPoint,
-      activeOrders: getActiveOrdersEndPoint,
-      fundOverview: getFundOverViewEndPoint,
-      fundOverviewCalInfo: getFundOverViewCalInfoEndPoint,
+      baseurl: widget.basUrlEndPoint,
+      exploreFund: widget.getExploreFundsEndPoint,
+      postOrder: widget.postOrdersEndPoint,
+      postSipOrder: widget.postSipOrderEndPoint,
+      activeOrders: widget.getActiveOrdersEndPoint,
+      fundOverview: widget.getFundOverViewEndPoint,
+      fundOverviewCalInfo: widget.getFundOverViewCalInfoEndPoint,
     );
 
     globalController.setUserData(
-      clientcode: clientCode,
-      mpin: mPin,
-      userName: userName,
+      clientcode: widget.clientCode,
+      mpin: widget.mPin,
+      userName: widget.userName,
     );
 
     globalController.checkDetails();
@@ -87,10 +93,12 @@ class MutualFund extends StatelessWidget {
       title: 'Mutual Funds App',
       getPages: AppRoute.getPages(),
       debugShowCheckedModeBanner: false,
-      theme: theme ?? AppTheme.lightTheme,
-      darkTheme: darkTheme ?? AppTheme.darkTheme,
-      themeMode: themeMode ?? AppTheme.systemThemeMode,
-      home: const DashBoardScreen(),
+      theme: widget.theme ?? AppTheme.lightTheme,
+      darkTheme: widget.darkTheme ?? AppTheme.darkTheme,
+      themeMode: widget.themeMode ?? AppTheme.systemThemeMode,
+      home: DashBoardScreen(
+        key: scaffoldKey,
+      ),
     );
   }
 }

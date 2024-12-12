@@ -37,6 +37,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
     bool isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
+      key: widget.key,
       body: _pages.elementAt(_selectedIndex),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
