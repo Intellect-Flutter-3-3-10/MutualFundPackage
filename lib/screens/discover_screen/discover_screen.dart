@@ -80,7 +80,8 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
         action: [
           IconButton(
             onPressed: () {
-              Get.toNamed(AppRoute.searchScreen);
+              // Get.toNamed(AppRoute.searchScreen);
+              UtilsMethod().navigateTo(context, AppRoute.searchScreen);
             },
             icon: Icon(
               Icons.search,
@@ -147,7 +148,8 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                   child: CommonHeader(
                     title: AppString.quickActions,
                     labelOnTap: () {
-                      Get.toNamed(AppRoute.quickActionScreen, arguments: QuickActionScreenArgs(tabIndex: 0));
+                      // Get.toNamed(AppRoute.quickActionScreen, arguments: QuickActionScreenArgs(tabIndex: 0));
+                      UtilsMethod().navigateTo(context, AppRoute.quickActionScreen, args: QuickActionScreenArgs(tabIndex: 0));
                     },
                   ),
                 ),
@@ -173,10 +175,12 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                           child: QuickActionCard(
                             // bgColor: UtilsMethod().getColorBasedOnTheme(context),
                             onTap: () {
-                              Get.toNamed(
-                                AppRoute.quickActionScreen,
-                                arguments: QuickActionScreenArgs(tabIndex: index, indexName: ''),
-                              );
+                              // Get.toNamed(
+                              //   AppRoute.quickActionScreen,
+                              //   arguments: QuickActionScreenArgs(tabIndex: index, indexName: ''),
+                              // );
+                              UtilsMethod()
+                                  .navigateTo(context, AppRoute.quickActionScreen, args: QuickActionScreenArgs(tabIndex: index, indexName: ''));
                             },
 
                             image: quickAction[index],
@@ -191,7 +195,8 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                 CommonHeader(
                   title: AppString.bestPerformingFund,
                   labelOnTap: () {
-                    Get.toNamed(AppRoute.bestPerformingFundScreen);
+                    // Get.toNamed(AppRoute.bestPerformingFundScreen);
+                    UtilsMethod().navigateTo(context, AppRoute.bestPerformingFundScreen);
                   },
                 ),
                 Skeletonizer(
@@ -232,7 +237,8 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                   child: CommonHeader(
                     title: AppString.fundByUs,
                     labelOnTap: () {
-                      Get.toNamed(AppRoute.fundByUsScreen);
+                      // Get.toNamed(AppRoute.fundByUsScreen);
+                      UtilsMethod().navigateTo(context, AppRoute.fundByUsScreen);
                     },
                   ),
                 ),
@@ -261,7 +267,8 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                   child: CommonHeader(
                     title: AppString.latestFundRelease,
                     labelOnTap: () {
-                      Get.toNamed(AppRoute.latestFundRelease);
+                      // Get.toNamed(AppRoute.latestFundRelease);
+                      UtilsMethod().navigateTo(context, AppRoute.latestFundRelease);
                     },
                   ),
                 ),
@@ -298,7 +305,8 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
     var item = exploreFundController.exploreFundList[index];
     return GestureDetector(
       onTap: () {
-        Get.toNamed(AppRoute.fundDetailScreen, arguments: FundDetailScreenArgs(item.schemeCode.toString()));
+        // Get.toNamed(AppRoute.fundDetailScreen, arguments: FundDetailScreenArgs(item.schemeCode.toString()));
+        UtilsMethod().navigateTo(context, AppRoute.fundDetailScreen, args: FundDetailScreenArgs(item.schemeCode.toString()));
       },
       child: Container(
         width: size.width * 0.90,
@@ -407,7 +415,8 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
     // Size size = MediaQuery.of(context).size;
     return GestureDetector(
       onTap: () {
-        Get.toNamed(AppRoute.fundDetailScreen, arguments: FundDetailScreenArgs("item.schemeCode.toString()"));
+        // Get.toNamed(AppRoute.fundDetailScreen, arguments: FundDetailScreenArgs("item.schemeCode.toString()"));
+        UtilsMethod().navigateTo(context, AppRoute.fundDetailScreen, args: FundDetailScreenArgs("schemeCode"));
       },
       child: Container(
         width: size.width * 0.92,
@@ -434,15 +443,6 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                         ),
                         borderRadius: BorderRadius.circular(AppDimens.appRadius6)),
                   ),
-                  //                     ClipRRect(
-                  //                     borderRadius: BorderRadius.circular(AppDimens.appRadius6),
-                  //                     child: CachedNetworkImage(
-                  //                     imageUrl: item.amcIcon ?? '',
-                  //                     fit: BoxFit.cover,
-                  //                     height: size.height * 0.080,
-                  //                     width: size.width * 0.15,
-                  //                   ),
-                  //                 ),
                   const SizedBox(
                     width: AppDimens.appSpacing10,
                   ),
@@ -517,7 +517,8 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
     // Size size = MediaQuery.of(context).size;
     return GestureDetector(
       onTap: () {
-        Get.toNamed(AppRoute.fundDetailScreen, arguments: FundDetailScreenArgs("item.schemeCode.toString()"));
+        // Get.toNamed(AppRoute.fundDetailScreen, arguments: FundDetailScreenArgs("item.schemeCode.toString()"));
+        UtilsMethod().navigateTo(context, AppRoute.fundDetailScreen, args: FundDetailScreenArgs('schemeCode'));
       },
       child: Container(
         width: size.width * 0.90,

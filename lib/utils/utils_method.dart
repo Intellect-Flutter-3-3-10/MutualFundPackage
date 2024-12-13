@@ -7,6 +7,18 @@ import '../my_app_exports.dart';
 class UtilsMethod {
   // UtilsMethod._();
 
+  Future navigateTo(BuildContext context, String destination, {Object? args}) {
+    return Navigator.pushNamed(context, destination, arguments: args);
+  }
+
+  Future<R?> navigateToWithReturnData<R>(BuildContext context, String destination, {Object? args}) {
+    return Navigator.pushNamed<R>(context, destination, arguments: args);
+  }
+
+  Future replaceWith(BuildContext context, String destination, {dynamic args}) {
+    return Navigator.pushReplacementNamed(context, destination, arguments: args);
+  }
+
   // change color according to theme
   Color getColorBasedOnTheme(BuildContext context) {
     return Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black;

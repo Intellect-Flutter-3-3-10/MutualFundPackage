@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intellect_mutual_fund/my_app_exports.dart';
+// import 'package:intellect_mutual_fund/routes/routes.dart' as route;
 
 // void main() {
 //   var mutualFundBaseUrl = 'https://trade.aionioncapital.com/test/MutulFunds/api/v1';
@@ -94,29 +95,12 @@ class _MutualFundState extends State<MutualFund> {
 
     globalController.checkDetails();
 
-    return GetMaterialApp(
-      key: widget.scaffoldKey,
-      navigatorKey: widget.navigatorKey,
-      title: 'Mutual Funds App',
-      getPages: AppRoute.getPages(),
-      debugShowCheckedModeBanner: false,
-      theme: widget.theme ?? AppTheme.lightTheme,
-      darkTheme: widget.darkTheme ?? AppTheme.darkTheme,
-      themeMode: widget.themeMode ?? AppTheme.systemThemeMode,
-      home: DashBoardScreen(
-          // themeMode: ThemeMode.system,
-          // theme: ThemeData(useMaterial3: false),
-          // postSipOrderEndPoint: '$mutualFundBaseUrl/SipOrders',
-          // postOrdersEndPoint: '$mutualFundBaseUrl/Orders',
-          // getExploreFundsEndPoint: '$mutualFundBaseUrl/ExploreFunds',
-          // basUrlEndPoint: mutualFundBaseUrl,
-          // getActiveOrdersEndPoint: '$mutualFundBaseUrl/Orders',
-          // getFundOverViewEndPoint: '$mutualFundBaseUrl/GetFundOverview',
-          // getFundOverViewCalInfoEndPoint: '$mutualFundBaseUrl/GetFundOverViewCalcInfo',
-          // mPin: 111111,
-          // userName: 'Sundar',
-          // clientCode: 123456,
-          ),
-    );
+    return DashBoardScreen();
+  }
+
+  @override
+  void dispose() {
+    Get.delete<GlobalController>();
+    super.dispose();
   }
 }
