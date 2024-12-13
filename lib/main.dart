@@ -101,7 +101,11 @@ class _MutualFundState extends State<MutualFund> {
 
     globalController.checkDetails();
 
-    return DashBoardScreen();
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      onGenerateRoute: route.AppRoute.controller,
+      home: DashBoardScreen(),
+    );
   }
 
   @override
