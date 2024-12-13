@@ -43,7 +43,7 @@ class MutualFund extends StatefulWidget {
   final String getFundOverViewEndPoint;
   final String getFundOverViewCalInfoEndPoint;
 
-  final GlobalKey<NavigatorState>? navigatorKey;
+  // final GlobalKey<NavigatorState>? navigatorKey;
 
   // final UserData userData;
 
@@ -55,7 +55,7 @@ class MutualFund extends StatefulWidget {
 
   MutualFund({
     required this.scaffoldKey,
-    required this.navigatorKey,
+    // required this.navigatorKey,
     this.theme,
     this.darkTheme,
     this.themeMode,
