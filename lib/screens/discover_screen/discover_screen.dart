@@ -148,7 +148,6 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                   child: CommonHeader(
                     title: AppString.quickActions,
                     labelOnTap: () {
-                      // Get.toNamed(AppRoute.quickActionScreen, arguments: QuickActionScreenArgs(tabIndex: 0));
                       UtilsMethod().navigateTo(context, AppRoute.quickActionScreen, args: QuickActionScreenArgs(tabIndex: 0));
                     },
                   ),
@@ -175,10 +174,6 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                           child: QuickActionCard(
                             // bgColor: UtilsMethod().getColorBasedOnTheme(context),
                             onTap: () {
-                              // Get.toNamed(
-                              //   AppRoute.quickActionScreen,
-                              //   arguments: QuickActionScreenArgs(tabIndex: index, indexName: ''),
-                              // );
                               UtilsMethod()
                                   .navigateTo(context, AppRoute.quickActionScreen, args: QuickActionScreenArgs(tabIndex: index, indexName: ''));
                             },
@@ -237,7 +232,6 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                   child: CommonHeader(
                     title: AppString.fundByUs,
                     labelOnTap: () {
-                      // Get.toNamed(AppRoute.fundByUsScreen);
                       UtilsMethod().navigateTo(context, AppRoute.fundByUsScreen);
                     },
                   ),
@@ -267,7 +261,6 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                   child: CommonHeader(
                     title: AppString.latestFundRelease,
                     labelOnTap: () {
-                      // Get.toNamed(AppRoute.latestFundRelease);
                       UtilsMethod().navigateTo(context, AppRoute.latestFundRelease);
                     },
                   ),
@@ -305,7 +298,6 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
     var item = exploreFundController.exploreFundList[index];
     return GestureDetector(
       onTap: () {
-        // Get.toNamed(AppRoute.fundDetailScreen, arguments: FundDetailScreenArgs(item.schemeCode.toString()));
         UtilsMethod().navigateTo(context, AppRoute.fundDetailScreen, args: FundDetailScreenArgs(item.schemeCode.toString()));
       },
       child: Container(
@@ -415,7 +407,6 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
     // Size size = MediaQuery.of(context).size;
     return GestureDetector(
       onTap: () {
-        // Get.toNamed(AppRoute.fundDetailScreen, arguments: FundDetailScreenArgs("item.schemeCode.toString()"));
         UtilsMethod().navigateTo(context, AppRoute.fundDetailScreen, args: FundDetailScreenArgs("schemeCode"));
       },
       child: Container(
@@ -517,7 +508,6 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
     // Size size = MediaQuery.of(context).size;
     return GestureDetector(
       onTap: () {
-        // Get.toNamed(AppRoute.fundDetailScreen, arguments: FundDetailScreenArgs("item.schemeCode.toString()"));
         UtilsMethod().navigateTo(context, AppRoute.fundDetailScreen, args: FundDetailScreenArgs('schemeCode'));
       },
       child: Container(
