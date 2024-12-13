@@ -65,8 +65,8 @@ class _QuickActionScreenState extends State<QuickActionScreen> with SingleTicker
 
   @override
   Widget build(BuildContext context) {
-    var args = Get.arguments as QuickActionScreenArgs;
-    debugPrint("initial tab index >>>>> ${args.tabIndex} ");
+    // var args = Get.arguments as QuickActionScreenArgs;
+    debugPrint("initial tab index >>>>> ${widget.args.tabIndex} ");
 
     return Scaffold(
       appBar: CommonAppBar(
@@ -92,7 +92,6 @@ class _QuickActionScreenState extends State<QuickActionScreen> with SingleTicker
             isScrollable: true,
             physics: const ScrollPhysics(),
             indicatorColor: UtilsMethod().getColorBasedOnTheme(context),
-
             tabs: _tabs,
             controller: _tabController,
             onTap: (value) {

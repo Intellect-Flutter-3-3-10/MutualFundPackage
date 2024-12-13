@@ -3,30 +3,32 @@ import 'package:get/get.dart';
 import 'package:intellect_mutual_fund/my_app_exports.dart';
 import 'package:intellect_mutual_fund/routes/routes.dart' as route;
 
-// void main() {
-//   var mutualFundBaseUrl = 'https://trade.aionioncapital.com/test/MutulFunds/api/v1';
-//   runApp(
-//     MaterialApp(
-//       // routes: route.AppRoute.controller,
-//       onGenerateRoute: route.AppRoute.controller,
-//       home: MutualFund(
-//         themeMode: ThemeMode.system,
-//         // theme: ThemeData(useMaterial3: false),
-//         postSipOrderEndPoint: '$mutualFundBaseUrl/SipOrders',
-//         postOrdersEndPoint: '$mutualFundBaseUrl/Orders',
-//         getExploreFundsEndPoint: '$mutualFundBaseUrl/ExploreFunds',
-//         basUrlEndPoint: mutualFundBaseUrl,
-//         getActiveOrdersEndPoint: '$mutualFundBaseUrl/Orders',
-//         getFundOverViewEndPoint: '$mutualFundBaseUrl/GetFundOverview',
-//         getFundOverViewCalInfoEndPoint: '$mutualFundBaseUrl/GetFundOverViewCalcInfo',
-//         mPin: 111111,
-//         userName: 'Sundar',
-//         clientCode: 123456,
-//         // scaffoldKey: null,
-//       ),
-//     ),
-//   );
-// }
+void main() {
+  var mutualFundBaseUrl = 'https://trade.aionioncapital.com/test/MutulFunds/api/v1';
+  runApp(
+    MaterialApp(
+      // routes: route.AppRoute.controller,
+      debugShowCheckedModeBanner: false,
+      onGenerateRoute: route.AppRoute.controller,
+      home: MutualFund(
+        themeMode: ThemeMode.system,
+        // theme: ThemeData(useMaterial3: false),
+        postSipOrderEndPoint: '$mutualFundBaseUrl/SipOrders',
+        postOrdersEndPoint: '$mutualFundBaseUrl/Orders',
+        getExploreFundsEndPoint: '$mutualFundBaseUrl/ExploreFunds',
+        basUrlEndPoint: mutualFundBaseUrl,
+        getActiveOrdersEndPoint: '$mutualFundBaseUrl/Orders',
+        getFundOverViewEndPoint: '$mutualFundBaseUrl/GetFundOverview',
+        getFundOverViewCalInfoEndPoint: '$mutualFundBaseUrl/GetFundOverViewCalcInfo',
+        mPin: 111111,
+        userName: 'Sundar',
+        clientCode: 123456,
+        // scaffoldKey: scaffoldKey,
+        // scaffoldKey: null,
+      ),
+    ),
+  );
+}
 
 class MutualFund extends StatefulWidget {
   final ThemeData? theme;
@@ -43,7 +45,7 @@ class MutualFund extends StatefulWidget {
   final String getFundOverViewEndPoint;
   final String getFundOverViewCalInfoEndPoint;
 
-  // final GlobalKey<NavigatorState>? navigatorKey;
+  final GlobalKey<NavigatorState>? navigatorKey;
 
   // final UserData userData;
 
@@ -51,10 +53,10 @@ class MutualFund extends StatefulWidget {
   final int mPin;
   final String userName;
 
-  final GlobalKey<ScaffoldMessengerState> scaffoldKey;
+  final GlobalKey<ScaffoldMessengerState>? scaffoldKey;
 
   MutualFund({
-    required this.scaffoldKey,
+    this.scaffoldKey,
     // required this.navigatorKey,
     this.theme,
     this.darkTheme,
@@ -71,6 +73,7 @@ class MutualFund extends StatefulWidget {
     required this.postSipOrderEndPoint,
     required this.getFundOverViewEndPoint,
     required this.getFundOverViewCalInfoEndPoint,
+    this.navigatorKey,
   });
 
   @override
