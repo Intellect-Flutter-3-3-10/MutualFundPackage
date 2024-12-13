@@ -10,7 +10,6 @@ class OrdersScreen extends StatefulWidget {
 }
 
 class _OrdersScreenState extends State<OrdersScreen> with SingleTickerProviderStateMixin {
-
   TabController? _tabController;
 
   @override
@@ -31,6 +30,7 @@ class _OrdersScreenState extends State<OrdersScreen> with SingleTickerProviderSt
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CommonAppBar(
+        isBackButton: true,
         action: [
           IconButton(
             onPressed: () {

@@ -20,8 +20,7 @@ class DashBoardScreen extends StatefulWidget {
   // final int mPin;
   // final String userName;
 
-  const DashBoardScreen(
-      // required this.clientCode,
+  const DashBoardScreen(// required this.clientCode,
       // required this.userName,
       // required this.mPin,
       // required this.basUrlEndPoint,

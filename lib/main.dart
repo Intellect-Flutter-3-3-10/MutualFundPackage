@@ -3,32 +3,32 @@ import 'package:get/get.dart';
 import 'package:intellect_mutual_fund/my_app_exports.dart';
 import 'package:intellect_mutual_fund/routes/routes.dart' as route;
 
-// void main() {
-//   var mutualFundBaseUrl = 'https://trade.aionioncapital.com/test/MutulFunds/api/v1';
-//   runApp(
-//     MaterialApp(
-//       // routes: route.AppRoute.controller,
-//       debugShowCheckedModeBanner: false,
-//       onGenerateRoute: route.AppRoute.controller,
-//       home: MutualFund(
-//         themeMode: ThemeMode.system,
-//         // theme: ThemeData(useMaterial3: false),
-//         postSipOrderEndPoint: '$mutualFundBaseUrl/SipOrders',
-//         postOrdersEndPoint: '$mutualFundBaseUrl/Orders',
-//         getExploreFundsEndPoint: '$mutualFundBaseUrl/ExploreFunds',
-//         basUrlEndPoint: mutualFundBaseUrl,
-//         getActiveOrdersEndPoint: '$mutualFundBaseUrl/Orders',
-//         getFundOverViewEndPoint: '$mutualFundBaseUrl/GetFundOverview',
-//         getFundOverViewCalInfoEndPoint: '$mutualFundBaseUrl/GetFundOverViewCalcInfo',
-//         mPin: 111111,
-//         userName: 'Sundar',
-//         clientCode: 123456,
-//         // scaffoldKey: scaffoldKey,
-//         // scaffoldKey: null,
-//       ),
-//     ),
-//   );
-// }
+void main() {
+  var mutualFundBaseUrl = 'https://trade.aionioncapital.com/test/MutulFunds/api/v1';
+  runApp(
+    MaterialApp(
+      // routes: route.AppRoute.controller,
+      debugShowCheckedModeBanner: false,
+      onGenerateRoute: route.AppRoute.controller,
+      home: MutualFund(
+        themeMode: ThemeMode.system,
+        // theme: ThemeData(useMaterial3: false),
+        postSipOrderEndPoint: '$mutualFundBaseUrl/SipOrders',
+        postOrdersEndPoint: '$mutualFundBaseUrl/Orders',
+        getExploreFundsEndPoint: '$mutualFundBaseUrl/ExploreFunds',
+        basUrlEndPoint: mutualFundBaseUrl,
+        getActiveOrdersEndPoint: '$mutualFundBaseUrl/Orders',
+        getFundOverViewEndPoint: '$mutualFundBaseUrl/GetFundOverview',
+        getFundOverViewCalInfoEndPoint: '$mutualFundBaseUrl/GetFundOverViewCalcInfo',
+        mPin: 111111,
+        userName: 'Sundar',
+        clientCode: 123456,
+        // scaffoldKey: scaffoldKey,
+        // scaffoldKey: null,
+      ),
+    ),
+  );
+}
 
 class MutualFund extends StatefulWidget {
   final ThemeData? theme;

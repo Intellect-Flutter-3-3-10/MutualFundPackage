@@ -77,6 +77,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
     return Scaffold(
       appBar: CommonAppBar(
         title: AppString.discover,
+        isBackButton: true,
         action: [
           IconButton(
             onPressed: () {

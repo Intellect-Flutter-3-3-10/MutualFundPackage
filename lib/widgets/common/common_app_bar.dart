@@ -7,6 +7,8 @@ import '../../res/res.dart';
 class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String? title;
   final Function()? leadingAction;
+  final bool automaticallyImplyLeading;
+  final bool isBackButton;
 
   final List<Widget>? action;
 
@@ -15,13 +17,23 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.title = AppString.mutualFunds,
     this.leadingAction,
     this.action,
+    this.automaticallyImplyLeading = true,
+    this.isBackButton = false,
   });
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      automaticallyImplyLeading: automaticallyImplyLeading,
+      leading: isBackButton
+          ? GestureDetector(
+              onTap: () {
+                Navigator.pop(context);
+              },
+              child: Icon(Icons.arrow_back_ios),
+            )
+          : SizedBox.shrink(),
       elevation: 0,
-
       title: AutoSizeText(
         title!,
         style: AppTextStyles.regular20(),

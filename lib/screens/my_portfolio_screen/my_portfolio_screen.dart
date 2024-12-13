@@ -31,6 +31,7 @@ class _MyPortFolioScreenState extends State<MyPortFolioScreen> with SingleTicker
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: CommonAppBar(
+        isBackButton: true,
         title: AppString.myPortfolio,
         action: [
           IconButton(

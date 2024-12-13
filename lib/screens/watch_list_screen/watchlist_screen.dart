@@ -30,6 +30,7 @@ class _WatchListScreenState extends State<WatchListScreen> with SingleTickerProv
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: CommonAppBar(
+        isBackButton: true,
         title: AppString.myWatchList,
         action: [
           IconButton(
