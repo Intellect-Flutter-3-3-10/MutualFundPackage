@@ -27,11 +27,15 @@ class _WatchListScreenState extends State<WatchListScreen> with SingleTickerProv
 
   @override
   Widget build(BuildContext context) {
+    final GlobalController globalController = Get.find<GlobalController>();
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: CommonAppBar(
         isBackButton: true,
         title: AppString.myWatchList,
+        leadingAction: () {
+          globalController.navigatorKey?.value.currentState?.pop();
+        },
         action: [
           IconButton(
             onPressed: () {

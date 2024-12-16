@@ -49,6 +49,8 @@ class _FundDetailScreenState extends State<FundDetailScreen> {
     debugPrint("SCHEME CODE >>>>>> ${widget.args.schemeCode}");
     return Scaffold(
       appBar: CommonAppBar(
+        automaticallyImplyLeading: true,
+        // isBackButton: true,
         title: AppString.fundDetails,
         action: [
           IconButton(

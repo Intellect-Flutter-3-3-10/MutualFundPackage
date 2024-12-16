@@ -15,22 +15,24 @@ class _OrdersScreenState extends State<OrdersScreen> with SingleTickerProviderSt
   @override
   void initState() {
     super.initState();
-
     _tabController = TabController(length: 2, vsync: this);
   }
 
   @override
   void dispose() {
     _tabController!.dispose();
-
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    final GlobalController globalController = Get.find<GlobalController>();
     return Scaffold(
       appBar: CommonAppBar(
         isBackButton: true,
+        leadingAction: () {
+          globalController.navigatorKey?.value.currentState?.pop();
+        },
         action: [
           IconButton(
             onPressed: () {

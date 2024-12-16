@@ -77,54 +77,64 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
     debugPrint(" screen height >>>>> ${MediaQuery.of(context).size.height}");
     bool isDark = Theme.of(context).brightness == Brightness.dark;
 
-    return Scaffold(
-      key: widget.key,
-      body: _pages.elementAt(_selectedIndex),
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        selectedLabelStyle: AppTextStyles.semiBold13(),
-        enableFeedback: true,
-        onTap: _onItemTapped,
-        currentIndex: _selectedIndex,
-        showSelectedLabels: true,
-        showUnselectedLabels: true,
-        unselectedItemColor: isDark ? AppColor.offWhite : AppColor.greyLightest,
-        selectedItemColor: AppColor.lightAmber,
-        unselectedLabelStyle: AppTextStyles.regular13(),
-        items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: SvgPicture.asset(
-              AppImage.discoverIcon,
-              color: _selectedIndex == 0 ? AppColor.lightAmber : AppColor.greyLightest,
-              semanticsLabel: AppString.discover,
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, result) {
+        if (didPop) {
+          return;
+        } else {
+          globalController.navigatorKey?.value.currentState?.pop();
+        }
+      },
+      child: Scaffold(
+        key: widget.key,
+        body: _pages.elementAt(_selectedIndex),
+        bottomNavigationBar: BottomNavigationBar(
+          type: BottomNavigationBarType.fixed,
+          selectedLabelStyle: AppTextStyles.semiBold13(),
+          enableFeedback: true,
+          onTap: _onItemTapped,
+          currentIndex: _selectedIndex,
+          showSelectedLabels: true,
+          showUnselectedLabels: true,
+          unselectedItemColor: isDark ? AppColor.offWhite : AppColor.greyLightest,
+          selectedItemColor: AppColor.lightAmber,
+          unselectedLabelStyle: AppTextStyles.regular13(),
+          items: <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: SvgPicture.asset(
+                AppImage.discoverIcon,
+                color: _selectedIndex == 0 ? AppColor.lightAmber : AppColor.greyLightest,
+                semanticsLabel: AppString.discover,
+              ),
+              label: AppString.discover,
             ),
-            label: AppString.discover,
-          ),
-          BottomNavigationBarItem(
-            icon: SvgPicture.asset(
-              AppImage.watchListIcon,
-              color: _selectedIndex == 1 ? AppColor.lightAmber : AppColor.greyLightest,
-              semanticsLabel: AppString.watchList,
+            BottomNavigationBarItem(
+              icon: SvgPicture.asset(
+                AppImage.watchListIcon,
+                color: _selectedIndex == 1 ? AppColor.lightAmber : AppColor.greyLightest,
+                semanticsLabel: AppString.watchList,
+              ),
+              label: AppString.watchList,
             ),
-            label: AppString.watchList,
-          ),
-          BottomNavigationBarItem(
-            icon: SvgPicture.asset(
-              AppImage.myPortfolio,
-              color: _selectedIndex == 2 ? AppColor.lightAmber : AppColor.greyLightest,
-              semanticsLabel: AppString.myPortfolio,
+            BottomNavigationBarItem(
+              icon: SvgPicture.asset(
+                AppImage.myPortfolio,
+                color: _selectedIndex == 2 ? AppColor.lightAmber : AppColor.greyLightest,
+                semanticsLabel: AppString.myPortfolio,
+              ),
+              label: AppString.myPortfolio,
             ),
-            label: AppString.myPortfolio,
-          ),
-          BottomNavigationBarItem(
-            icon: SvgPicture.asset(
-              AppImage.ordersIcon,
-              color: _selectedIndex == 3 ? AppColor.lightAmber : AppColor.greyLightest,
-              semanticsLabel: AppString.orders,
+            BottomNavigationBarItem(
+              icon: SvgPicture.asset(
+                AppImage.ordersIcon,
+                color: _selectedIndex == 3 ? AppColor.lightAmber : AppColor.greyLightest,
+                semanticsLabel: AppString.orders,
+              ),
+              label: AppString.orders,
             ),
-            label: AppString.orders,
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

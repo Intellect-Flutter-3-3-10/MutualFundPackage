@@ -1,5 +1,4 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
@@ -78,6 +77,9 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
       appBar: CommonAppBar(
         title: AppString.discover,
         isBackButton: true,
+        leadingAction: () {
+          globalController.navigatorKey?.value.currentState?.pop();
+        },
         action: [
           IconButton(
             onPressed: () {

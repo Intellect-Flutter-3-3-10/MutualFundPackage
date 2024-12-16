@@ -45,14 +45,13 @@ class MutualFund extends StatefulWidget {
   final String getFundOverViewEndPoint;
   final String getFundOverViewCalInfoEndPoint;
 
-  final GlobalKey<NavigatorState>? navigatorKey;
-
   // final UserData userData;
 
   final int clientCode;
   final int mPin;
   final String userName;
 
+  final GlobalKey<NavigatorState>? navigatorKey;
   final GlobalKey<ScaffoldMessengerState>? scaffoldKey;
 
   MutualFund({
@@ -94,6 +93,8 @@ class _MutualFundState extends State<MutualFund> {
       activeOrders: widget.getActiveOrdersEndPoint,
       fundOverview: widget.getFundOverViewEndPoint,
       fundOverviewCalInfo: widget.getFundOverViewCalInfoEndPoint,
+      navigatorkey: widget.navigatorKey,
+      scaffoldkey: widget.scaffoldKey,
     );
 
     globalController.setUserData(

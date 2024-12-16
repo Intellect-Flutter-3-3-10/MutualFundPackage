@@ -28,10 +28,14 @@ class _MyPortFolioScreenState extends State<MyPortFolioScreen> with SingleTicker
 
   @override
   Widget build(BuildContext context) {
+    final GlobalController globalController = Get.find<GlobalController>();
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: CommonAppBar(
         isBackButton: true,
+        leadingAction: () {
+          globalController.navigatorKey?.value.currentState?.pop();
+        },
         title: AppString.myPortfolio,
         action: [
           IconButton(
