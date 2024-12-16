@@ -19,9 +19,8 @@ class GlobalController extends GetxController {
   String? userName; // Developer Name
   RxList orders = <String>[].obs; // Example for storing orders
   // var navigatorKey = null;
-  GlobalKey<NavigatorState>? navigatorKey = GlobalKey<NavigatorState>(); // for maintaining navigation properies across sdk
-
-  GlobalKey<ScaffoldMessengerState>? scaffoldKey = GlobalKey<ScaffoldMessengerState>();
+  GlobalKey<NavigatorState>? navigatorKey; // for maintaining navigation properies across sdk
+  GlobalKey<ScaffoldMessengerState>? scaffoldKey;
 
   @override
   void onInit() {
