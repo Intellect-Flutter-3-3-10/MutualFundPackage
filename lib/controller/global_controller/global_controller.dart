@@ -19,9 +19,9 @@ class GlobalController extends GetxController {
   String? userName; // Developer Name
   RxList orders = <String>[].obs; // Example for storing orders
   // var navigatorKey = null;
-  Rx<GlobalKey<NavigatorState>>? navigatorKey = GlobalKey<NavigatorState>().obs; // for maintaining navigation properies across sdk
+  GlobalKey<NavigatorState>? navigatorKey = GlobalKey<NavigatorState>(); // for maintaining navigation properies across sdk
 
-  Rx<GlobalKey<ScaffoldMessengerState>>? scaffoldKey = GlobalKey<ScaffoldMessengerState>().obs;
+  GlobalKey<ScaffoldMessengerState>? scaffoldKey = GlobalKey<ScaffoldMessengerState>();
 
   @override
   void onInit() {
@@ -78,7 +78,7 @@ class GlobalController extends GetxController {
     print('POST LUMPSUM ORDER >>>>> $postOrders');
     print('GET EXPLORE FUND >>>>> $getExploreFunds');
     print('GET ACTIVE ORDERS >>>>> $getActiveOrders');
-    print('GET NAVIGATOR KEY >>>>>> $navigatorKey ');
-    print('GET SCAFFOLD KEY >>>>>> $scaffoldKey ');
+    print('GET NAVIGATOR KEY >>>>>> $navigatorKey');
+    print('GET SCAFFOLD KEY >>>>>> $scaffoldKey');
   }
 }

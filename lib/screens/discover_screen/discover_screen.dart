@@ -78,7 +78,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
         title: AppString.discover,
         isBackButton: true,
         leadingAction: () {
-          globalController.navigatorKey?.value.currentState?.pop();
+          globalController.navigatorKey?.currentState?.pop();
         },
         action: [
           IconButton(

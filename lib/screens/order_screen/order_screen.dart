@@ -31,7 +31,7 @@ class _OrdersScreenState extends State<OrdersScreen> with SingleTickerProviderSt
       appBar: CommonAppBar(
         isBackButton: true,
         leadingAction: () {
-          globalController.navigatorKey?.value.currentState?.pop();
+          globalController.navigatorKey?.currentState?.pop();
         },
         action: [
           IconButton(

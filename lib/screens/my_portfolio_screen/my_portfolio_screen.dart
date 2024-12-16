@@ -34,7 +34,7 @@ class _MyPortFolioScreenState extends State<MyPortFolioScreen> with SingleTicker
       appBar: CommonAppBar(
         isBackButton: true,
         leadingAction: () {
-          globalController.navigatorKey?.value.currentState?.pop();
+          globalController.navigatorKey?.currentState?.pop();
         },
         title: AppString.myPortfolio,
         action: [

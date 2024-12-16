@@ -34,7 +34,7 @@ class _WatchListScreenState extends State<WatchListScreen> with SingleTickerProv
         isBackButton: true,
         title: AppString.myWatchList,
         leadingAction: () {
-          globalController.navigatorKey?.value.currentState?.pop();
+          globalController.navigatorKey?.currentState?.pop();
         },
         action: [
           IconButton(

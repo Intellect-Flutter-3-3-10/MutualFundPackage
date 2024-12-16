@@ -83,7 +83,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
         if (didPop) {
           return;
         } else {
-          globalController.navigatorKey?.value.currentState?.pop();
+          globalController.navigatorKey?.currentState?.pop();
         }
       },
       child: Scaffold(
