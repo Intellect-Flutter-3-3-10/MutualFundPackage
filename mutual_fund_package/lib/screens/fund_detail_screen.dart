@@ -36,7 +36,7 @@ class _FundDetailScreenState extends State<FundDetailScreen> with UtilsMethod {
         action: [
           IconButton(
             onPressed: () {
-              Get.toNamed(AppRoute.searchScreen);
+              UtilsMethod().navigateTo(context, AppRoute.searchScreen);
             },
             icon: Icon(
               Icons.search,
@@ -661,10 +661,7 @@ class _FundDetailScreenState extends State<FundDetailScreen> with UtilsMethod {
                         isSipSelected = true;
                       });
                       Get.back(closeOverlays: true);
-                      Get.toNamed(
-                        AppRoute.orderPlacementScreen,
-                        arguments: OrderPlacementScreenArgs(isSip: isSipSelected),
-                      );
+                      UtilsMethod().navigateTo(context, AppRoute.orderPlacementScreen, args: OrderPlacementScreenArgs(isSip: isSipSelected));
                     },
                   ),
                 ),
@@ -678,10 +675,7 @@ class _FundDetailScreenState extends State<FundDetailScreen> with UtilsMethod {
                         isSipSelected = false;
                       });
                       Get.back(closeOverlays: true);
-                      Get.toNamed(
-                        AppRoute.orderPlacementScreen,
-                        arguments: OrderPlacementScreenArgs(isSip: isSipSelected),
-                      );
+                      UtilsMethod().navigateTo(context, AppRoute.orderPlacementScreen, args: OrderPlacementScreenArgs(isSip: isSipSelected));
                     },
                   ),
                 ),

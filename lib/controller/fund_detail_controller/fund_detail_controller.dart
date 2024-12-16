@@ -155,7 +155,7 @@ class FundDetailController extends GetxController {
         cutoffDate = now.subtract(const Duration(days: 182)); // Approx 6 months
         break;
       case "1Y":
-        cutoffDate = now.subtract(const Duration(days: 365));
+        cutoffDate = now.subtract(const Duration(days: 365)); // Approx 1 year
         break;
       case "3Y":
         cutoffDate = now.subtract(const Duration(days: 1095)); // Approx 3 years

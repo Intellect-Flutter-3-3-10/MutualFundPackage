@@ -55,7 +55,8 @@ class _FundDetailScreenState extends State<FundDetailScreen> {
         action: [
           IconButton(
             onPressed: () {
-              Get.toNamed(AppRoute.searchScreen);
+              UtilsMethod().navigateTo(context, AppRoute.searchScreen);
+              // UtilsMethod().navigateTo(context, AppRoute.searchScreen);
             },
             icon: Icon(
               Icons.search,
@@ -722,11 +723,10 @@ class _FundDetailScreenState extends State<FundDetailScreen> {
                       setState(() {
                         isSipSelected = true;
                       });
-                      Get.back(closeOverlays: true);
-                      Get.toNamed(
-                        AppRoute.orderPlacementScreen,
-                        arguments: OrderPlacementScreenArgs(isSip: isSipSelected),
-                      );
+                      Navigator.pop(context);
+                      // Get.back(closeOverlays: true);
+
+                      UtilsMethod().navigateTo(context, AppRoute.orderPlacementScreen, args: OrderPlacementScreenArgs(isSip: isSipSelected));
                     },
                   ),
                 ),
@@ -740,10 +740,7 @@ class _FundDetailScreenState extends State<FundDetailScreen> {
                         isSipSelected = false;
                       });
                       Get.back(closeOverlays: true);
-                      Get.toNamed(
-                        AppRoute.orderPlacementScreen,
-                        arguments: OrderPlacementScreenArgs(isSip: isSipSelected),
-                      );
+                      UtilsMethod().navigateTo(context, AppRoute.orderPlacementScreen, args: OrderPlacementScreenArgs(isSip: isSipSelected));
                     },
                   ),
                 ),

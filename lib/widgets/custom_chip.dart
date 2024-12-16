@@ -8,6 +8,7 @@ class CustomChip extends StatelessWidget {
   final String? label;
   final Color? labelColor;
   final Color? borderColor;
+
   final Function()? onTap;
 
   const CustomChip({

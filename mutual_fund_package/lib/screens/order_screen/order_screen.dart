@@ -10,7 +10,6 @@ class OrdersScreen extends StatefulWidget {
 }
 
 class _OrdersScreenState extends State<OrdersScreen> with SingleTickerProviderStateMixin {
-
   TabController? _tabController;
 
   @override
@@ -34,7 +33,7 @@ class _OrdersScreenState extends State<OrdersScreen> with SingleTickerProviderSt
         action: [
           IconButton(
             onPressed: () {
-              Get.toNamed(AppRoute.searchScreen);
+              UtilsMethod().navigateTo(context, AppRoute.searchScreen);
             },
             icon: Icon(
               Icons.search,

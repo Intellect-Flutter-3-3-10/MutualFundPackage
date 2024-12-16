@@ -72,7 +72,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
         action: [
           IconButton(
             onPressed: () {
-              Get.toNamed(AppRoute.searchScreen);
+              UtilsMethod().navigateTo(context, AppRoute.searchScreen);
             },
             icon: Icon(
               Icons.search,
@@ -260,7 +260,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
     var item = exploreFundController.exploreFundList[index];
     return GestureDetector(
       onTap: () {
-        Get.toNamed(AppRoute.fundDetailScreen, arguments: FundDetailScreenArgs("item.schemeCode.toString()"));
+        UtilsMethod().navigateTo(context, AppRoute.fundDetailScreen, args: FundDetailScreenArgs("item.schemeCode.toString()"));
       },
       child: Container(
         width: size.width * 0.90,
@@ -372,7 +372,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
     // Size size = MediaQuery.of(context).size;
     return GestureDetector(
       onTap: () {
-        Get.toNamed(AppRoute.fundDetailScreen, arguments: FundDetailScreenArgs("item.schemeCode.toString()"));
+        UtilsMethod().navigateTo(context, AppRoute.fundDetailScreen, args: FundDetailScreenArgs("item.schemeCode.toString()"));
       },
       child: Container(
         width: size.width * 0.92,
@@ -482,7 +482,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
     // Size size = MediaQuery.of(context).size;
     return GestureDetector(
       onTap: () {
-        Get.toNamed(AppRoute.fundDetailScreen, arguments: FundDetailScreenArgs("item.schemeCode.toString()"));
+        UtilsMethod().navigateTo(context, AppRoute.fundDetailScreen, args: FundDetailScreenArgs("item.schemeCode.toString()"));
       },
       child: Container(
         width: size.width * 0.90,

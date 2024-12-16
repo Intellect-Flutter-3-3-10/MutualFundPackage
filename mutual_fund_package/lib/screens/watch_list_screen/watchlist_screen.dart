@@ -34,7 +34,7 @@ class _WatchListScreenState extends State<WatchListScreen> with SingleTickerProv
         action: [
           IconButton(
             onPressed: () {
-              Get.toNamed(AppRoute.searchScreen);
+              UtilsMethod().navigateTo(context, AppRoute.searchScreen);
             },
             icon: Icon(
               Icons.search,
@@ -78,7 +78,7 @@ class _WatchListScreenState extends State<WatchListScreen> with SingleTickerProv
   Widget _fundsCard({Size? size, int? index}) {
     return GestureDetector(
       onTap: () {
-        Get.toNamed(AppRoute.fundDetailScreen, arguments: FundDetailScreenArgs("item.schemeCode.toString()"));
+        UtilsMethod().navigateTo(context, AppRoute.fundDetailScreen, args: FundDetailScreenArgs("item.schemeCode.toString()"));
       },
       child: Container(
         width: size!.width * 0.90,

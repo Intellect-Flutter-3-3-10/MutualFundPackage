@@ -36,7 +36,7 @@ class _OrdersScreenState extends State<OrdersScreen> with SingleTickerProviderSt
         action: [
           IconButton(
             onPressed: () {
-              Get.toNamed(AppRoute.searchScreen);
+              UtilsMethod().navigateTo(context, AppRoute.searchScreen);
             },
             icon: Icon(
               Icons.search,

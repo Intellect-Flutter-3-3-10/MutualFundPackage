@@ -74,7 +74,7 @@ class _QuickActionScreenState extends State<QuickActionScreen> with SingleTicker
         action: [
           IconButton(
             onPressed: () {
-              Get.toNamed(AppRoute.searchScreen);
+              UtilsMethod().navigateTo(context, AppRoute.searchScreen);
             },
             icon: Icon(
               Icons.search,

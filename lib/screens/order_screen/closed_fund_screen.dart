@@ -43,7 +43,7 @@ class _ClosedFundScreenState extends State<ClosedFundScreen> with SingleTickerPr
     Size size = MediaQuery.of(context).size;
     return GestureDetector(
       onTap: () {
-        Get.toNamed(AppRoute.fundDetailScreen, arguments: FundDetailScreenArgs("item.schemeCode.toString()"));
+        UtilsMethod().navigateTo(context, AppRoute.fundDetailScreen, args: FundDetailScreenArgs("item.schemeCode.toString()"));
       },
       child: Container(
         width: size.width * 0.76,

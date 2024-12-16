@@ -52,8 +52,8 @@ class _OrderPlacementScreenState extends State<OrderPlacementScreen> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    var args = Get.arguments as OrderPlacementScreenArgs;
-    debugPrint("SIP Selected  >>>>>>${args.isSip}");
+    // var args = Get.arguments as OrderPlacementScreenArgs;
+    // debugPrint("SIP Selected  >>>>>>${args.isSip}");
     debugPrint("SIP Selected Args  >>>>>>${widget.args!.isSip}");
     return Scaffold(
       appBar: const CommonAppBar(
@@ -83,9 +83,9 @@ class _OrderPlacementScreenState extends State<OrderPlacementScreen> {
                   const SizedBox(height: AppDimens.appSpacing20),
 
                   /// sip date
-                  args.isSip ? _sipDateView(size: size, constraints: constraints) : const SizedBox.shrink(),
+                  widget.args!.isSip ? _sipDateView(size: size, constraints: constraints) : const SizedBox.shrink(),
 
-                  args.isSip ? const SizedBox(height: AppDimens.appSpacing10) : const SizedBox.shrink(),
+                  widget.args!.isSip ? const SizedBox(height: AppDimens.appSpacing10) : const SizedBox.shrink(),
 
                   /// nominee view
                   _nomineeView(constraints: constraints, size: size),
@@ -258,14 +258,13 @@ class _OrderPlacementScreenState extends State<OrderPlacementScreen> {
 
   /// invest action view
   Widget _investActionView({BoxConstraints? constraints, Size? size}) {
-    var args = Get.arguments as OrderPlacementScreenArgs;
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         AutoSizeText(
-          args.isSip ? AppString.monthlyAmount : AppString.lumpsumAmount,
+          widget.args!.isSip ? AppString.monthlyAmount : AppString.lumpsumAmount,
           style: AppTextStyles.regular16(),
           maxLines: 1,
           softWrap: true,
@@ -439,7 +438,6 @@ class _OrderPlacementScreenState extends State<OrderPlacementScreen> {
 
   /// expansion tile
   Widget _expansionView({BoxConstraints? constraints, Size? size}) {
-    var args = Get.arguments as OrderPlacementScreenArgs;
     bool isExpanded = true;
     return GestureDetector(
       onTap: () {
@@ -462,7 +460,7 @@ class _OrderPlacementScreenState extends State<OrderPlacementScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               // mainAxisSize: MainAxisSize.min,
               children: [
-                args.isSip
+                widget.args!.isSip
                     ? CustomCheckboxTile(
                         title: AppString.stepUpSip,
                         titleStyle: AppTextStyles.regular14(color: AppColor.white),

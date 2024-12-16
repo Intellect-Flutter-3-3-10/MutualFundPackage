@@ -214,11 +214,7 @@ class _MidCapScreenState extends State<MidCapScreen> {
                       setState(() {
                         isSipSelected = true;
                       });
-                      Get.back(closeOverlays: true);
-                      // Get.toNamed(
-                      //   AppRoute.orderPlacementScreen,
-                      //   arguments: OrderPlacementScreenArgs(isSip: isSipSelected),
-                      // );
+                      Navigator.pop(context);
                     },
                   ),
                 ),
@@ -231,11 +227,7 @@ class _MidCapScreenState extends State<MidCapScreen> {
                       setState(() {
                         isSipSelected = false;
                       });
-                      Get.back(closeOverlays: true);
-                      // Get.toNamed(
-                      //   AppRoute.orderPlacementScreen,
-                      //   arguments: OrderPlacementScreenArgs(isSip: isSipSelected),
-                      // );
+                      Navigator.pop(context);
                     },
                   ),
                 ),

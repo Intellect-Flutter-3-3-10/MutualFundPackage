@@ -41,7 +41,7 @@ class _SipScreenState extends State<SipScreen> {
                   month: 'Dec',
                   date: '12',
                   onTap: () {
-                    // Get.toNamed(AppRoute.fundDetailScreen, arguments: FundDetailScreenArgs("item.schemeCode.toString()"));
+                    // UtilsMethod().navigateTo(context, AppRoute.fundDetailScreen, args: FundDetailScreenArgs("item.schemeCode.toString()"));
                   },
                 );
               },

@@ -12,7 +12,6 @@ class ElssScreen extends StatefulWidget {
 }
 
 class _ElssScreenState extends State<ElssScreen> {
-
   List<bool>? _isSaved;
   bool isSipSelected = false;
 
@@ -27,6 +26,7 @@ class _ElssScreenState extends State<ElssScreen> {
       _isSaved![index] = !_isSaved![index];
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -49,8 +49,8 @@ class _ElssScreenState extends State<ElssScreen> {
               physics: const ScrollPhysics(),
               separatorBuilder: (context, index) => const Padding(
                   padding: EdgeInsets.symmetric(
-                    vertical: AppDimens.appSpacing10,
-                  )),
+                vertical: AppDimens.appSpacing10,
+              )),
               itemBuilder: (context, index) {
                 return _fundsCard(index: index);
               },
@@ -68,7 +68,7 @@ class _ElssScreenState extends State<ElssScreen> {
       width: size.width * 0.90,
       padding: const EdgeInsets.symmetric(horizontal: AppDimens.appSpacing15, vertical: AppDimens.appSpacing15),
       decoration:
-      BoxDecoration(border: Border.all(color: AppColor.greyLightest, width: 0.8), borderRadius: BorderRadius.circular(AppDimens.appRadius12)),
+          BoxDecoration(border: Border.all(color: AppColor.greyLightest, width: 0.8), borderRadius: BorderRadius.circular(AppDimens.appRadius12)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
@@ -101,15 +101,15 @@ class _ElssScreenState extends State<ElssScreen> {
                       AutoSizeText(
                         'LIC MF Infrastructure Fund',
                         style: AppTextStyles.regular15(
-                          // color: AppColor.greyLight,
-                        ),
+                            // color: AppColor.greyLight,
+                            ),
                         maxLines: 1,
                       ),
                       AutoSizeText(
                         '- Growth Plan',
                         style: AppTextStyles.regular13(
-                          // color: AppColor.greyLight,
-                        ),
+                            // color: AppColor.greyLight,
+                            ),
                         maxLines: 1,
                       ),
                       Row(
@@ -214,11 +214,7 @@ class _ElssScreenState extends State<ElssScreen> {
                       setState(() {
                         isSipSelected = true;
                       });
-                      Get.back(closeOverlays: true);
-                      // Get.toNamed(
-                      //   AppRoute.orderPlacementScreen,
-                      //   arguments: OrderPlacementScreenArgs(isSip: isSipSelected),
-                      // );
+                      Navigator.pop(context);
                     },
                   ),
                 ),
@@ -231,11 +227,7 @@ class _ElssScreenState extends State<ElssScreen> {
                       setState(() {
                         isSipSelected = false;
                       });
-                      Get.back(closeOverlays: true);
-                      // Get.toNamed(
-                      //   AppRoute.orderPlacementScreen,
-                      //   arguments: OrderPlacementScreenArgs(isSip: isSipSelected),
-                      // );
+                      Navigator.pop(context);
                     },
                   ),
                 ),

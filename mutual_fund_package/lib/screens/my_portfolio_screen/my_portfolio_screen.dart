@@ -35,7 +35,7 @@ class _MyPortFolioScreenState extends State<MyPortFolioScreen> with SingleTicker
         action: [
           IconButton(
             onPressed: () {
-              Get.toNamed(AppRoute.searchScreen);
+              UtilsMethod().navigateTo(context, AppRoute.searchScreen);
             },
             icon: Icon(
               Icons.search,

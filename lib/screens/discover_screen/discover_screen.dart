@@ -83,7 +83,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
         action: [
           IconButton(
             onPressed: () {
-              // Get.toNamed(AppRoute.searchScreen);
+              // UtilsMethod().navigateTo(context, AppRoute.searchScreen);
               // UtilsMethod().navigateTo(context, AppRoute.searchScreen);
 
               Navigator.pushNamed(context, AppRoute.searchScreen);
@@ -195,7 +195,6 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                 CommonHeader(
                   title: AppString.bestPerformingFund,
                   labelOnTap: () {
-                    // Get.toNamed(AppRoute.bestPerformingFundScreen);
                     Navigator.pushNamed(context, AppRoute.bestPerformingFundScreen);
                   },
                 ),
@@ -364,9 +363,15 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            CustomChip(label: item.assetClass ?? 'N/A'),
+                            Skeletonizer(
+                              enabled: exploreFundController.isLoading.value,
+                              child: CustomChip(label: item.assetClass ?? 'N/A'),
+                            ),
                             SizedBox(width: size.width * 0.02),
-                            CustomChip(label: item.schemeCategory ?? "N/A"),
+                            Skeletonizer(
+                              enabled: exploreFundController.isLoading.value,
+                              child: CustomChip(label: item.schemeCategory ?? "N/A"),
+                            ),
                           ],
                         ),
                       ),
@@ -489,15 +494,21 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                 valueColor: Colors.green,
               ),
               Column(
-                children: const [
-                  CustomChip(
-                    label: 'Equity',
+                children: [
+                  Skeletonizer(
+                    enabled: exploreFundController.isLoading.value,
+                    child: CustomChip(
+                      label: 'Equity',
+                    ),
                   ),
                   SizedBox(
                     height: 5,
                   ),
-                  CustomChip(
-                    label: 'Mid Cap',
+                  Skeletonizer(
+                    enabled: exploreFundController.isLoading.value,
+                    child: CustomChip(
+                      label: 'Mid Cap',
+                    ),
                   ),
                 ],
               ),

@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 
 import '../../../../../my_app_exports.dart';
 
-
 class LargeAndMidScreen extends StatefulWidget {
   const LargeAndMidScreen({super.key});
 
@@ -13,7 +12,6 @@ class LargeAndMidScreen extends StatefulWidget {
 }
 
 class _LargeAndMidScreenState extends State<LargeAndMidScreen> {
-
   List<bool>? _isSaved;
   bool isSipSelected = false;
 
@@ -28,6 +26,7 @@ class _LargeAndMidScreenState extends State<LargeAndMidScreen> {
       _isSaved![index] = !_isSaved![index];
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -50,8 +49,8 @@ class _LargeAndMidScreenState extends State<LargeAndMidScreen> {
               physics: const ScrollPhysics(),
               separatorBuilder: (context, index) => const Padding(
                   padding: EdgeInsets.symmetric(
-                    vertical: AppDimens.appSpacing10,
-                  )),
+                vertical: AppDimens.appSpacing10,
+              )),
               itemBuilder: (context, index) {
                 return _fundsCard(index: index);
               },
@@ -69,7 +68,7 @@ class _LargeAndMidScreenState extends State<LargeAndMidScreen> {
       width: size.width * 0.90,
       padding: const EdgeInsets.symmetric(horizontal: AppDimens.appSpacing15, vertical: AppDimens.appSpacing15),
       decoration:
-      BoxDecoration(border: Border.all(color: AppColor.greyLightest, width: 0.8), borderRadius: BorderRadius.circular(AppDimens.appRadius12)),
+          BoxDecoration(border: Border.all(color: AppColor.greyLightest, width: 0.8), borderRadius: BorderRadius.circular(AppDimens.appRadius12)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
@@ -102,15 +101,15 @@ class _LargeAndMidScreenState extends State<LargeAndMidScreen> {
                       AutoSizeText(
                         'LIC MF Infrastructure Fund',
                         style: AppTextStyles.regular15(
-                          // color: AppColor.greyLight,
-                        ),
+                            // color: AppColor.greyLight,
+                            ),
                         maxLines: 1,
                       ),
                       AutoSizeText(
                         '- Growth Plan',
                         style: AppTextStyles.regular13(
-                          // color: AppColor.greyLight,
-                        ),
+                            // color: AppColor.greyLight,
+                            ),
                         maxLines: 1,
                       ),
                       Row(
@@ -194,7 +193,6 @@ class _LargeAndMidScreenState extends State<LargeAndMidScreen> {
     );
   }
 
-
 // bottom sheet
 
   void _showBottomSheet() {
@@ -216,11 +214,7 @@ class _LargeAndMidScreenState extends State<LargeAndMidScreen> {
                       setState(() {
                         isSipSelected = true;
                       });
-                      Get.back(closeOverlays: true);
-                      // Get.toNamed(
-                      //   AppRoute.orderPlacementScreen,
-                      //   arguments: OrderPlacementScreenArgs(isSip: isSipSelected),
-                      // );
+                      Navigator.pop(context);
                     },
                   ),
                 ),
@@ -233,11 +227,7 @@ class _LargeAndMidScreenState extends State<LargeAndMidScreen> {
                       setState(() {
                         isSipSelected = false;
                       });
-                      Get.back(closeOverlays: true);
-                      // Get.toNamed(
-                      //   AppRoute.orderPlacementScreen,
-                      //   arguments: OrderPlacementScreenArgs(isSip: isSipSelected),
-                      // );
+                      Navigator.pop(context);
                     },
                   ),
                 ),

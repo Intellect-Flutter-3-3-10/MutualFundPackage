@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 
 import '../../../../../my_app_exports.dart';
 
-
 class LargeCapScreen extends StatefulWidget {
   const LargeCapScreen({super.key});
 
@@ -13,7 +12,6 @@ class LargeCapScreen extends StatefulWidget {
 }
 
 class _LargeCapScreenState extends State<LargeCapScreen> {
-
   List<bool>? _isSaved;
   bool isSipSelected = false;
   @override
@@ -50,8 +48,8 @@ class _LargeCapScreenState extends State<LargeCapScreen> {
               physics: const ScrollPhysics(),
               separatorBuilder: (context, index) => const Padding(
                   padding: EdgeInsets.symmetric(
-                    vertical: AppDimens.appSpacing10,
-                  )),
+                vertical: AppDimens.appSpacing10,
+              )),
               itemBuilder: (context, index) {
                 return _fundsCard(index: index);
               },
@@ -69,7 +67,7 @@ class _LargeCapScreenState extends State<LargeCapScreen> {
       width: size.width * 0.90,
       padding: const EdgeInsets.symmetric(horizontal: AppDimens.appSpacing15, vertical: AppDimens.appSpacing15),
       decoration:
-      BoxDecoration(border: Border.all(color: AppColor.greyLightest, width: 0.8), borderRadius: BorderRadius.circular(AppDimens.appRadius12)),
+          BoxDecoration(border: Border.all(color: AppColor.greyLightest, width: 0.8), borderRadius: BorderRadius.circular(AppDimens.appRadius12)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
@@ -102,15 +100,15 @@ class _LargeCapScreenState extends State<LargeCapScreen> {
                       AutoSizeText(
                         'LIC MF Infrastructure Fund',
                         style: AppTextStyles.regular15(
-                          // color: AppColor.greyLight,
-                        ),
+                            // color: AppColor.greyLight,
+                            ),
                         maxLines: 1,
                       ),
                       AutoSizeText(
                         '- Growth Plan',
                         style: AppTextStyles.regular13(
-                          // color: AppColor.greyLight,
-                        ),
+                            // color: AppColor.greyLight,
+                            ),
                         maxLines: 1,
                       ),
                       Row(
@@ -215,11 +213,7 @@ class _LargeCapScreenState extends State<LargeCapScreen> {
                       setState(() {
                         isSipSelected = true;
                       });
-                      Get.back(closeOverlays: true);
-                      // Get.toNamed(
-                      //   AppRoute.orderPlacementScreen,
-                      //   arguments: OrderPlacementScreenArgs(isSip: isSipSelected),
-                      // );
+                      Navigator.pop(context);
                     },
                   ),
                 ),
@@ -232,11 +226,7 @@ class _LargeCapScreenState extends State<LargeCapScreen> {
                       setState(() {
                         isSipSelected = false;
                       });
-                      Get.back(closeOverlays: true);
-                      // Get.toNamed(
-                      //   AppRoute.orderPlacementScreen,
-                      //   arguments: OrderPlacementScreenArgs(isSip: isSipSelected),
-                      // );
+                      Navigator.pop(context);
                     },
                   ),
                 ),

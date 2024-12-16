@@ -12,7 +12,6 @@ class AppRoute {
   static const String orderPlacementScreen = '/orderPlacementScreen';
 
   static List<GetPage> getPages() {
-    var args = Get.arguments; // declaration for simplicity
     return [
       GetPage(name: searchScreen, page: () => const SearchScreen()),
       GetPage(name: bestPerformingFundScreen, page: () => const BestPerformingScreen()),
