@@ -28,6 +28,7 @@ class ExploreFundsModel {
 }
 
 class FundData {
+  int? id;
   num? schemeCode;
   String? schemeName;
   String? riskCategory;
@@ -48,34 +49,39 @@ class FundData {
   num? totalRecords;
   num? totalPages;
   num? expenseRatio;
+  bool? isInWatchList;
   dynamic rtaamcCode;
   dynamic rtaCode;
 
-  FundData(
-      {this.schemeCode,
-      this.schemeName,
-      this.riskCategory,
-      this.assetClass,
-      this.schemeCategory,
-      this.aum,
-      this.oneWeek,
-      this.oneMonth,
-      this.threeMonth,
-      this.sixMonth,
-      this.oneYear,
-      this.threeYear,
-      this.fiveYear,
-      this.tenYear,
-      this.sinceInception,
-      this.rating,
-      this.amcIcon,
-      this.totalRecords,
-      this.totalPages,
-      this.expenseRatio,
-      this.rtaamcCode,
-      this.rtaCode});
+  FundData({
+    this.id,
+    this.schemeCode,
+    this.schemeName,
+    this.riskCategory,
+    this.assetClass,
+    this.schemeCategory,
+    this.aum,
+    this.oneWeek,
+    this.oneMonth,
+    this.threeMonth,
+    this.sixMonth,
+    this.oneYear,
+    this.threeYear,
+    this.fiveYear,
+    this.tenYear,
+    this.sinceInception,
+    this.rating,
+    this.amcIcon,
+    this.totalRecords,
+    this.totalPages,
+    this.expenseRatio,
+    this.rtaamcCode,
+    this.rtaCode,
+    this.isInWatchList,
+  });
 
   FundData.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
     schemeCode = json['schemeCode'];
     schemeName = json['schemeName'];
     riskCategory = json['riskCategory'];
@@ -98,10 +104,12 @@ class FundData {
     expenseRatio = json['expenseRatio'];
     rtaamcCode = json['rtaamcCode'];
     rtaCode = json['rtaCode'];
+    isInWatchList = json['isInWatchList'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
     data['schemeCode'] = this.schemeCode;
     data['schemeName'] = this.schemeName;
     data['riskCategory'] = this.riskCategory;
@@ -124,6 +132,61 @@ class FundData {
     data['expenseRatio'] = this.expenseRatio;
     data['rtaamcCode'] = this.rtaamcCode;
     data['rtaCode'] = this.rtaCode;
+    data['isInWatchList'] = this.isInWatchList;
     return data;
+  }
+
+  FundData copyWith({
+    int? id,
+    num? schemeCode,
+    String? schemeName,
+    String? riskCategory,
+    String? assetClass,
+    String? schemeCategory,
+    num? aum,
+    num? oneWeek,
+    num? oneMonth,
+    num? threeMonth,
+    num? sixMonth,
+    num? oneYear,
+    num? threeYear,
+    num? fiveYear,
+    num? tenYear,
+    num? sinceInception,
+    num? rating,
+    String? amcIcon,
+    num? totalRecords,
+    num? totalPages,
+    num? expenseRatio,
+    bool? isInWatchList,
+    dynamic rtaamcCode,
+    dynamic rtaCode,
+  }) {
+    return FundData(
+      id: id ?? this.id,
+      schemeCode: schemeCode ?? this.schemeCode,
+      schemeName: schemeName ?? this.schemeName,
+      riskCategory: riskCategory ?? this.riskCategory,
+      assetClass: assetClass ?? this.assetClass,
+      schemeCategory: schemeCategory ?? this.schemeCategory,
+      aum: aum ?? this.aum,
+      oneWeek: oneWeek ?? this.oneWeek,
+      oneMonth: oneMonth ?? this.oneMonth,
+      threeMonth: threeMonth ?? this.threeMonth,
+      sixMonth: sixMonth ?? this.sixMonth,
+      oneYear: oneYear ?? this.oneYear,
+      threeYear: threeYear ?? this.threeYear,
+      fiveYear: fiveYear ?? this.fiveYear,
+      tenYear: tenYear ?? this.tenYear,
+      sinceInception: sinceInception ?? this.sinceInception,
+      rating: rating ?? this.rating,
+      amcIcon: amcIcon ?? this.amcIcon,
+      totalRecords: totalRecords ?? this.totalRecords,
+      totalPages: totalPages ?? this.totalPages,
+      expenseRatio: expenseRatio ?? this.expenseRatio,
+      rtaamcCode: rtaamcCode ?? this.rtaamcCode,
+      rtaCode: rtaCode ?? this.rtaCode,
+      isInWatchList: isInWatchList ?? this.isInWatchList,
+    );
   }
 }

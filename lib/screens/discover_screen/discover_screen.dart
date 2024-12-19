@@ -16,7 +16,7 @@ class DiscoverScreen extends StatefulWidget {
 
 class _DiscoverScreenState extends State<DiscoverScreen> {
   final CarouselSliderController _carouselSliderController = CarouselSliderController();
-  final ExploreFundsController exploreFundController = Get.put(ExploreFundsController());
+
   final items = [
     SvgPicture.asset(AppImage.banner1, width: double.infinity),
     SvgPicture.asset(AppImage.banner2, width: double.infinity),
@@ -112,7 +112,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Skeletonizer(
-                      enabled: exploreFundController.isLoading.value,
+                      enabled: DataConstants.exploreFundsController.isLoading.value,
                       child: CarouselSlider(
                         carouselController: _carouselSliderController,
                         options: CarouselOptions(
@@ -132,7 +132,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                     ),
                     // const SizedBox(height: AppDimens.appSpacing10),
                     Skeletonizer(
-                      enabled: exploreFundController.isLoading.value,
+                      enabled: DataConstants.exploreFundsController.isLoading.value,
                       child: DotsIndicator(
                         dotsCount: items.length,
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -149,7 +149,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                   ],
                 ),
                 Skeletonizer(
-                  enabled: exploreFundController.isLoading.value,
+                  enabled: DataConstants.exploreFundsController.isLoading.value,
                   child: CommonHeader(
                     title: AppString.quickActions,
                     labelOnTap: () {
@@ -158,7 +158,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                   ),
                 ),
                 Skeletonizer(
-                  enabled: exploreFundController.isLoading.value,
+                  enabled: DataConstants.exploreFundsController.isLoading.value,
                   child: Container(
                     margin: const EdgeInsets.all(AppDimens.appSpacing10),
                     child: GridView.builder(
@@ -175,7 +175,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                         quickAction[index];
                         label[index];
                         return Skeletonizer(
-                          enabled: exploreFundController.isLoading.value,
+                          enabled: DataConstants.exploreFundsController.isLoading.value,
                           child: QuickActionCard(
                             // bgColor: UtilsMethod().getColorBasedOnTheme(context),
                             onTap: () {
@@ -199,14 +199,14 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                   },
                 ),
                 Skeletonizer(
-                  enabled: exploreFundController.isLoading.value,
+                  enabled: DataConstants.exploreFundsController.isLoading.value,
                   child: Obx(() {
                     // if (exploreFundController.isLoading.value) {
                     //   return Center(child: CircularProgressIndicator.adaptive());
                     // }
 
-                    if (exploreFundController.errorMessage.value.isNotEmpty) {
-                      return Center(child: Text(exploreFundController.errorMessage.value));
+                    if (DataConstants.exploreFundsController.errorMessage.value.isNotEmpty) {
+                      return Center(child: Text(DataConstants.exploreFundsController.errorMessage.value));
                     }
                     return SizedBox(
                       height: size.height >= AppDimens.screenLessThan5Inch ? size.height * 0.180 : size.height * 0.210,
@@ -220,7 +220,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                           ),
                         ),
                         shrinkWrap: true,
-                        itemCount: exploreFundController.exploreFundList.length,
+                        itemCount: DataConstants.exploreFundsController.exploreFundList.length,
                         scrollDirection: Axis.horizontal,
                         physics: const ScrollPhysics(),
                         itemBuilder: (context, index) {
@@ -232,7 +232,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                 ),
                 const SizedBox(height: AppDimens.appVPadding),
                 Skeletonizer(
-                  enabled: exploreFundController.isLoading.value,
+                  enabled: DataConstants.exploreFundsController.isLoading.value,
                   child: CommonHeader(
                     title: AppString.fundByUs,
                     labelOnTap: () {
@@ -241,7 +241,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                   ),
                 ),
                 Skeletonizer(
-                  enabled: exploreFundController.isLoading.value,
+                  enabled: DataConstants.exploreFundsController.isLoading.value,
                   child: SizedBox(
                     height: size.height >= AppDimens.screenLessThan5Inch ? size.height * 0.200 : size.height * 0.220, // for less than 5inch
                     width: size.width,
@@ -261,7 +261,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                 ),
                 const SizedBox(height: AppDimens.appVPadding),
                 Skeletonizer(
-                  enabled: exploreFundController.isLoading.value,
+                  enabled: DataConstants.exploreFundsController.isLoading.value,
                   child: CommonHeader(
                     title: AppString.latestFundRelease,
                     labelOnTap: () {
@@ -270,7 +270,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                   ),
                 ),
                 Skeletonizer(
-                  enabled: exploreFundController.isLoading.value,
+                  enabled: DataConstants.exploreFundsController.isLoading.value,
                   child: SizedBox(
                     height: size.height >= AppDimens.screenLessThan5Inch ? size.height * 0.210 : size.height * 0.240, // for less than 5inch
                     width: size.width,
@@ -299,7 +299,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
 // best performing fund widget
   Widget _bestPerformingFund(Size size, int index) {
     // var isLoading = exploreFundController.isLoading.value;
-    var item = exploreFundController.exploreFundList[index];
+    var item = DataConstants.exploreFundsController.exploreFundList[index];
     return GestureDetector(
       onTap: () {
         Navigator.pushNamed(context, AppRoute.fundDetailScreen, arguments: FundDetailScreenArgs(item.schemeCode.toString()));
@@ -364,12 +364,12 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Skeletonizer(
-                              enabled: exploreFundController.isLoading.value,
+                              enabled: DataConstants.exploreFundsController.isLoading.value,
                               child: CustomChip(label: item.assetClass ?? 'N/A'),
                             ),
                             SizedBox(width: size.width * 0.02),
                             Skeletonizer(
-                              enabled: exploreFundController.isLoading.value,
+                              enabled: DataConstants.exploreFundsController.isLoading.value,
                               child: CustomChip(label: item.schemeCategory ?? "N/A"),
                             ),
                           ],
@@ -378,12 +378,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                     ],
                   ),
                 ),
-                isLoading
-                    ? squareShimmer(
-                        height: size.height * 0,
-                        width: size.height * 0,
-                      )
-                    : ShowRatingWidget(rating: item.rating.toString()),
+                ShowRatingWidget(rating: item.rating.toString()),
               ],
             ),
             SizedBox(height: AppDimens.appSpacing10),
@@ -392,13 +387,13 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
               children: [
                 TitleAndValueWidget(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  isLoading: isLoading,
+                  isLoading: DataConstants.exploreFundsController.isLoading.value,
                   title: 'Min Amount',
                   value: item.aum.toString(),
                   valueColor: UtilsMethod().getColorBasedOnTheme(context),
                 ),
                 TitleAndValueWidget(
-                  isLoading: isLoading,
+                  isLoading: DataConstants.exploreFundsController.isLoading.value,
                   crossAxisAlignment: CrossAxisAlignment.end,
                   title: '1 Y Returns',
                   value: '${item.oneYear}%',
@@ -496,7 +491,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
               Column(
                 children: [
                   Skeletonizer(
-                    enabled: exploreFundController.isLoading.value,
+                    enabled: DataConstants.exploreFundsController.isLoading.value,
                     child: CustomChip(
                       label: 'Equity',
                     ),
@@ -505,7 +500,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                     height: 5,
                   ),
                   Skeletonizer(
-                    enabled: exploreFundController.isLoading.value,
+                    enabled: DataConstants.exploreFundsController.isLoading.value,
                     child: CustomChip(
                       label: 'Mid Cap',
                     ),

@@ -139,7 +139,7 @@ class _OrderPlacementScreenState extends State<OrderPlacementScreen> {
 
   void placeOrder() async {
     var sipOrder = AddSipOrderModel(
-      clientCode: 'G000001',
+      clientCode: DataConstants.globalController.clientCode.toString(),
       transactionCode: 'NEW',
       dpType: 'CDSL',
       frequencyType: 'MONTHLY',
@@ -153,7 +153,7 @@ class _OrderPlacementScreenState extends State<OrderPlacementScreen> {
     );
 
     var order = AddOrderModel(
-      clientCode: 'G000001',
+      clientCode: DataConstants.globalController.clientCode.toString(),
       transactionCode: 'NEW',
       buySell: 'PURCHASE',
       buySellType: 'FRESH',

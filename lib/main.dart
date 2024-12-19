@@ -20,9 +20,12 @@ void main() {
         getActiveOrdersEndPoint: '$mutualFundBaseUrl/Orders',
         getFundOverViewEndPoint: '$mutualFundBaseUrl/GetFundOverview',
         getFundOverViewCalInfoEndPoint: '$mutualFundBaseUrl/GetFundOverViewCalcInfo',
+        clientCode: 1234,
         mPin: 111111,
         userName: 'Sundar',
-        clientCode: 123456,
+        addToWatchListEndPoint: 'https://trade.aionioncapital.com/test/MfWatchList/api/v1/MfWatchList',
+        getWatchListEndPoint: 'https://trade.aionioncapital.com/test/MfWatchList/api/v1/MfWatchList',
+        deleteWatchListEndPoint: 'https://trade.aionioncapital.com/test/MfWatchList/api/v1/MfWatchList',
         // scaffoldKey: scaffoldKey,
         // scaffoldKey: null,
       ),
@@ -44,6 +47,9 @@ class MutualFund extends StatefulWidget {
   final String postSipOrderEndPoint;
   final String getFundOverViewEndPoint;
   final String getFundOverViewCalInfoEndPoint;
+  final String addToWatchListEndPoint;
+  final String getWatchListEndPoint;
+  final String deleteWatchListEndPoint;
 
   // final UserData userData;
 
@@ -56,10 +62,11 @@ class MutualFund extends StatefulWidget {
 
   MutualFund({
     this.scaffoldKey,
-    // required this.navigatorKey,
-    this.theme,
+    this.navigatorKey,
     this.darkTheme,
     this.themeMode,
+    this.theme,
+    // required this.navigatorKey,
     // required this.apiEndPoints,
     // required this.userData,
     required this.clientCode,
@@ -72,7 +79,9 @@ class MutualFund extends StatefulWidget {
     required this.postSipOrderEndPoint,
     required this.getFundOverViewEndPoint,
     required this.getFundOverViewCalInfoEndPoint,
-    this.navigatorKey,
+    required this.addToWatchListEndPoint,
+    required this.getWatchListEndPoint,
+    required this.deleteWatchListEndPoint,
   });
 
   @override
@@ -83,7 +92,6 @@ class _MutualFundState extends State<MutualFund> {
   @override
   Widget build(BuildContext context) {
     final GlobalController globalController = Get.put(GlobalController());
-    var mutualFundBaseUrl = 'https://trade.aionioncapital.com/test/MutulFunds/api/v1';
 
     globalController.setApiEndpoints(
       baseurl: widget.basUrlEndPoint,
@@ -95,6 +103,9 @@ class _MutualFundState extends State<MutualFund> {
       fundOverviewCalInfo: widget.getFundOverViewCalInfoEndPoint,
       navigatorkey: widget.navigatorKey,
       scaffoldkey: widget.scaffoldKey,
+      AddToWatchlist: widget.addToWatchListEndPoint,
+      GetWatchlist: widget.getWatchListEndPoint,
+      DeleteWatchlist: widget.deleteWatchListEndPoint,
     );
 
     globalController.setUserData(

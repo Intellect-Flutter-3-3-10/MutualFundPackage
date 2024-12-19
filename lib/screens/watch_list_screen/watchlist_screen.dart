@@ -1,6 +1,9 @@
+import 'dart:async';
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intellect_mutual_fund/screens/common_screens/common_screens.dart';
 import '../../my_app_exports.dart';
 
 class WatchListScreen extends StatefulWidget {
@@ -12,11 +15,19 @@ class WatchListScreen extends StatefulWidget {
 
 class _WatchListScreenState extends State<WatchListScreen> with SingleTickerProviderStateMixin {
   List<bool>? _isSaved;
+  Timer? _timer; // For example, a Timer
+  int _counter = 0;
+
+  List<String> watchListData = [];
 
   @override
   void initState() {
     super.initState();
-    _isSaved = List.generate(5, (index) => false);
+    DataConstants.watchListController.fetchWatchList(userId: '1234');
+
+    DataConstants.watchListController.watchList.listen((watchListData) {
+      if (watchListData.data != null && watchListData.data!.isNotEmpty) {}
+    });
   }
 
   void _handleSave(int index) {
@@ -27,14 +38,17 @@ class _WatchListScreenState extends State<WatchListScreen> with SingleTickerProv
 
   @override
   Widget build(BuildContext context) {
-    final GlobalController globalController = Get.find<GlobalController>();
+    debugPrint("CLIENT CODE >>>>>>  ${DataConstants.globalController.clientCode}");
+    debugPrint("Fund List COUNT >>>>>>  ${DataConstants.exploreFundsController.exploreFundList.length}");
+    debugPrint("Fund List COUNT >>>>>>  ${DataConstants.exploreFundsController.exploreFundList.length}");
+
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: CommonAppBar(
         isBackButton: true,
         title: AppString.myWatchList,
         leadingAction: () {
-          globalController.navigatorKey?.currentState?.pop();
+          DataConstants.globalController.navigatorKey?.currentState?.pop();
         },
         action: [
           IconButton(
@@ -50,41 +64,56 @@ class _WatchListScreenState extends State<WatchListScreen> with SingleTickerProv
       ),
       body: SafeArea(
         child: SingleChildScrollView(
-          physics: const ScrollPhysics(),
+          physics: BouncingScrollPhysics(),
           child: Padding(
             padding: const EdgeInsets.symmetric(
               vertical: AppDimens.appVPadding,
               horizontal: AppDimens.appHPadding,
             ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                ListView.separated(
-                    shrinkWrap: true,
-                    physics: const ScrollPhysics(),
-                    separatorBuilder: (context, index) => const Padding(
-                            padding: EdgeInsets.symmetric(
-                          vertical: AppDimens.appSpacing10,
-                        )),
-                    itemBuilder: (context, index) {
-                      return _fundsCard(size: size, index: index);
-                    },
-                    itemCount: 5),
-              ],
-            ),
+            child: Obx(() {
+              if (DataConstants.watchListController.filteredFundList == null) {
+                return Center(child: CircularProgressIndicator.adaptive());
+              }
+              if (DataConstants.watchListController.errorGetWatchlist.value.isNotEmpty) {
+                return Center(
+                  child: Text(
+                    DataConstants.watchListController.errorGetWatchlist.value,
+                    style: TextStyle(
+                      fontSize: 16,
+                    ),
+                  ),
+                );
+              }
+              if (DataConstants.watchListController.filteredFundList.isEmpty) {
+                return NoDataScreen();
+              }
+
+              _isSaved ??=
+                  List.generate(DataConstants.watchListController.filteredFundList.length, (index) => true); // update bool list for save toggle
+              return ListView.separated(
+                shrinkWrap: true,
+                physics: BouncingScrollPhysics(),
+                separatorBuilder: (context, index) => const Padding(
+                  padding: EdgeInsets.symmetric(vertical: AppDimens.appSpacing10),
+                ),
+                itemBuilder: (context, index) {
+                  return _fundsCard(size: size, index: index);
+                },
+                itemCount: DataConstants.watchListController.filteredFundList.length,
+              );
+            }),
           ),
         ),
       ),
     );
   }
 
-  Widget _fundsCard({Size? size, int? index}) {
+  Widget _fundsCard({Size? size, required int index}) {
+    var data = DataConstants.watchListController.filteredFundList[index];
     return GestureDetector(
       onTap: () {
         // UtilsMethod().navigateTo(context, AppRoute.fundDetailScreen, args: FundDetailScreenArgs("item.schemeCode.toString()"));
-        UtilsMethod().navigateTo(context, AppRoute.fundDetailScreen, args: FundDetailScreenArgs("item.schemeCode.toString()"));
+        UtilsMethod().navigateTo(context, AppRoute.fundDetailScreen, args: FundDetailScreenArgs(data.schemeCode.toString()));
       },
       child: Container(
         width: size!.width * 0.90,
@@ -104,74 +133,76 @@ class _WatchListScreenState extends State<WatchListScreen> with SingleTickerProv
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Row(
-                    children: [
-                      Container(
-                        height: size.height * 0.080,
-                        width: size.width * 0.15,
-                        decoration: BoxDecoration(
-                            border: Border.all(
-                              color: UtilsMethod().getColorBasedOnTheme(context).withOpacity(0.5),
-                            ),
-                            borderRadius: BorderRadius.circular(AppDimens.appRadius6)),
-                      ),
-                      SizedBox(
-                        width: size.height * 0.010,
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          AutoSizeText(
-                            'LIC MF Infrastructure Fund',
-                            style: AppTextStyles.regular15(),
-                            maxLines: 1,
-                          ),
-                          AutoSizeText(
-                            '- Growth Plan',
-                            style: AppTextStyles.regular13(),
-                            maxLines: 1,
-                          ),
-                          Row(
-                            // mainAxisSize: MainAxisSize.min,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.center,
+                  Expanded(
+                    child: Row(
+                      children: [
+                        CustomImageCard(
+                          image: data.amcIcon ?? "",
+                          height: size.height * 0.080,
+                          width: size.width * 0.17,
+                        ),
+                        SizedBox(
+                          width: size.height * 0.010,
+                        ),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.min,
                             children: [
-                              Row(
-                                children: const [
-                                  CustomChip(
-                                    label: 'Equity',
-                                  ),
-                                  SizedBox(
-                                    width: AppDimens.appSpacing10,
-                                  ),
-                                  CustomChip(
-                                    label: 'Mid Cap',
-                                  ),
-                                ],
+                              AutoSizeText(
+                                data.schemeName ?? 'N/A',
+                                style: AppTextStyles.regular15(),
+                                softWrap: true,
+                                overflow: TextOverflow.visible,
+                                maxLines: 2,
+                              ),
+                              AutoSizeText(
+                                data.riskCategory ?? "N/A",
+                                style: AppTextStyles.regular13(),
+                                maxLines: 1,
+                              ),
+                              FittedBox(
+                                child: Row(
+                                  children: [
+                                    CustomChip(
+                                      label: data.assetClass ?? 'N/A',
+                                    ),
+                                    SizedBox(
+                                      width: AppDimens.appSpacing10,
+                                    ),
+                                    CustomChip(
+                                      label: data.schemeCategory ?? 'N/A',
+                                    ),
+                                  ],
+                                ),
                               ),
                             ],
                           ),
-                        ],
-                      ),
-                    ],
+                        ),
+                      ],
+                    ),
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       CommonIconButton(
-                        onTap: () {
+                        onTap: () async {
                           _handleSave(index);
+                          await DataConstants.watchListController.deleteWatchListRecord(id: data.id ?? 0, context: context);
+                          await DataConstants.watchListController.fetchWatchList(userId: '1234');
                         },
                         isSvg: false,
-                        icon: _isSaved![index!] ? Icons.bookmark : Icons.bookmark_border_outlined,
+                        // icon: _isSaved![index] ? Icons.bookmark : Icons.bookmark_border_outlined,
+                        icon: Icons.highlight_remove,
+                        toolTip: "Remove",
                         pictureIcon: AppImage.all,
-                        iconColor: AppColor.blue,
+
+                        iconColor: AppColor.red,
                       ),
-                      const ShowRatingWidget(
-                        rating: '5',
+                      ShowRatingWidget(
+                        rating: data.rating.toString() ?? '0',
                       ),
                     ],
                   ),
@@ -182,18 +213,18 @@ class _WatchListScreenState extends State<WatchListScreen> with SingleTickerProv
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
+                children: [
                   TitleAndValueWidget(
                     isHorizontal: true,
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    title: 'Min Amount',
-                    value: '10,000',
+                    title: 'AUM',
+                    value: "${data.aum.toString()} Cr" ?? 'N/A',
                   ),
                   TitleAndValueWidget(
                     isHorizontal: true,
                     crossAxisAlignment: CrossAxisAlignment.end,
                     title: '1 Y Returns',
-                    value: '71.76%',
+                    value: '${data.oneYear}%',
                     valueColor: Colors.green,
                   ),
                 ],
@@ -214,4 +245,13 @@ class _WatchListScreenState extends State<WatchListScreen> with SingleTickerProv
       ),
     );
   }
+
+// void addToWatchList(int index, AddToWatchLisModel model) {
+//   var data = AddToWatchLisModel(
+//     userId: globalController.clientCode.toString(),
+//     schemeCodes: watchListData,
+//   );
+//
+//   controller.addToWatchlist(data);
+// }
 }

@@ -12,7 +12,11 @@ class GlobalController extends GetxController {
 
   String getFundOverview = ''; // post method // fund details
 
-  String getFundOverViewCalcInfo = ''; // post method // calculation details
+  String getFundOverViewCalcInfo = ''; //  post method // calculation details
+  String addToWatchList = ''; //  POST method // Add To watchlist
+  String getWatchList = ''; //  GET method // get watchlist data
+  String deleteWatchList = ''; //  DELETE method // delete watchlist
+
   // User data
   int? clientCode; // Client Code
   int? mPin; // mPin
@@ -38,6 +42,9 @@ class GlobalController extends GetxController {
     required String activeOrders,
     required String fundOverview,
     required String fundOverviewCalInfo,
+    required String AddToWatchlist,
+    required String GetWatchlist,
+    required String DeleteWatchlist,
     dynamic navigatorkey,
     dynamic scaffoldkey,
   }) {
@@ -49,6 +56,9 @@ class GlobalController extends GetxController {
     getActiveOrders = activeOrders;
     getFundOverview = fundOverview;
     getFundOverViewCalcInfo = fundOverviewCalInfo;
+    addToWatchList = AddToWatchlist;
+    getWatchList = GetWatchlist;
+    deleteWatchList = DeleteWatchlist;
     navigatorKey = navigatorkey;
     scaffoldKey = scaffoldkey;
   }
@@ -69,6 +79,8 @@ class GlobalController extends GetxController {
   }
 
   void checkDetails() {
+    print('GET SCAFFOLD KEY >>>>>> $scaffoldKey');
+    print('GET NAVIGATOR KEY >>>>>> $navigatorKey');
     print('M-PIN >>>>> $mPin');
     print('USER NAME >>>>> $userName');
     print('CLIENT CODE >>>>> $clientCode');
@@ -77,7 +89,8 @@ class GlobalController extends GetxController {
     print('POST LUMPSUM ORDER >>>>> $postOrders');
     print('GET EXPLORE FUND >>>>> $getExploreFunds');
     print('GET ACTIVE ORDERS >>>>> $getActiveOrders');
-    print('GET NAVIGATOR KEY >>>>>> $navigatorKey');
-    print('GET SCAFFOLD KEY >>>>>> $scaffoldKey');
+    // print('ADD TO WATCHLIST  >>>>> $addToWatchList');
+    // print('GET WATCHLIST  >>>>> $getWatchList');
+    // print('DELETE FROM WATCHLIST  >>>>> $deleteWatchList');
   }
 }

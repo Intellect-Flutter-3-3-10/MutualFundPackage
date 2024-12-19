@@ -9,6 +9,7 @@ class AppRoute {
   static const String quickActionScreen = '/quickActionScreen';
   static const String fundDetailScreen = '/fundDetailScreen';
   static const String orderPlacementScreen = '/orderPlacementScreen';
+  static const String watchListScreen = '/watchListScreen';
 
   static Route<dynamic> controller(RouteSettings settings) {
     final args = settings.arguments;
@@ -29,6 +30,11 @@ class AppRoute {
       case AppRoute.latestFundRelease:
         return MaterialPageRoute(
           builder: (context) => LatestFundReleaseScreen(),
+        );
+
+      case AppRoute.watchListScreen:
+        return MaterialPageRoute(
+          builder: (context) => WatchListScreen(),
         );
 
       case AppRoute.quickActionScreen:

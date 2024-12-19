@@ -22,7 +22,8 @@ class FundDetailScreen extends StatefulWidget {
 }
 
 class _FundDetailScreenState extends State<FundDetailScreen> {
-  final fundDetailController = Get.put(FundDetailController());
+  // final globalController = Get.put(GlobalController());
+
   bool isSaved = false;
 
   // for sip calculation
@@ -41,12 +42,13 @@ class _FundDetailScreenState extends State<FundDetailScreen> {
   @override
   void initState() {
     super.initState();
-    fundDetailController.fetchMutualFundOverview(schemeCode: widget.args.schemeCode ?? 'N/A');
+    DataConstants.fundDetailController.fetchMutualFundOverview(schemeCode: widget.args.schemeCode ?? 'N/A');
   }
 
   @override
   Widget build(BuildContext context) {
     debugPrint("SCHEME CODE >>>>>> ${widget.args.schemeCode}");
+
     return Scaffold(
       appBar: CommonAppBar(
         automaticallyImplyLeading: true,
@@ -65,56 +67,70 @@ class _FundDetailScreenState extends State<FundDetailScreen> {
           ),
         ],
       ),
-      body: LayoutBuilder(
-        builder: (BuildContext context, constraint) {
-          Size size = MediaQuery.of(context).size;
-          return SingleChildScrollView(
-            physics: const ScrollPhysics(),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: AppDimens.appHPadding,
-                vertical: AppDimens.appVPadding,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  /// fund stats details
-                  Obx(() => _fundStatsView(constraints: constraint, size: size)),
-
-                  ///line chart
-                  Obx(
-                    () => Skeletonizer(
-                      enabled: fundDetailController.isLoading.value,
-                      child: _lineChart(constraint: constraint, size: size),
-                    ),
+      body: SafeArea(
+        child: LayoutBuilder(
+          builder: (BuildContext context, constraint) {
+            Size size = MediaQuery.of(context).size;
+            return SingleChildScrollView(
+              physics: const ScrollPhysics(),
+              child: Center(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: AppDimens.appHPadding,
+                    vertical: AppDimens.appVPadding,
                   ),
+                  child: Obx(
+                    () {
+                      if (DataConstants.fundDetailController.isLoading.value) {
+                        return Center(
+                          child: CircularProgressIndicator.adaptive(),
+                        );
+                      }
+                      if (DataConstants.fundDetailController.errorMessage.value.isNotEmpty) {
+                        return Text(
+                          DataConstants.fundDetailController.errorMessage.value,
+                          style: AppTextStyles.semiBold14(),
+                        );
+                      }
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          /// fund stats details
+                          _fundStatsView(constraints: constraint, size: size),
 
-                  const SizedBox(height: AppDimens.appSpacing10),
+                          ///line chart
+                          _lineChart(constraint: constraint, size: size),
 
-                  /// chart view duration button
-                  _chartViewDurationButton(constraint: constraint, size: size),
-                  // const SizedBox(height: AppDimens.appSpacing10),
+                          const SizedBox(height: AppDimens.appSpacing10),
 
-                  /// schema details panel
-                  // _schemaDetailsPanel(constraint: constraint, size: size),
+                          /// chart view duration button
+                          _chartViewDurationButton(constraint: constraint, size: size),
+                          // const SizedBox(height: AppDimens.appSpacing10),
 
-                  // const SizedBox(height: AppDimens.appSpacing10),
+                          /// schema details panel
+                          // _schemaDetailsPanel(constraint: constraint, size: size),
 
-                  /// returns calculator
-                  // _returnsCalculatorPanel(constraint: constraint, size: size),
+                          // const SizedBox(height: AppDimens.appSpacing10),
 
-                  // const SizedBox(height: AppDimens.appSpacing10),
+                          /// returns calculator
+                          // _returnsCalculatorPanel(constraint: constraint, size: size),
 
-                  /// returns and rankings
-                  // _returnsAndRankingView(constraints: constraint, size: size),
+                          // const SizedBox(height: AppDimens.appSpacing10),
 
-                  const SizedBox(height: AppDimens.appSpacing10),
-                ],
+                          /// returns and rankings
+                          // _returnsAndRankingView(constraints: constraint, size: size),
+
+                          const SizedBox(height: AppDimens.appSpacing10),
+                        ],
+                      );
+                    },
+                  ),
+                ),
               ),
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
 
       /// invest button
@@ -133,11 +149,33 @@ class _FundDetailScreenState extends State<FundDetailScreen> {
     );
   }
 
+  void toggleSaveToApi(bool isWatchlist) {
+    var fundDetail = FundDetailController.mutualFundData.value.data;
+    List<String> saveList = [];
+
+    saveList.add(fundDetail!.schemeCode.toString());
+    if (isWatchlist) {
+      var data = AddToWatchLisModel(
+        userId: DataConstants.globalController.clientCode.toString(),
+        schemeCodes: saveList,
+        watchListName: 'TEST',
+      );
+
+      DataConstants.watchListController.addToWatchlist(context, data);
+    } else {
+      DataConstants.watchListController.deleteWatchListRecord(
+        context: context,
+        id: fundDetail.id ?? 0,
+      );
+    }
+  }
+
   /// fund stats view
   Widget _fundStatsView({BoxConstraints? constraints, Size? size}) {
     var fundDetail = FundDetailController.mutualFundData.value.data;
+    bool isWatchlist = FundDetailController.mutualFundData.value.data?.isInWatchlist ?? false;
     return Skeletonizer(
-      enabled: fundDetailController.isLoading.value,
+      enabled: DataConstants.fundDetailController.isLoading.value,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
@@ -211,14 +249,79 @@ class _FundDetailScreenState extends State<FundDetailScreen> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   CommonIconButton(
-                    onTap: toggleSave,
+                    // onTap: () async {
+                    //   var id = fundDetail?.id;
+                    //   if (isWatchlist) {
+                    //     // DataConstants.watchListController.deleteWatchListRecord(context: context, id: id ?? 0);
+                    //     FundDetailController.mutualFundData.value.data?.isInWatchlist = false;
+                    //     // DataConstants.watchListController.filterFundsFromWatchlist();
+                    //     // DataConstants.fundDetailController.fetchMutualFundOverview(schemeCode: widget.args.schemeCode.toString());
+                    //     setState(() {});
+                    //   } else if (!isWatchlist) {
+                    //     List<String> savedId = [];
+                    //     savedId.add(fundDetail!.schemeCode.toString());
+                    //     var data = AddToWatchLisModel(
+                    //       userId: DataConstants.globalController.clientCode.toString(),
+                    //       watchListName: 'TEST',
+                    //       schemeCodes: savedId,
+                    //     );
+                    //     // DataConstants.watchListController.addToWatchlist(context, data);
+                    //     DataConstants.watchListController.filterFundsFromWatchlist();
+                    //     FundDetailController.mutualFundData.value.data?.isInWatchlist = true;
+                    //     setState(() {});
+                    //   }
+                    // },
+                    onTap: isWatchlist
+                        ? () {
+                            SnackbarHelper.showSnackbar(
+                              showCloseIcon: true,
+                              context: context,
+                              // actionLabel: 'Go To',
+                              message: "Already Added To WatchList",
+                            );
+                          }
+                        : () {
+                            UtilsMethod().showPopUpModal(
+                              title: "Watchlist",
+                              context: context,
+                              child: Wrap(
+                                children: DataConstants()
+                                    .watchList
+                                    .map(
+                                      (name) => ListTile(
+                                        title: Text(
+                                          name,
+                                          style: AppTextStyles.regular14(),
+                                        ),
+                                        onTap: () {
+                                          List<String> savedId = [];
+                                          savedId.add(fundDetail!.schemeCode.toString());
+                                          var data = AddToWatchLisModel(
+                                            userId: DataConstants.globalController.clientCode.toString(),
+                                            watchListName: name,
+                                            schemeCodes: savedId,
+                                          );
+                                          DataConstants.watchListController.addToWatchlist(context, data);
+                                          DataConstants.watchListController.filterFundsFromWatchlist();
+
+                                          setState(() {
+                                            FundDetailController.mutualFundData.value.data?.isInWatchlist = true;
+                                          });
+                                          Navigator.pop(context);
+                                        },
+                                      ),
+                                    )
+                                    .toList(),
+                              ),
+                            );
+                          },
                     isSvg: false,
-                    icon: isSaved ? Icons.bookmark : Icons.bookmark_border_outlined,
+                    icon: isWatchlist ? Icons.bookmark : Icons.bookmark_border_outlined,
                     pictureIcon: AppImage.all,
                     iconColor: AppColor.blue,
                   ),
                   ShowRatingWidget(
-                    rating: "4" ?? "N/A",
+                    rating: fundDetail?.rating ?? "N/A",
                   ),
                 ],
               ),
@@ -256,7 +359,7 @@ class _FundDetailScreenState extends State<FundDetailScreen> {
                 isHorizontal: false,
                 crossAxisAlignment: CrossAxisAlignment.end,
                 title: AppString.oneWeekReturn,
-                value: fundDetail?.oneWeekReturn.toStringAsFixed(2) ?? 'N/A',
+                value: fundDetail?.oneWeekReturn?.toStringAsFixed(2) ?? 'N/A',
                 valueColor: Colors.green,
               ),
             ],
@@ -304,7 +407,7 @@ class _FundDetailScreenState extends State<FundDetailScreen> {
     return Obx(
       () {
         return Skeletonizer(
-          enabled: fundDetailController.isLoading.value,
+          enabled: DataConstants.fundDetailController.isLoading.value,
           child: CustomToggleButtons(
             buttonLabels: FundDetailController.chartPeriods.map((period) => period.periodName).toList(),
             onToggle: (index) {
@@ -336,7 +439,7 @@ class _FundDetailScreenState extends State<FundDetailScreen> {
   /// schema details panel
   Widget _schemaDetailsPanel({BoxConstraints? constraint, Size? size}) {
     return Skeletonizer(
-      enabled: fundDetailController.isLoading.value,
+      enabled: DataConstants.fundDetailController.isLoading.value,
       child: CustomExpansionPanelList(
         bodyColor: Theme.of(context).scaffoldBackgroundColor,
 
@@ -434,7 +537,7 @@ class _FundDetailScreenState extends State<FundDetailScreen> {
   /// returns calculator view
   Widget _returnsCalculatorPanel({BoxConstraints? constraint, Size? size}) {
     return Skeletonizer(
-      enabled: fundDetailController.isLoading.value,
+      enabled: DataConstants.fundDetailController.isLoading.value,
       child: CustomExpansionPanelList(
         expansionCallbackEnabled: true,
         headerColor: Colors.transparent,
@@ -545,7 +648,7 @@ class _FundDetailScreenState extends State<FundDetailScreen> {
   /// returns and rankings view
   Widget _returnsAndRankingView({BoxConstraints? constraints, Size? size}) {
     return Skeletonizer(
-      enabled: fundDetailController.isLoading.value,
+      enabled: DataConstants.fundDetailController.isLoading.value,
       child: CustomExpansionPanelList(
         headerColor: Colors.transparent,
         elevation: 0.0,
@@ -654,7 +757,7 @@ class _FundDetailScreenState extends State<FundDetailScreen> {
     String? annualReturn,
   }) {
     return Skeletonizer(
-      enabled: fundDetailController.isLoading.value,
+      enabled: DataConstants.fundDetailController.isLoading.value,
       child: Row(
         children: [
           Expanded(
@@ -739,7 +842,7 @@ class _FundDetailScreenState extends State<FundDetailScreen> {
                       setState(() {
                         isSipSelected = false;
                       });
-                      Get.back(closeOverlays: true);
+                      Navigator.pop(context);
                       UtilsMethod().navigateTo(context, AppRoute.orderPlacementScreen, args: OrderPlacementScreenArgs(isSip: isSipSelected));
                     },
                   ),

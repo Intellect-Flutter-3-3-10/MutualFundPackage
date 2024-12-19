@@ -7,8 +7,6 @@ import '../../my_app_exports.dart';
 class ExploreFundsController extends GetxController {
   final Logger logger = Logger();
 
-  final globalController = Get.find<GlobalController>();
-
   RxList<FundData> exploreFundList = <FundData>[].obs;
   RxBool isLoading = false.obs;
   RxString errorMessage = ''.obs;
@@ -23,26 +21,40 @@ class ExploreFundsController extends GetxController {
     try {
       isLoading(true);
       var response = await http.get(Uri.parse(
-        globalController.getExploreFunds,
+        DataConstants.globalController.getExploreFunds,
       ));
       if (response.statusCode == 200) {
         var jsonData = json.decode(response.body);
         ExploreFundsModel fundModel = ExploreFundsModel.fromJson(jsonData);
         if (fundModel.status == true) {
           exploreFundList.value = fundModel.data ?? [];
+          DataConstants.watchListController.filterFundsFromWatchlist();
+          markFundsInWatchList();
         } else {
-          // Get.snackbar('Error', fundModel.message ?? 'Something went wrong');
           errorMessage.value = fundModel.message!;
         }
       } else {
-        // Get.snackbar('Error', 'Failed to fetch data');
         errorMessage.value = 'Error Failed to fetch data';
       }
     } catch (error) {
       errorMessage.value = error.toString();
-      // Get.snackbar('Error', e.toString());
     } finally {
       isLoading(false);
     }
+  }
+
+  void markFundsInWatchList() {
+    // Get the filtered fund scheme codes from the watchlist
+    var watchListSchemeCodes = DataConstants.watchListController.filteredFundList.map((fund) => fund.schemeCode).toSet();
+
+    // Update the exploreFundList with the `isInWatchList` property
+    exploreFundList.value = exploreFundList.map((fund) {
+      bool isInWatchList = watchListSchemeCodes.contains(fund.schemeCode);
+      return fund.copyWith(isInWatchList: isInWatchList);
+    }).toList();
+
+    // Debugging
+    print(
+        "Updated exploreFundList with isInWatchList: ${exploreFundList.map((fund) => 'Scheme: ${fund.schemeCode}, IsInWatchList: ${fund.isInWatchList}').toList()}");
   }
 }

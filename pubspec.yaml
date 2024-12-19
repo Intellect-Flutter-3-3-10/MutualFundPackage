@@ -53,6 +53,7 @@ dependencies:
   get_storage:
   dio:
   skeletonizer:
+  fluttertoast:
 
 
 

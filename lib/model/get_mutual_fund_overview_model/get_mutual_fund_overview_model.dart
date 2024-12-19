@@ -1,13 +1,3 @@
-// To parse this JSON data, do
-//
-//     final getMutualFundOverviewModel = getMutualFundOverviewModelFromJson(jsonString);
-
-import 'dart:convert';
-
-GetMutualFundOverviewModel getMutualFundOverviewModelFromJson(String str) => GetMutualFundOverviewModel.fromJson(json.decode(str));
-
-String getMutualFundOverviewModelToJson(GetMutualFundOverviewModel data) => json.encode(data.toJson());
-
 class GetMutualFundOverviewModel {
   bool? status;
   String? message;
@@ -22,7 +12,7 @@ class GetMutualFundOverviewModel {
   factory GetMutualFundOverviewModel.fromJson(Map<String, dynamic> json) => GetMutualFundOverviewModel(
         status: json["status"],
         message: json["message"],
-        data: Data.fromJson(json["data"]),
+        data: json["data"] != null ? Data.fromJson(json["data"]) : null,
       );
 
   Map<String, dynamic> toJson() => {
@@ -30,70 +20,91 @@ class GetMutualFundOverviewModel {
         "message": message,
         "data": data?.toJson(),
       };
+
+  GetMutualFundOverviewModel copyWith({
+    bool? status,
+    String? message,
+    bool? isInWatchList,
+    Data? data,
+  }) {
+    return GetMutualFundOverviewModel(
+      status: status ?? this.status,
+      message: message ?? this.message,
+      data: data ?? this.data,
+    );
+  }
 }
 
 class Data {
-  int schemeCode;
-  String schemeName;
-  String riskCategory;
-  String assetClass;
-  String schemeCategory;
-  String fundManager;
-  double nav;
-  DateTime navDate;
-  double oneWeekChange;
-  double oneWeekReturn;
-  double sinceInceptionReturn;
-  String amcIcon;
-  String investmentObjective;
-  double expenseRatio;
-  DateTime launchDate;
-  int sipMinimum;
-  int lumpsumMinimum;
-  String isin;
-  double beta;
-  String lockIn;
-  double sharpeRatio;
+  bool? isInWatchlist;
+  int? id;
+  int? schemeCode;
+  String? schemeName;
+  String? riskCategory;
+  String? assetClass;
+  String? schemeCategory;
+  String? fundManager;
+  double? nav;
+  DateTime? navDate;
+  double? oneWeekChange;
+  double? oneWeekReturn;
+  double? sinceInceptionReturn;
+  String? amcIcon;
+  String? investmentObjective;
+  double? expenseRatio;
+  DateTime? launchDate;
+  int? sipMinimum;
+  int? lumpsumMinimum;
+  String? isin;
+  double? beta;
+  String? lockIn;
+  double? sharpeRatio;
   dynamic benchmark;
-  String rtaamcCode;
-  String rtaCode;
-  double aum;
-  String annualisedStdDev;
-  List<HistoricalNavDetail> historicalNavDetails;
-  List<ChartPeriod> chartPeriods;
+  String? rtaamcCode;
+  String? rtaCode;
+  double? aum;
+  String? rating;
+  String? annualisedStdDev;
+  List<HistoricalNavDetail>? historicalNavDetails;
+  List<ChartPeriod>? chartPeriods;
 
   Data({
-    required this.schemeCode,
-    required this.schemeName,
-    required this.riskCategory,
-    required this.assetClass,
-    required this.schemeCategory,
-    required this.fundManager,
-    required this.nav,
-    required this.navDate,
-    required this.oneWeekChange,
-    required this.oneWeekReturn,
-    required this.sinceInceptionReturn,
-    required this.amcIcon,
-    required this.investmentObjective,
-    required this.expenseRatio,
-    required this.launchDate,
-    required this.sipMinimum,
-    required this.lumpsumMinimum,
-    required this.isin,
-    required this.beta,
-    required this.lockIn,
-    required this.sharpeRatio,
-    required this.benchmark,
-    required this.rtaamcCode,
-    required this.rtaCode,
-    required this.aum,
-    required this.annualisedStdDev,
-    required this.historicalNavDetails,
-    required this.chartPeriods,
+    this.isInWatchlist = false,
+    this.id,
+    this.schemeCode,
+    this.schemeName,
+    this.riskCategory,
+    this.assetClass,
+    this.schemeCategory,
+    this.fundManager,
+    this.nav,
+    this.navDate,
+    this.oneWeekChange,
+    this.oneWeekReturn,
+    this.sinceInceptionReturn,
+    this.amcIcon,
+    this.investmentObjective,
+    this.expenseRatio,
+    this.launchDate,
+    this.sipMinimum,
+    this.lumpsumMinimum,
+    this.isin,
+    this.beta,
+    this.lockIn,
+    this.sharpeRatio,
+    this.benchmark,
+    this.rtaamcCode,
+    this.rtaCode,
+    this.aum,
+    this.rating = '',
+    this.annualisedStdDev,
+    this.historicalNavDetails,
+    this.chartPeriods,
   });
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
+        isInWatchlist: json["isInWatchlist"],
+        id: json["id"],
         schemeCode: json["schemeCode"],
         schemeName: json["schemeName"],
         riskCategory: json["riskCategory"],
@@ -119,12 +130,15 @@ class Data {
         rtaamcCode: json["rtaamcCode"],
         rtaCode: json["rtaCode"],
         aum: json["aum"]?.toDouble(),
+        rating: json["rating"],
         annualisedStdDev: json["annualisedStdDev"],
         historicalNavDetails: List<HistoricalNavDetail>.from(json["historicalNAVDetails"].map((x) => HistoricalNavDetail.fromJson(x))),
         chartPeriods: List<ChartPeriod>.from(json["chartPeriods"].map((x) => ChartPeriod.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
+        "isInWatchlist": isInWatchlist,
+        "id": id,
         "schemeCode": schemeCode,
         "schemeName": schemeName,
         "riskCategory": riskCategory,
@@ -132,14 +146,14 @@ class Data {
         "schemeCategory": schemeCategory,
         "fundManager": fundManager,
         "nav": nav,
-        "navDate": navDate.toIso8601String(),
+        "navDate": navDate.toString(),
         "oneWeekChange": oneWeekChange,
         "oneWeekReturn": oneWeekReturn,
         "sinceInceptionReturn": sinceInceptionReturn,
         "amcIcon": amcIcon,
         "investmentObjective": investmentObjective,
         "expenseRatio": expenseRatio,
-        "launchDate": launchDate.toIso8601String(),
+        "launchDate": launchDate.toString(),
         "sipMinimum": sipMinimum,
         "lumpsumMinimum": lumpsumMinimum,
         "isin": isin,
@@ -150,10 +164,80 @@ class Data {
         "rtaamcCode": rtaamcCode,
         "rtaCode": rtaCode,
         "aum": aum,
+        "rating": rating,
         "annualisedStdDev": annualisedStdDev,
-        "historicalNAVDetails": List<dynamic>.from(historicalNavDetails.map((x) => x.toJson())),
-        "chartPeriods": List<dynamic>.from(chartPeriods.map((x) => x.toJson())),
+        "historicalNAVDetails": List<dynamic>.from(historicalNavDetails!.map((x) => x.toJson())),
+        "chartPeriods": List<dynamic>.from(chartPeriods!.map((x) => x.toJson())),
       };
+
+  Data copyWith({
+    bool? isInWatchlist,
+    int? id,
+    int? schemeCode,
+    String? schemeName,
+    String? riskCategory,
+    String? assetClass,
+    String? schemeCategory,
+    String? fundManager,
+    double? nav,
+    DateTime? navDate,
+    double? oneWeekChange,
+    double? oneWeekReturn,
+    double? sinceInceptionReturn,
+    String? amcIcon,
+    String? investmentObjective,
+    double? expenseRatio,
+    DateTime? launchDate,
+    int? sipMinimum,
+    int? lumpsumMinimum,
+    String? isin,
+    double? beta,
+    String? lockIn,
+    double? sharpeRatio,
+    dynamic benchmark,
+    String? rtaamcCode,
+    String? rtaCode,
+    double? aum,
+    String? rating,
+    bool? isInWatchList,
+    String? annualisedStdDev,
+    List<HistoricalNavDetail>? historicalNavDetails,
+    List<ChartPeriod>? chartPeriods,
+  }) {
+    return Data(
+      isInWatchlist: isInWatchlist ?? this.isInWatchlist,
+      id: id ?? this.id,
+      schemeCode: schemeCode ?? this.schemeCode,
+      schemeName: schemeName ?? this.schemeName,
+      riskCategory: riskCategory ?? this.riskCategory,
+      assetClass: assetClass ?? this.assetClass,
+      schemeCategory: schemeCategory ?? this.schemeCategory,
+      fundManager: fundManager ?? this.fundManager,
+      nav: nav ?? this.nav,
+      navDate: navDate ?? this.navDate,
+      oneWeekChange: oneWeekChange ?? this.oneWeekChange,
+      oneWeekReturn: oneWeekReturn ?? this.oneWeekReturn,
+      sinceInceptionReturn: sinceInceptionReturn ?? this.sinceInceptionReturn,
+      amcIcon: amcIcon ?? this.amcIcon,
+      investmentObjective: investmentObjective ?? this.investmentObjective,
+      expenseRatio: expenseRatio ?? this.expenseRatio,
+      launchDate: launchDate ?? this.launchDate,
+      sipMinimum: sipMinimum ?? this.sipMinimum,
+      lumpsumMinimum: lumpsumMinimum ?? this.lumpsumMinimum,
+      isin: isin ?? this.isin,
+      beta: beta ?? this.beta,
+      lockIn: lockIn ?? this.lockIn,
+      sharpeRatio: sharpeRatio ?? this.sharpeRatio,
+      benchmark: benchmark ?? this.benchmark,
+      rtaamcCode: rtaamcCode ?? this.rtaamcCode,
+      rtaCode: rtaCode ?? this.rtaCode,
+      aum: aum ?? this.aum,
+      rating: rating ?? this.rating,
+      annualisedStdDev: annualisedStdDev ?? this.annualisedStdDev,
+      historicalNavDetails: historicalNavDetails ?? this.historicalNavDetails,
+      chartPeriods: chartPeriods ?? this.chartPeriods,
+    );
+  }
 }
 
 class ChartPeriod {
@@ -174,6 +258,16 @@ class ChartPeriod {
         "periodId": periodId,
         "periodName": periodName,
       };
+
+  ChartPeriod copyWith({
+    String? periodId,
+    String? periodName,
+  }) {
+    return ChartPeriod(
+      periodId: periodId ?? this.periodId,
+      periodName: periodName ?? this.periodName,
+    );
+  }
 }
 
 class HistoricalNavDetail {
@@ -194,4 +288,14 @@ class HistoricalNavDetail {
         "navDate": navDate.toIso8601String(),
         "nav": nav,
       };
+
+  HistoricalNavDetail copyWith({
+    DateTime? navDate,
+    double? nav,
+  }) {
+    return HistoricalNavDetail(
+      navDate: navDate ?? this.navDate,
+      nav: nav ?? this.nav,
+    );
+  }
 }

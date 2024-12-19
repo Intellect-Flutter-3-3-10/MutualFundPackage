@@ -1,6 +1,5 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import '../my_app_exports.dart';
 
@@ -95,6 +94,89 @@ class UtilsMethod {
           ),
         );
       },
+    );
+  }
+
+  void showPopUpModal({BuildContext? context, Widget? child, String? title}) {
+    showDialog(
+      context: context!,
+      useRootNavigator: false,
+      builder: (context) {
+        return AlertDialog(
+          actionsAlignment: MainAxisAlignment.center,
+
+          // scrollable: from,
+          title: Text(
+            title ?? '',
+            style: AppTextStyles.semiBold16(),
+          ),
+          content: child!,
+        );
+      },
+    );
+  }
+
+  showToast(String msg, ToastType type) {
+    var bgColor = Colors.white12;
+    var txtColor = Colors.black;
+
+    switch (type) {
+      case ToastType.success:
+        bgColor = Colors.green;
+        txtColor = Colors.white;
+        break;
+      case ToastType.error:
+        bgColor = Colors.red;
+        txtColor = Colors.white;
+        break;
+      case ToastType.warning:
+        bgColor = Colors.orange;
+        txtColor = Colors.white;
+        break;
+      case ToastType.info:
+        bgColor = Colors.white;
+        txtColor = Colors.black;
+        break;
+    }
+
+    Fluttertoast.showToast(
+      msg: msg,
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 1,
+      backgroundColor: bgColor,
+      textColor: txtColor,
+      fontSize: 16.0,
+    );
+  }
+}
+
+enum ToastType { success, error, warning, info }
+
+class SnackbarHelper {
+  // Function to show the snackbar
+  static void showSnackbar({
+    required BuildContext context,
+    required String message,
+    String? actionLabel,
+    bool? showCloseIcon = false,
+    VoidCallback? onActionPressed,
+    Duration duration = const Duration(seconds: 2),
+  }) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        showCloseIcon: showCloseIcon,
+        content: Text(message),
+        duration: duration,
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: AppColor.black.withOpacity(0.5),
+        action: actionLabel != null
+            ? SnackBarAction(
+                label: actionLabel,
+                onPressed: onActionPressed ?? () {},
+              )
+            : null,
+      ),
     );
   }
 }

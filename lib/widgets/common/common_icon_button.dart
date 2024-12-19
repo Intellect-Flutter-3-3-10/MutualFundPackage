@@ -10,20 +10,23 @@ class CommonIconButton extends StatelessWidget {
   final double? iconSize;
   final Function()? onTap;
   final bool isSvg;
+  final String? toolTip;
 
   const CommonIconButton({
     super.key,
-    this.pictureIcon= AppImage.saveIcon,
+    this.pictureIcon = AppImage.saveIcon,
     this.icon,
     this.iconColor,
     this.iconSize,
     this.onTap,
     this.isSvg = false,
+    this.toolTip = '',
   });
 
   @override
   Widget build(BuildContext context) {
     return IconButton(
+      tooltip: toolTip,
       onPressed: onTap,
       icon: isSvg
           ? SvgPicture.asset(

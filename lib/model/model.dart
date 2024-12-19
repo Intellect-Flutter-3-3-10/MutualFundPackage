@@ -8,3 +8,4 @@ export 'api_end_point_model/api_end_point_model.dart';
 export 'user_data_model/user_data_model.dart';
 export 'get_mutual_fund_overview_model/get_mutual_fund_overview_model.dart';
 export 'get_mutual_fund_overview_model/fund_overview_cal_info_model.dart';
+export 'watchlist_models/add_to_watchlist_model.dart';

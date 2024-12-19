@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:intellect_mutual_fund/my_app_exports.dart';
 
 import '../../res/res.dart';
 
@@ -22,6 +23,10 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      surfaceTintColor: Colors.transparent,
+      shadowColor: Colors.transparent,
+      // scrolledUnderElevation: 0.0,
+      forceMaterialTransparency: true,
       automaticallyImplyLeading: automaticallyImplyLeading,
       leading: isBackButton
           ? GestureDetector(

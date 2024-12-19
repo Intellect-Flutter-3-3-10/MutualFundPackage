@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intellect_mutual_fund/utils/get_storage_data.dart';
 import '../../my_app_exports.dart';
 import 'package:http/http.dart' as http;
 
@@ -29,7 +30,7 @@ class FundDetailController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-
+    DataConstants.watchListController.fetchWatchList(userId: DataConstants.globalController.clientCode.toString());
     // Initial filtering with "ALL"
     filterChartData("ALL");
 
@@ -60,18 +61,37 @@ class FundDetailController extends GetxController {
         "schemeCode": schemeCode,
       });
 
-      // Send POST request
       final response = await http.post(url, headers: headers, body: body);
 
-      // Check if response is successful
       if (response.statusCode == 200) {
         final jsonResponse = jsonDecode(response.body);
 
         if (jsonResponse["status"] == true) {
+          DataConstants.watchListController.filterFundsFromWatchlist();
           // Parse and store the data in the model
-          mutualFundData.value = getMutualFundOverviewModelFromJson(response.body);
-          historicalNAVDetails.value = mutualFundData.value.data!.historicalNavDetails;
-          chartPeriods.value = mutualFundData.value.data!.chartPeriods;
+          // mutualFundData.value = getMutualFundOverviewModelFromJson(response.body);
+          mutualFundData.value = GetMutualFundOverviewModel.fromJson(jsonResponse);
+          historicalNAVDetails.value = mutualFundData.value.data!.historicalNavDetails!;
+          chartPeriods.value = mutualFundData.value.data!.chartPeriods!;
+
+          /// Check if the schemeCode exists in filteredFundList
+          final matchingFund = DataConstants.watchListController.filteredFundList
+              .firstWhereOrNull((fund) => fund.schemeCode.toString() == mutualFundData.value.data?.schemeCode.toString());
+
+          /// Extract isInWatchlist and rating
+          final isInWatchlist = matchingFund != null;
+          final rating = matchingFund?.rating ?? 0.0;
+          final id = matchingFund?.id ?? 0;
+
+          /// Use copyWith to update the isInWatchlist flag and rating
+          mutualFundData.value = mutualFundData.value.copyWith(
+            data: mutualFundData.value.data!.copyWith(
+              isInWatchlist: isInWatchlist,
+              rating: rating.toString(),
+              id: id,
+            ),
+          );
+
           debugPrint("Mutual Fund Data: ${mutualFundData}");
         } else {
           errorMessage.value = jsonResponse["message"] ?? "Failed to fetch data.";
@@ -193,3 +213,9 @@ class FundDetailController extends GetxController {
     debugPrint('Filtered Data: ${filteredNAVDetails.length}');
   }
 }
+// /// Check if schemeCode exists in filteredFundList
+//           bool isInWatchlist = DataConstants.watchListController.filteredFundList
+//               .any((fund) => fund.schemeCode.toString() == mutualFundData.value.data!.schemeCode.toString());
+//
+//           /// Set isInWatchlist flag in mutualFundData
+//           mutualFundData.value.data!.isInWatchlist = isInWatchlist;
